@@ -9,7 +9,7 @@ class GameEngine
         val state: GameState = GameState.getInstance()
         val entities = state.getEntities()
         entities.forEach(Entity::update)
-        entities.forEach(Entity::render)
+        entities.forEach({ it.render() })
         state.ticks++
     }
 }

@@ -74,7 +74,7 @@ abstract class AbstractUnit(private val sprite: Sprite, coordinates: Coordinates
 
     }
 
-    final override fun render() = sprite.getFrame(this)
+    final override fun render() = sprite.render(this)
 
     private fun chooseActivity(command: Command)
     {

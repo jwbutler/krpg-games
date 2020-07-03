@@ -1,12 +1,15 @@
 package com.jwbutler.krpg.entities
 
-import com.jwbutler.krpg.behavior.*
+import com.jwbutler.krpg.behavior.Command
+import com.jwbutler.krpg.behavior.StayCommand
+import com.jwbutler.krpg.behavior.TeleportingMoveCommand
+import com.jwbutler.krpg.behavior.ThreeDirectionDieCommand
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.PaletteSwaps
-import com.jwbutler.krpg.graphics.sprites.UnitSprite
+import com.jwbutler.krpg.graphics.sprites.WizardSprite
 import java.lang.UnsupportedOperationException
 
-class WizardUnit(coordinates: Coordinates, hp: Int) : AbstractUnit(UnitSprite("wizard", PaletteSwaps()), coordinates, hp)
+class WizardUnit(coordinates: Coordinates, hp: Int) : AbstractUnit(WizardSprite(PaletteSwaps()), coordinates, hp)
 {
     override fun getMoveCommand(target: Coordinates): Command
     {
