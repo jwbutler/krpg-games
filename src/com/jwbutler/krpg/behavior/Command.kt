@@ -1,9 +1,10 @@
 package com.jwbutler.krpg.behavior
 
-enum class Command
+import com.jwbutler.krpg.core.Direction
+import com.jwbutler.krpg.entities.Unit
+
+interface Command
 {
-    STAY,
-    MOVE,
-    ATTACK,
-    DIE
+    fun getType(): CommandType
+    fun chooseActivity(unit: Unit): Pair<Activity, Direction>
 }

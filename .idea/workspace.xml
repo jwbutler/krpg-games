@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="" />
+    <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/behavior/Command.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/behavior/Command.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/entities/Entity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/entities/Entity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/entities/Unit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/entities/Unit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/graphics/Frame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/graphics/Frame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/graphics/ImageUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/graphics/ImageLoader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jwbutler/krpg/graphics/sprites/Sprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jwbutler/krpg/graphics/sprites/Sprite.kt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,13 +26,18 @@
         <option value="Enum" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1beY63OoHjmJgWboQcHgzQy1KGo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/create-react-app-master" />
@@ -32,6 +49,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/lib/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Kotlin" />
   </component>
   <component name="RecentsManager">
@@ -39,6 +57,8 @@
       <recent name="com.jwbutler.krpg.geometry" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.jwbutler.krpg.entities" />
+      <recent name="com.jwbutler.krpg.behavior" />
       <recent name="com.jwbutler.krpg.geometry" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -77,6 +97,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="com.jwbutler.krpg.MainKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+      <module name="KRPG" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.jwbutler.krpg.MainKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -95,6 +128,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.com.jwbutler.krpg.MainKt" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -107,11 +145,22 @@
       <option name="presentableId" value="Default" />
       <updated>1588993847939</updated>
       <workItem from="1588993849245" duration="2557000" />
-      <workItem from="1592795043889" duration="21281000" />
+      <workItem from="1592795043889" duration="47211000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

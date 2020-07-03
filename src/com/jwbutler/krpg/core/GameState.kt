@@ -12,17 +12,27 @@ import java.lang.IllegalStateException
  */
 interface GameState
 {
+    var ticks: Int
     fun getCoordinates(entity: Entity): Coordinates
     fun getUnit(coordinates: Coordinates): Unit?
     fun addUnit(unit: Unit, coordinates: Coordinates)
     fun removeUnit(unit: Unit)
 
+    /**
+     * Returns entities in *update* order, which may not be the same as render order
+     */
+    fun getEntities(): List<Entity>
+
     companion object
     {
-        private var INSTANCE = GameStateImpl()
-        fun getInstance(): GameState = INSTANCE
+        private var INSTANCE: GameState? = null
 
-        fun initializeForTests()
+        fun getInstance(): GameState
+        {
+            return INSTANCE ?: throw IllegalStateException()
+        }
+
+        fun initialize()
         {
             INSTANCE = GameStateImpl()
         }
@@ -31,6 +41,7 @@ interface GameState
 
 private class GameStateImpl : GameState
 {
+    override var ticks = 0
     private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
     private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
 
@@ -51,4 +62,6 @@ private class GameStateImpl : GameState
         entityToCoordinates.remove(unit)
         coordinatesToUnit.remove(coordinates)
     }
+
+    override fun getEntities() = entityToCoordinates.keys.toList()
 }
