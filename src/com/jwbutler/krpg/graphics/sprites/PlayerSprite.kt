@@ -9,14 +9,14 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite("spriteName", palett
 {
     override fun getFrame(activity: Activity, direction: Direction, frameNumber: Int): Frame
     {
-        when (activity)
+        return when (activity)
         {
             // TODO  these are all made up
             Activity.STANDING -> (1..4).map { Frame(activity, direction, it.toString()) }
             Activity.WALKING -> arrayOf(1, 1, 2, 2).map { Frame(activity, direction, it.toString()) }
             Activity.ATTACKING -> arrayOf(1, 1, 2, 2).map { Frame(activity, direction, it.toString()) }
             Activity.FALLING -> arrayOf(1, 1, 2, 2).map { Frame(activity, direction, it.toString()) }
-        }
-        error("Invalid activity ${activity}")
+            else -> error("Invalid activity ${activity}")
+        }[frameNumber]
     }
 }
