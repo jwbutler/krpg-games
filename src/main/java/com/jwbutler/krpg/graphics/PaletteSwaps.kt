@@ -1,3 +1,5 @@
 package com.jwbutler.krpg.graphics
 
-class PaletteSwaps
+import java.awt.Color
+
+typealias PaletteSwaps = Map<Color, Color>

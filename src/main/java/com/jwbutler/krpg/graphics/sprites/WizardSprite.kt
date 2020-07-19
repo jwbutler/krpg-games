@@ -2,20 +2,20 @@ package com.jwbutler.krpg.graphics.sprites
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.graphics.Frame
+import com.jwbutler.krpg.graphics.UnitFrame
 import com.jwbutler.krpg.graphics.PaletteSwaps
 
 class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("spriteName", paletteSwaps)
 {
-    override fun getFrame(activity: Activity, direction: Direction, frameNumber: Int): Frame
+    override fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
     {
         return when (activity)
         {
             // TODO  these are all made up
-            Activity.STANDING -> (1..4).map { Frame(activity, direction, it.toString()) }
-            Activity.WALKING  -> arrayOf(1, 1, 2, 2).map { Frame(activity, direction, it.toString()) }
-            Activity.FALLING  -> arrayOf(1, 1, 2, 2).map { Frame(activity, direction, it.toString()) }
+            Activity.STANDING -> (1..4).map { UnitFrame(activity, direction, it.toString()) }
+            Activity.WALKING  -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
+            Activity.FALLING  -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
             else              -> error("Invalid activity ${activity}")
-        }[frameNumber]
+        }
     }
 }

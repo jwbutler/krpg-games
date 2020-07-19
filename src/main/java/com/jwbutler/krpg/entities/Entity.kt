@@ -12,4 +12,5 @@ interface Entity
 
     fun update()
     fun render(): Pair<Image, Pixel>
+    fun afterRender()
 }

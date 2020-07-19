@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.geometry.Pixel
+import java.awt.event.KeyListener
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -22,6 +23,11 @@ class GameWindow private constructor()
         frame.setVisible(true)
     }
 
+    fun clearBuffer()
+    {
+        buffer.getGraphics().clearRect(0, 0, WIDTH, HEIGHT)
+    }
+
     fun render(image: Image, pixel: Pixel)
     {
         buffer.getGraphics().drawImage(image, pixel.x, pixel.y, null)
@@ -30,6 +36,11 @@ class GameWindow private constructor()
     fun redraw()
     {
         panel.getGraphics().drawImage(buffer, 0, 0, null)
+    }
+
+    fun addKeyListener(keyListener: KeyListener)
+    {
+        frame.addKeyListener(keyListener)
     }
 
     companion object

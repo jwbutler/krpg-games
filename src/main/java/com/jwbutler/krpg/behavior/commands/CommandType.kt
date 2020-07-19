@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.behavior
+package com.jwbutler.krpg.behavior.commands
 
 enum class CommandType
 {

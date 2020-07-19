@@ -1,7 +1,7 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.entities.Unit
+import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
