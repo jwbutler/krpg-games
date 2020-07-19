@@ -22,19 +22,37 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite("player", paletteSwa
 {
     override fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
     {
-        return when (activity)
+        return PlayerSprite.getFrames(activity, direction)
+    }
+
+    companion object
+    {
+        /**
+         * Since these patterns are used extensively on other objects, we will reuse this logic
+         * across those objects.
+         */
+        fun getFrames(activity: Activity, direction: Direction): List<UnitFrame>
         {
-            Activity.STANDING -> (1..4).map { UnitFrame(activity, direction, "1") }
-            Activity.WALKING -> arrayOf(2, 2, 1, 1).map { UnitFrame(activity, direction, it.toString()) }
-            Activity.ATTACKING ->
+            return when (activity)
             {
-                val frames = mutableListOf(UnitFrame(activity, direction, "1"))
-                frames.addAll(arrayOf(1, 2, 2, 1).map { UnitFrame(activity, direction, it.toString()) })
-                frames.add(UnitFrame(activity, direction, "1"))
-                return frames
+                Activity.STANDING -> (1..4).map { UnitFrame(activity, direction, "1") }
+                Activity.WALKING -> arrayOf(2, 2, 1, 1).map { UnitFrame(activity, direction, it.toString()) }
+                Activity.ATTACKING ->
+                {
+                    val frames = mutableListOf(UnitFrame(activity, direction, "1"))
+                    frames.addAll(arrayOf(1, 2, 2, 1).map { UnitFrame(activity, direction, it.toString()) })
+                    frames.add(UnitFrame(activity, direction, "1"))
+                    return frames
+                }
+                Activity.FALLING -> arrayOf(1, 1, 2, 2, 3, 3, 4, 4).map {
+                    UnitFrame(
+                        activity,
+                        direction,
+                        it.toString()
+                    )
+                }
+                else -> error("Invalid activity ${activity}")
             }
-            Activity.FALLING -> arrayOf(1, 1, 2, 2, 3, 3, 4, 4).map { UnitFrame(activity, direction, it.toString()) }
-            else -> error("Invalid activity ${activity}")
         }
     }
 }

@@ -2,6 +2,8 @@ package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.Tile
+import com.jwbutler.krpg.entities.equipment.Equipment
+import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import java.lang.IllegalArgumentException
@@ -19,6 +21,11 @@ interface GameState
     fun setTiles(tiles: Map<Coordinates, Tile?>)
     fun addUnit(unit: Unit, coordinates: Coordinates)
     fun removeUnit(unit: Unit)
+    // Equipment state is tracked here so that GameState can be a single source of truth for the list of entities.
+    // Methods in [Unit] will delegate to these.
+    fun addEquipment(equipment: Equipment, unit: Unit)
+    fun removeEquipment(equipment: Equipment, unit: Unit)
+    fun getEquipment(unit: Unit): Map<EquipmentSlot, Equipment>
 
     /**
      * Returns entities in *update* order, which may not be the same as render order
@@ -50,6 +57,7 @@ private class GameStateImpl : GameState
     private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
     private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
     private val coordinatesToTile: MutableMap<Coordinates, Tile?> = mutableMapOf()
+    private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
 
     override fun getCoordinates(entity: Entity) = entityToCoordinates[entity] ?: throw IllegalStateException()
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
@@ -82,6 +90,29 @@ private class GameStateImpl : GameState
         coordinatesToUnit.remove(coordinates)
     }
 
-    override fun getEntities() = entityToCoordinates.keys.toList()
+    override fun addEquipment(equipment: Equipment, unit: Unit)
+    {
+        unitToEquipment.getOrPut(unit) { mutableMapOf() }
+        check(unitToEquipment[unit]!![equipment.slot] == null)
+        unitToEquipment[unit]!![equipment.slot] = equipment
+        equipment.setUnit(unit)
+    }
+
+    override fun removeEquipment(equipment: Equipment, unit: Unit)
+    {
+        check(unitToEquipment[unit] != null)
+        check(unitToEquipment[unit]!![equipment.slot] != null)
+        unitToEquipment[unit]!!.remove(equipment.slot)
+    }
+
+    override fun getEquipment(unit: Unit) = unitToEquipment.getOrElse(unit) { mapOf<EquipmentSlot, Equipment>() }
+
+    override fun getEntities(): List<Entity>
+    {
+        val entities = entityToCoordinates.keys.toMutableList()
+        entities.addAll(unitToEquipment.values.flatMap { it.values })
+        return entities
+    }
+
     override fun containsCoordinates(coordinates: Coordinates) = coordinatesToTile[coordinates] != null
 }

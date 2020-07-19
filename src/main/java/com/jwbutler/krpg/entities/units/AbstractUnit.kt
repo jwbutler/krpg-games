@@ -6,6 +6,8 @@ import com.jwbutler.krpg.behavior.commands.DieCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
+import com.jwbutler.krpg.entities.equipment.Equipment
+import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.sprites.UnitSprite
 import com.jwbutler.krpg.players.Player
@@ -104,4 +106,16 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
     {
         frameNumber++
     }
+
+    override fun addEquipment(equipment: Equipment)
+    {
+        GameState.getInstance().addEquipment(equipment, this)
+    }
+
+    override fun removeEquipment(equipment: Equipment)
+    {
+        GameState.getInstance().removeEquipment(equipment, this)
+    }
+
+    override fun getEquipment() = GameState.getInstance().getEquipment(this)
 }

@@ -4,6 +4,8 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
+import com.jwbutler.krpg.entities.equipment.Equipment
+import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.players.Player
 
@@ -18,6 +20,7 @@ interface Unit : Entity
      * not including stuff like "2b"
      */
     fun getFrameNumber(): Int
+    fun getEquipment(): Map<EquipmentSlot, Equipment>
 
     fun getCurrentHP(): Int
     fun getMaxHP(): Int
@@ -25,5 +28,7 @@ interface Unit : Entity
     fun moveTo(coordinates: Coordinates)
     fun takeDamage(amount: Int)
     fun setCommand(command: Command)
+    fun removeEquipment(equipment: Equipment)
+    fun addEquipment(equipment: Equipment)
     fun die()
 }

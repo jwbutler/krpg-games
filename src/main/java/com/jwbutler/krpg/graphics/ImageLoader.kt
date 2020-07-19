@@ -10,6 +10,21 @@ class ImageLoader private constructor()
     fun loadImage(filename: String, paletteSwaps: PaletteSwaps? = null): Image
     {
         val baseImage = _imageFromFile(filename)
+        return _applyPaletteSwaps(baseImage, paletteSwaps)
+    }
+
+    fun loadOptional(filename: String, paletteSwaps: PaletteSwaps? = null): Image?
+    {
+        val baseImage = _imageFromFileOptional(filename)
+        if (baseImage != null)
+        {
+            return _applyPaletteSwaps(baseImage, paletteSwaps)
+        }
+        return null
+    }
+
+    private fun _applyPaletteSwaps(baseImage: Image, paletteSwaps: PaletteSwaps?): Image
+    {
         val copy = _copyImage(baseImage)
         (0 until baseImage.height).forEach { y ->
             (0 until baseImage.width).forEach { x ->
@@ -46,6 +61,24 @@ class ImageLoader private constructor()
             e.printStackTrace()
             throw UncheckedIOException(e)
         }
+    }
+
+    private fun _imageFromFileOptional(filename: String): Image?
+    {
+        val fullFilename = "/png/${filename}.png"
+        try
+        {
+            val url = ImageLoader::class.java.getResource(fullFilename)
+            if (url != null)
+            {
+                return ImageIO.read(url.openStream())
+            }
+        }
+        catch (e: IOException)
+        {
+            // this is expected
+        }
+        return null
     }
 
     companion object
