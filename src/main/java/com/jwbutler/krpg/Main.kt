@@ -8,6 +8,7 @@ import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.ImageLoader
+import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.HumanPlayer
 import java.lang.Thread.sleep
 
@@ -20,10 +21,14 @@ fun main()
     val state = GameState.initialize()
     state.setTiles(_tileBox(20, 20))
     val engine = GameEngine(state, GameWindow.getInstance())
-    val player = HumanPlayer()
 
-    val unit = PlayerUnit(player, Coordinates(2, 4), 100)
-    unit.addEquipment(Sword())
+    val humanPlayer = HumanPlayer()
+    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 100)
+    playerUnit.addEquipment(Sword())
+
+    val enemyPlayer = EnemyPlayer()
+    val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 100)
+    enemyUnit.addEquipment(Sword())
 
     while (true)
     {

@@ -6,6 +6,7 @@ import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.players.Player
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
@@ -16,6 +17,8 @@ import java.lang.IllegalStateException
 interface GameState
 {
     var ticks: Int
+    fun getPlayers(): Collection<Player>
+    fun addPlayer(player: Player)
     fun getCoordinates(entity: Entity): Coordinates
     fun getUnit(coordinates: Coordinates): Unit?
     fun setTiles(tiles: Map<Coordinates, Tile?>)
@@ -33,6 +36,7 @@ interface GameState
     fun getEntities(): List<Entity>
 
     fun containsCoordinates(coordinates: Coordinates): Boolean
+    fun isBlocked(coordinates: Coordinates): Boolean
 
     companion object
     {
@@ -54,6 +58,7 @@ interface GameState
 private class GameStateImpl : GameState
 {
     override var ticks = 0
+    private val players: MutableSet<Player> = mutableSetOf()
     private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
     private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
     private val coordinatesToTile: MutableMap<Coordinates, Tile?> = mutableMapOf()
@@ -61,6 +66,13 @@ private class GameStateImpl : GameState
 
     override fun getCoordinates(entity: Entity) = entityToCoordinates[entity] ?: throw IllegalStateException()
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
+
+    override fun getPlayers() = players.toList()
+    override fun addPlayer(player: Player)
+    {
+        check(!players.contains(player))
+        players.add(player)
+    }
 
     override fun setTiles(tiles: Map<Coordinates, Tile?>)
     {
@@ -115,4 +127,9 @@ private class GameStateImpl : GameState
     }
 
     override fun containsCoordinates(coordinates: Coordinates) = coordinatesToTile[coordinates] != null
+
+    override fun isBlocked(coordinates: Coordinates): Boolean
+    {
+        return coordinatesToUnit[coordinates] != null
+    }
 }

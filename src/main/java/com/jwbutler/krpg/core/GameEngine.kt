@@ -15,15 +15,20 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
         entities.forEach(Entity::update)
 
         // Render
+        _render(entities)
+
+        // Increment ticks
+        state.ticks++
+        state.getEntities().forEach(Entity::afterRender)
+    }
+
+    private fun _render(entities: Collection<Entity>)
+    {
         window.clearBuffer()
         entities.forEach { entity ->
             val (image, pixel) = entity.render()
             window.render(image, pixel)
         }
         window.redraw()
-
-        // Increment ticks
-        state.ticks++
-        state.getEntities().forEach(Entity::afterRender)
     }
 }

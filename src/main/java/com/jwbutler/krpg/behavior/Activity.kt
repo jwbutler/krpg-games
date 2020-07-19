@@ -1,4 +1,5 @@
 package com.jwbutler.krpg.behavior
+import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 
@@ -11,8 +12,11 @@ enum class Activity
         {
             val x = unit.getCoordinates().x + unit.getDirection().dx
             val y = unit.getCoordinates().y + unit.getDirection().dy
-            unit.moveTo(Coordinates(x, y))
-            println("${x},${y}")
+            val coordinates = Coordinates(x, y)
+            if (!coordinates.isBlocked())
+            {
+                unit.moveTo(Coordinates(x, y))
+            }
         }
     },
     ATTACKING,
