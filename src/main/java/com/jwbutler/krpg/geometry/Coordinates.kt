@@ -2,7 +2,7 @@ package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.graphics.GameWindow
 
-class Coordinates(x: Int, y: Int) : IntPair(x, y)
+data class Coordinates(override val x: Int, override val y: Int) : IntPair
 {
     operator fun plus(other: IntPair): Coordinates = Coordinates(x + other.x, y + other.y)
     operator fun minus(other: IntPair): Coordinates = Coordinates(x - other.x, y - other.y)
@@ -12,8 +12,8 @@ class Coordinates(x: Int, y: Int) : IntPair(x, y)
      */
     fun toPixel(): Pixel
     {
-        val tileWidth = 32  // made up
-        val tileHeight = 24 // made up
+        val tileWidth = 48
+        val tileHeight = 24
         val x = (GameWindow.WIDTH / 2) - (tileWidth / 2) + ((this.x - this.y) * tileWidth / 2)
         val y = (this.x + this.y) * tileHeight / 2
         return Pixel(x, y)

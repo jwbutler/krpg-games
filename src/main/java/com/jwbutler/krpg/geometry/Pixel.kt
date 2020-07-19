@@ -1,6 +1,6 @@
 package com.jwbutler.krpg.geometry
 
-class Pixel(x: Int, y: Int) : IntPair(x, y)
+data class Pixel(override val x: Int, override val y: Int) : IntPair
 {
     operator fun plus(other: IntPair): Pixel = Pixel(x + other.x, y + other.y)
     operator fun minus(other: IntPair): Pixel = Pixel(x - other.x, y - other.y)

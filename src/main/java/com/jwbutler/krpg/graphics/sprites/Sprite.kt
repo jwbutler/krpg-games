@@ -1,7 +1,6 @@
 package com.jwbutler.krpg.graphics.sprites
 
 import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.Image
 

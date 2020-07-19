@@ -3,10 +3,17 @@ package com.jwbutler.krpg.geometry
 /**
  * Base class for [Coordinates], [Pixel], etc.
  */
-open class IntPair(val x: Int, val y: Int)
+interface IntPair
 {
-    override fun toString(): String
+    val x: Int
+    val y: Int
+
+    companion object
     {
-        return "IntPair(x=$x, y=$y)"
+        fun of(x: Int, y: Int) = object : IntPair
+        {
+            override val x = x
+            override val y = y
+        }
     }
 }

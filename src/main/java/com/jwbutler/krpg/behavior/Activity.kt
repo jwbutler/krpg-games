@@ -12,6 +12,7 @@ enum class Activity
             val x = unit.getCoordinates().x + unit.getDirection().dx
             val y = unit.getCoordinates().y + unit.getDirection().dy
             unit.moveTo(Coordinates(x, y))
+            println("${x},${y}")
         }
     },
     ATTACKING,

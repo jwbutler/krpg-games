@@ -10,6 +10,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.GameWindow
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
+import java.lang.Math.abs
 
 class HumanPlayer : AbstractPlayer()
 {
@@ -49,6 +50,8 @@ class HumanPlayer : AbstractPlayer()
                 dy--
             }
         }
+        if (dx != 0) dx /= abs(dx)
+        if (dy != 0) dy /= abs(dy)
 
         if (dx != 0 || dy != 0)
         {
@@ -61,13 +64,15 @@ class HumanPlayer : AbstractPlayer()
             }
             else
             {
-                return MoveCommand(unit, coordinates)
+                if (state.containsCoordinates(coordinates))
+                {
+                    return MoveCommand(unit, coordinates)
+                }
             }
         }
-        else
-        {
-            return StayCommand(unit)
-        }
+        // fall through, default
+
+        return StayCommand(unit)
     }
 
     private fun _getKeyListener() = object : KeyAdapter()

@@ -30,7 +30,7 @@ enum class Direction(val dx: Int, val dy: Int)
             val magnitude = sqrt((xy.x * xy.x + xy.y * xy.y).toDouble())
             val dx = round(xy.x / magnitude).toInt()
             val dy = round(xy.y / magnitude).toInt()
-            return Direction.from(IntPair(dx, dy))
+            return Direction.from(IntPair.of(dx, dy))
         }
 
         fun between(target: Coordinates, coordinates: Coordinates): Direction
