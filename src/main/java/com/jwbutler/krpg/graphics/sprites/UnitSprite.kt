@@ -5,22 +5,22 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.IntPair
-import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.UnitFrame
-import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.RenderLayer
+import com.jwbutler.krpg.graphics.Renderable
 
 abstract class UnitSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, private val offsets: IntPair) : Sprite
 {
-    override fun render(entity: Entity): Pair<Image, Pixel>
+    override fun render(entity: Entity): Renderable
     {
         val unit = entity as Unit
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         val filename = formatFilename(frame)
         val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
         val pixel = unit.getCoordinates().toPixel() + offsets
-        return Pair(image, pixel)
+        return Renderable(image, pixel, RenderLayer.UNIT)
     }
 
     open fun formatFilename(frame: UnitFrame): String

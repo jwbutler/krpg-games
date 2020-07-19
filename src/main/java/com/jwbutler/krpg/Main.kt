@@ -3,6 +3,7 @@ package com.jwbutler.krpg
 import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Tile
+import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.geometry.Coordinates
@@ -25,6 +26,7 @@ fun main()
     val humanPlayer = HumanPlayer()
     val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 100)
     playerUnit.addEquipment(Sword())
+    playerUnit.addEquipment(Shield())
 
     val enemyPlayer = EnemyPlayer()
     val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 100)

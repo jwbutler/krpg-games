@@ -2,6 +2,7 @@ package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.Renderable
 
 /**
  * This class is responsible for executing the main loop
@@ -25,10 +26,16 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
     private fun _render(entities: Collection<Entity>)
     {
         window.clearBuffer()
-        entities.forEach { entity ->
-            val (image, pixel) = entity.render()
+
+        val rendered: List<Pair<Entity, Renderable>> = entities.map { it to it.render() }
+            .sortedBy { it.second.layer }
+            .sortedBy { it.first.getCoordinates().x + it.first.getCoordinates().y }
+
+        rendered.forEach { (_, renderable) ->
+            val (image, pixel) = renderable
             window.render(image, pixel)
         }
+
         window.redraw()
     }
 }

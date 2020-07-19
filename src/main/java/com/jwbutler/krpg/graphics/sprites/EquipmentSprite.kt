@@ -10,6 +10,8 @@ import com.jwbutler.krpg.graphics.UnitFrame
 import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.RenderLayer
+import com.jwbutler.krpg.graphics.Renderable
 import kotlin.test.fail
 
 private const val BEHIND_PREFIX = "_B"
@@ -22,15 +24,15 @@ private const val BEHIND_PREFIX = "_B"
  */
 abstract class EquipmentSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, private val offsets: IntPair) : Sprite
 {
-    override fun render(entity: Entity): Pair<Image, Pixel>
+    override fun render(entity: Entity): Renderable
     {
         val equipment = entity as Equipment
         val unit = equipment.getUnit()
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         val filename = formatFilename(frame)
-        val image = _tryLoadBehindFirst(filename, paletteSwaps)
+        val (image, renderLayer) = _tryLoadBehindFirst(filename, paletteSwaps)
         val pixel = unit.getCoordinates().toPixel() + offsets
-        return Pair(image, pixel)
+        return Renderable(image, pixel, renderLayer)
     }
 
     open fun formatFilename(frame: UnitFrame): String
@@ -52,11 +54,22 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
 
     protected abstract fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
 
-    private fun _tryLoadBehindFirst(filename: String, paletteSwaps: PaletteSwaps): Image
+    private fun _tryLoadBehindFirst(filename: String, paletteSwaps: PaletteSwaps): Pair<Image, RenderLayer>
     {
         val imageLoader = ImageLoader.getInstance()
-        return imageLoader.loadOptional(filename + BEHIND_PREFIX, paletteSwaps)
-            ?: imageLoader.loadOptional(filename, paletteSwaps)
-            ?: fail("Could not find image filename ${filename} or ${filename + BEHIND_PREFIX}")
+        var image = imageLoader.loadOptional(filename + BEHIND_PREFIX, paletteSwaps)
+        if (image != null)
+        {
+            return Pair(image, RenderLayer.EQUIPMENT_BEHIND)
+        }
+        else
+        {
+            image = imageLoader.loadOptional(filename, paletteSwaps)
+            if (image != null)
+            {
+                return Pair(image, RenderLayer.EQUIPMENT_ABOVE)
+            }
+        }
+        fail("Could not find image filename ${filename} or ${filename + BEHIND_PREFIX}")
     }
 }

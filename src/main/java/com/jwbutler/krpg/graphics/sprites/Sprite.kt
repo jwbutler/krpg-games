@@ -1,8 +1,7 @@
 package com.jwbutler.krpg.graphics.sprites
 
 import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.Image
+import com.jwbutler.krpg.graphics.Renderable
 
 /**
  * Sprites are:
@@ -12,5 +11,5 @@ import com.jwbutler.krpg.graphics.Image
  */
 interface Sprite
 {
-    fun render(entity: Entity): Pair<Image, Pixel>
+    fun render(entity: Entity): Renderable
 }

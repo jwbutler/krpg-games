@@ -1,8 +1,6 @@
 package com.jwbutler.krpg.entities.equipment
 
 import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.sprites.Sprite
 
 abstract class AbstractEquipment(private val sprite: Sprite) : Equipment
@@ -13,7 +11,7 @@ abstract class AbstractEquipment(private val sprite: Sprite) : Equipment
     override fun getCoordinates() = unit!!.getCoordinates()
     override fun getSprite() = sprite
 
-    override fun render(): Pair<Image, Pixel> = sprite.render(this)
+    override fun render() = sprite.render(this)
 
     override fun update() {}
     override fun afterRender() {}
