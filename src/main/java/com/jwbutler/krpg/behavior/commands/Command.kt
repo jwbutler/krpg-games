@@ -8,7 +8,7 @@ interface Command
 {
     val type: CommandType
     val source: Unit
-    fun getActivity(): Pair<Activity, Direction>
+    fun chooseActivity(): Pair<Activity, Direction>
     fun isPreemptible(): Boolean
     fun isComplete(): Boolean
 }

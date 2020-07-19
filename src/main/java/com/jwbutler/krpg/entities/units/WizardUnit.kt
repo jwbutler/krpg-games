@@ -2,7 +2,7 @@ package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.PaletteSwaps
-import com.jwbutler.krpg.graphics.sprites.WizardSprite
+import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
 import com.jwbutler.krpg.players.Player
 
 private fun _getSprite() = WizardSprite(PaletteSwaps.WHITE_TRANSPARENT)

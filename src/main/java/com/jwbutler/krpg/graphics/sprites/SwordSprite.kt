@@ -5,6 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.graphics.UnitFrame
 import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 import java.awt.Color
 
 /**

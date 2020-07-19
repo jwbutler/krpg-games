@@ -1,17 +1,23 @@
-package com.jwbutler.krpg.graphics.sprites
+package com.jwbutler.krpg.graphics.sprites.units
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.IntPair
+import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.graphics.UnitFrame
 import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.graphics.sprites.Sprite
 
-abstract class UnitSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, private val offsets: IntPair) : Sprite
+abstract class UnitSprite
+(
+    private val spriteName: String,
+    private val paletteSwaps: PaletteSwaps,
+    private val offsets: Offsets
+) : Sprite
 {
     override fun render(entity: Entity): Renderable
     {
@@ -20,6 +26,7 @@ abstract class UnitSprite(private val spriteName: String, private val paletteSwa
         val filename = formatFilename(frame)
         val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
         val pixel = unit.getCoordinates().toPixel() + offsets
+        println(filename)
         return Renderable(image, pixel, RenderLayer.UNIT)
     }
 

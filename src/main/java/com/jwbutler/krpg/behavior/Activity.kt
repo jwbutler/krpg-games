@@ -19,8 +19,23 @@ enum class Activity
             }
         }
     },
-    ATTACKING,
-    FALLING;
+    ATTACKING
+    {
+        override fun onComplete(unit: Unit)
+        {
+            val x = unit.getCoordinates().x + unit.getDirection().dx
+            val y = unit.getCoordinates().y + unit.getDirection().dy
+            val coordinates = Coordinates(x, y)
+            val targetUnit = GameState.getInstance().getUnit(coordinates)
+            if (targetUnit != null)
+            {
+                val damage = unit.getDamage(this)
+                targetUnit.takeDamage(damage)
+            }
+        }
+    },
+    FALLING,
+    DEAD;
 
     override fun toString() = name.toLowerCase()
     open fun onComplete(unit: Unit) {}

@@ -26,8 +26,10 @@ interface Unit : Entity
     fun getMaxHP(): Int
 
     fun moveTo(coordinates: Coordinates)
+    fun getDamage(activity: Activity): Int
     fun takeDamage(amount: Int)
     fun setCommand(command: Command)
+    fun setActivity(activity: Activity, direction: Direction)
     fun removeEquipment(equipment: Equipment)
     fun addEquipment(equipment: Equipment)
     fun die()

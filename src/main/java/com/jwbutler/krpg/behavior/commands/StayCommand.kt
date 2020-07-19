@@ -8,7 +8,7 @@ class StayCommand(override val source: Unit) : Command
 {
     override val type = CommandType.STAY
 
-    override fun getActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<Activity, Direction>
     {
         return Pair(Activity.STANDING, source.getDirection())
     }

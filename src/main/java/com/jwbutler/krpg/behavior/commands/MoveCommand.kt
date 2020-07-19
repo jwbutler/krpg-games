@@ -9,7 +9,7 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
 {
     override val type = CommandType.MOVE
 
-    override fun getActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<Activity, Direction>
     {
         val direction = Direction.closestBetween(target, source.getCoordinates())
         return Pair(Activity.WALKING, direction)

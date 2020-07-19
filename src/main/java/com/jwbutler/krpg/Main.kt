@@ -3,14 +3,18 @@ package com.jwbutler.krpg
 import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Tile
+import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.graphics.Colors
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.ImageLoader
+import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.HumanPlayer
+import java.awt.Color
 import java.lang.Thread.sleep
 
 fun main()
@@ -23,10 +27,15 @@ fun main()
     state.setTiles(_tileBox(20, 20))
     val engine = GameEngine(state, GameWindow.getInstance())
 
+    val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
+        .put(Colors.GREEN, Colors.RED)
+        .put(Colors.DARK_GREEN, Colors.DARK_RED);
+
     val humanPlayer = HumanPlayer()
-    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 100)
+    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 100, paletteSwaps)
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
+    playerUnit.addEquipment(MailArmor())
 
     val enemyPlayer = EnemyPlayer()
     val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 100)

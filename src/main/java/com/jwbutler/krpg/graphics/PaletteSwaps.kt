@@ -2,8 +2,6 @@ package com.jwbutler.krpg.graphics
 
 import java.awt.Color
 
-private val TRANSPARENT_BLACK = Color(0, 0, 0, 0)
-
 class PaletteSwaps(delegate: Map<Color, Color>)
 {
     private val delegate = delegate.toMutableMap()
@@ -16,8 +14,13 @@ class PaletteSwaps(delegate: Map<Color, Color>)
     fun withTransparentColor(color: Color): PaletteSwaps
     {
         val copy = delegate.toMutableMap()
-        copy[color] = TRANSPARENT_BLACK
+        copy[color] = Colors.TRANSPARENT
         return PaletteSwaps(copy)
+    }
+
+    fun put(first: Color, second: Color): PaletteSwaps
+    {
+        return put(mapOf(first to second))
     }
 
     fun put(map: Map<Color, Color>): PaletteSwaps
@@ -29,7 +32,7 @@ class PaletteSwaps(delegate: Map<Color, Color>)
 
     companion object
     {
-        val WHITE_TRANSPARENT = PaletteSwaps(mutableMapOf(Color.WHITE to TRANSPARENT_BLACK))
-        val BLACK_TRANSPARENT = PaletteSwaps(mutableMapOf(Color.BLACK to TRANSPARENT_BLACK))
+        val WHITE_TRANSPARENT = PaletteSwaps(mutableMapOf(Colors.WHITE to Colors.TRANSPARENT))
+        val BLACK_TRANSPARENT = PaletteSwaps(mutableMapOf(Colors.BLACK to Colors.TRANSPARENT))
     }
 }

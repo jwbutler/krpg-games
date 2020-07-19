@@ -5,7 +5,8 @@ import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.Renderable
 
 /**
- * This class is responsible for executing the main loop
+ * This class is responsible for executing the main loop,
+ * including rendering
  */
 class GameEngine(private val state: GameState, private val window: GameWindow)
 {

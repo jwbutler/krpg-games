@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.graphics.sprites
+package com.jwbutler.krpg.graphics.sprites.units
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
@@ -20,7 +20,9 @@ import java.awt.Color
  */
 private val offsets = Offsets(4, -25);
 
-class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("spriteName", paletteSwaps.withTransparentColor(Color.WHITE), offsets)
+class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("spriteName", paletteSwaps.withTransparentColor(Color.WHITE),
+    offsets
+)
 {
     override fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
     {

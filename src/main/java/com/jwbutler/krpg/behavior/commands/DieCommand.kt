@@ -5,26 +5,34 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 
 /**
- * for the player sprite that only has three directions
+ * for the player sprite that only has two directions
  */
 class DieCommand(override val source: Unit) : Command
 {
     override val type = CommandType.DIE
+    var hasFallen = false
 
-    override fun getActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<Activity, Direction>
     {
         val direction = when (source.getDirection())
         {
-            Direction.NE, Direction.E               -> Direction.NE
-            Direction.SE, Direction.S, Direction.SW -> Direction.S
-            Direction.W, Direction.NW, Direction.N  -> Direction.NW
+            Direction.N, Direction.NE, Direction.E, Direction.SE -> Direction.NE
+            else -> Direction.S
         }
 
-        return Pair(Activity.FALLING, direction)
+        if (!hasFallen)
+        {
+            hasFallen = true
+            return Pair(Activity.FALLING, direction)
+        }
+        else
+        {
+            return Pair(Activity.DEAD, direction)
+        }
     }
 
     override fun isPreemptible() = false
-    override fun isComplete() = true
+    override fun isComplete() = false // TODO corpses
 
     override fun toString(): String
     {

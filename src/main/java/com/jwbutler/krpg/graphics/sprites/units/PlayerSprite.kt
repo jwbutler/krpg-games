@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.graphics.sprites
+package com.jwbutler.krpg.graphics.sprites.units
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
@@ -18,11 +18,15 @@ import java.awt.Color
  */
 private val offsets = Offsets(4, -25);
 
-class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite("player", paletteSwaps.withTransparentColor(Color.WHITE), offsets)
+class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
+    "player",
+    paletteSwaps.withTransparentColor(Color.WHITE),
+    offsets
+)
 {
     override fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
     {
-        return PlayerSprite.getFrames(activity, direction)
+        return getFrames(activity, direction)
     }
 
     companion object
@@ -51,6 +55,7 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite("player", paletteSwa
                         it.toString()
                     )
                 }
+                Activity.DEAD -> (1..8).map { UnitFrame(Activity.FALLING, direction, "4") }
                 else -> error("Invalid activity ${activity}")
             }
         }

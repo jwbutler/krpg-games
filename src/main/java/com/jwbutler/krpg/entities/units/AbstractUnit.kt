@@ -2,14 +2,14 @@ package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.Command
+import com.jwbutler.krpg.behavior.commands.CommandType
 import com.jwbutler.krpg.behavior.commands.DieCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.equipment.Equipment
-import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.sprites.UnitSprite
+import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
 import com.jwbutler.krpg.players.Player
 import kotlin.math.max
 
@@ -38,7 +38,7 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
         command = StayCommand(this)
         activity = Activity.STANDING
         direction = Direction.SE
-        frameNumber = 1
+        frameNumber = 0
 
         currentHP = hp
         maxHP = hp
@@ -58,11 +58,15 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
     final override fun setCommand(command: Command)
     {
         this.command = command
-        val (activity, direction) = command.getActivity()
+        val (activity, direction) = command.chooseActivity()
+        setActivity(activity, direction)
+    }
+
+    final override fun setActivity(activity: Activity, direction: Direction)
+    {
         this.activity = activity
         this.direction = direction
-        this.frameNumber = 1
-        println("${this.activity} ${this.direction}")
+        this.frameNumber = 0
     }
 
     final override fun moveTo(coordinates: Coordinates)
@@ -72,13 +76,15 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
         state.addUnit(this, coordinates)
     }
 
+    final override fun getDamage(activity: Activity): Int
+    {
+        return 10; // TODO
+    }
+
     final override fun takeDamage(amount: Int)
     {
         currentHP = max(currentHP - amount, 0)
-        if (currentHP <= 0)
-        {
-            setCommand(DieCommand(this))
-        }
+        // Dying happens as a state-based effect on upkeep
     }
 
     final override fun die()
@@ -89,14 +95,31 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
 
     final override fun update()
     {
-        // Take player input
-        // (AI input too)
-        // TODO this is assuming the unit is the player unit
-        if (sprite.isAnimationComplete(this))
+        if (currentHP <= 0 && command.type != CommandType.DIE)
         {
-            activity.onComplete(this)
-            val command = getPlayer().chooseCommand(this)
-            setCommand(command)
+            setCommand(DieCommand(this))
+        }
+        else
+        {
+            // Take player input
+            if (sprite.isAnimationComplete(this))
+            {
+                activity.onComplete(this)
+                val nextCommand = getPlayer().chooseCommand(this)
+                if (command.isComplete())
+                {
+                    setCommand(nextCommand)
+                }
+                else if (command.isPreemptible() && nextCommand.type != CommandType.STAY)
+                {
+                    setCommand(nextCommand)
+                }
+                else
+                {
+                    val (activity, direction) = command.chooseActivity()
+                    this.setActivity(activity, direction)
+                }
+            }
         }
     }
 

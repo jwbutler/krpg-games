@@ -11,7 +11,7 @@ class AttackCommand(override val source: Unit, private val target: Unit) : Comma
     override val type = CommandType.ATTACK
     private var hasAttacked = false
 
-    override fun getActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<Activity, Direction>
     {
         if (isInRange(source.getCoordinates(), target.getCoordinates()))
         {

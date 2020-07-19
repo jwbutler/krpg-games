@@ -5,7 +5,6 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.geometry.IntPair
-import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.UnitFrame
 import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.ImageLoader
