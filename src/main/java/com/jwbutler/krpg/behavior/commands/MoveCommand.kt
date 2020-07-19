@@ -4,7 +4,6 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
-import kotlin.math.abs
 
 class MoveCommand(override val source: Unit, private val target: Coordinates) : Command
 {

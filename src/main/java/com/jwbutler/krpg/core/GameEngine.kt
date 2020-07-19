@@ -3,6 +3,9 @@ package com.jwbutler.krpg.core
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.graphics.GameWindow
 
+/**
+ * This class is responsible for executing the main loop
+ */
 class GameEngine(private val state: GameState, private val window: GameWindow)
 {
     fun doLoop()

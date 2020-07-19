@@ -18,7 +18,7 @@ abstract class UnitSprite(private val spriteName: String, private val paletteSwa
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         val filename = formatFilename(frame)
         val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
-        val pixel = Pixel(unit.getCoordinates().x * 20, unit.getCoordinates().y * 20) // TODO
+        val pixel = unit.getCoordinates().toPixel()
         return Pair(image, pixel)
     }
 

@@ -53,23 +53,24 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
     override fun getCurrentHP() = currentHP
     override fun getMaxHP() = maxHP
 
-    override fun setCommand(command: Command)
+    final override fun setCommand(command: Command)
     {
         this.command = command
         val (activity, direction) = command.getActivity()
         this.activity = activity
         this.direction = direction
         this.frameNumber = 1
+        println("${this.activity} ${this.direction}")
     }
 
-    override fun moveTo(coordinates: Coordinates)
+    final override fun moveTo(coordinates: Coordinates)
     {
         require(state.getUnit(coordinates) == null)
         state.removeUnit(this)
         state.addUnit(this, coordinates)
     }
 
-    override fun takeDamage(amount: Int)
+    final override fun takeDamage(amount: Int)
     {
         currentHP = max(currentHP - amount, 0)
         if (currentHP <= 0)
@@ -78,7 +79,7 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
         }
     }
 
-    override fun die()
+    final override fun die()
     {
         state.removeUnit(this)
         player.removeUnit(this)

@@ -30,19 +30,23 @@ class HumanPlayer : AbstractPlayer()
         {
             if (keysPressed.contains(KeyEvent.VK_W))
             {
+                dx--
                 dy--
             }
             if (keysPressed.contains(KeyEvent.VK_S))
             {
+                dx++
                 dy++
             }
             if (keysPressed.contains(KeyEvent.VK_A))
             {
                 dx--
+                dy++
             }
             if (keysPressed.contains(KeyEvent.VK_D))
             {
                 dx++
+                dy--
             }
         }
 

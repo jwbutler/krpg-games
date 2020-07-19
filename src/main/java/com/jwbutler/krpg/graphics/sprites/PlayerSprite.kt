@@ -11,11 +11,16 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite("player", paletteSwa
     {
         return when (activity)
         {
-            // TODO  these are all made up
             Activity.STANDING -> (1..4).map { UnitFrame(activity, direction, "1") }
-            Activity.WALKING -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
-            Activity.ATTACKING -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
-            Activity.FALLING -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
+            Activity.WALKING -> arrayOf(2, 2, 1, 1).map { UnitFrame(activity, direction, it.toString()) }
+            Activity.ATTACKING ->
+            {
+                val frames = mutableListOf(UnitFrame(activity, direction, "1"))
+                frames.addAll(arrayOf(1, 2, 2, 1).map { UnitFrame(activity, direction, it.toString()) })
+                frames.add(UnitFrame(activity, direction, "1"))
+                return frames
+            }
+            Activity.FALLING -> arrayOf(1, 1, 2, 2, 3, 3, 4, 4).map { UnitFrame(activity, direction, it.toString()) }
             else -> error("Invalid activity ${activity}")
         }
     }

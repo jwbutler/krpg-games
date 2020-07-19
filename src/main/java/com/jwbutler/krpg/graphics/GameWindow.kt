@@ -6,9 +6,6 @@ import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-private const val WIDTH = 640
-private const val HEIGHT = 360
-
 class GameWindow private constructor()
 {
     private val buffer: Image = BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB)
@@ -45,6 +42,9 @@ class GameWindow private constructor()
 
     companion object
     {
+        const val WIDTH = 640
+        const val HEIGHT = 360
+
         private var INSTANCE: GameWindow? = null
 
         fun initialize()
