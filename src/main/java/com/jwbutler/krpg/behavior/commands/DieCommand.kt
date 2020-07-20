@@ -10,7 +10,7 @@ import com.jwbutler.krpg.entities.units.Unit
 class DieCommand(override val source: Unit) : Command
 {
     override val type = CommandType.DIE
-    var hasFallen = false
+    private var hasFallen = false
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
