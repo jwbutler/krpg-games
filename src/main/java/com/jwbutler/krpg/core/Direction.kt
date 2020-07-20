@@ -7,14 +7,14 @@ import kotlin.math.sqrt
 
 enum class Direction(val dx: Int, val dy: Int)
 {
-    N(0, -1),
-    NE(1, -1),
-    E(1, 0),
-    SE(1, 1),
-    S(0, 1),
-    SW(-1, 1),
-    W(-1, 0),
-    NW(-1, -1);
+    N(1, -1),
+    NE(1, 0),
+    E(1, 1),
+    SE(0, 1),
+    S(-1, 1),
+    SW(-1, 0),
+    W(-1, -1),
+    NW(0, -1);
 
     companion object
     {

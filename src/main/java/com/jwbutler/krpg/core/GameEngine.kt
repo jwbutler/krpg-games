@@ -30,7 +30,7 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
 
         val rendered: List<Pair<Entity, Renderable>> = entities.map { it to it.render() }
             .sortedBy { it.second.layer }
-            .sortedBy { it.first.getCoordinates().x + it.first.getCoordinates().y }
+            .sortedBy { it.first.getCoordinates().y }
 
         rendered.forEach { (_, renderable) ->
             val (image, pixel) = renderable

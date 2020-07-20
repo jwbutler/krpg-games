@@ -14,8 +14,11 @@ class Tile(private val coordinates: Coordinates) : Entity
      */
     private val sprite = StaticSprite(
         ImageLoader.getInstance().loadImage(
-            "tiles/48x23/tile_48x23_stone",
-            PaletteSwaps.WHITE_TRANSPARENT),
+            // "tiles/48x23/tile_48x23_stone",
+            //"tiles/tile_floor",
+            "tiles/tile_floor5",
+            PaletteSwaps()
+        ),
         RenderLayer.FLOOR_TILE
     )
 

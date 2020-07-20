@@ -4,6 +4,8 @@ import java.awt.Color
 
 class PaletteSwaps(delegate: Map<Color, Color>)
 {
+    constructor() : this(mutableMapOf())
+
     private val delegate = delegate.toMutableMap()
 
     fun forEach(action: (Color, Color) -> Unit)

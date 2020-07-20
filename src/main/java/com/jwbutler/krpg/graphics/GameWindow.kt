@@ -53,8 +53,8 @@ class GameWindow private constructor()
 
     companion object
     {
-        const val WIDTH = 640
-        const val HEIGHT = 360
+        const val WIDTH = 320
+        const val HEIGHT = 180
 
         const val SCALED_WIDTH = 1280
         const val SCALED_HEIGHT = 720

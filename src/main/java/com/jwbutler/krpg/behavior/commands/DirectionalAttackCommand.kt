@@ -5,16 +5,18 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 
-class MoveCommand(override val source: Unit, private val target: Coordinates) : Command
+class DirectionalAttackCommand(override val source: Unit, private val target: Coordinates) : Command
 {
-    override val type = CommandType.MOVE
+    override val type = CommandType.ATTACK
+    private var hasAttacked = false
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
         val direction = Direction.closestBetween(target, source.getCoordinates())
-        if (!(source.getCoordinates() + direction).isBlocked())
+        if (!hasAttacked)
         {
-            return Pair(Activity.WALKING, direction)
+            hasAttacked = true
+            return Pair(Activity.ATTACKING, direction)
         }
         else
         {
@@ -23,14 +25,10 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
     }
 
     override fun isPreemptible() = true
-
-    override fun isComplete(): Boolean
-    {
-        return source.getCoordinates() == target
-    }
+    override fun isComplete() = false
 
     override fun toString(): String
     {
-        return "MoveCommand{target=$target}"
+        return "AttackCommand{target=$target}"
     }
 }

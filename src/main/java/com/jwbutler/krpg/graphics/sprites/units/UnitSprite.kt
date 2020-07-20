@@ -26,7 +26,6 @@ abstract class UnitSprite
         val filename = formatFilename(frame)
         val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
         val pixel = unit.getCoordinates().toPixel() + offsets
-        println(filename)
         return Renderable(image, pixel, RenderLayer.UNIT)
     }
 

@@ -1,7 +1,7 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.krpg.behavior.commands.AttackCommand
 import com.jwbutler.krpg.behavior.commands.Command
+import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameState
@@ -15,6 +15,7 @@ import java.lang.Math.abs
 class HumanPlayer : AbstractPlayer()
 {
     private val keysPressed = mutableSetOf<Int>()
+    private val keysPressedThisTurn = mutableSetOf<Int>()
     private val keysToRelease = mutableSetOf<Int>()
 
     init
@@ -25,32 +26,29 @@ class HumanPlayer : AbstractPlayer()
     override fun chooseCommand(unit: Unit): Command
     {
         val state = GameState.getInstance()
-        val keysPressedThisTurn = keysPressed.toSet()
         keysPressed.removeAll(keysToRelease)
+        keysPressedThisTurn.clear()
+        keysToRelease.clear()
 
         var dx = 0
         var dy = 0
-        if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).any(keysPressedThisTurn::contains))
+        if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).any(keysPressed::contains))
         {
-            if (keysPressedThisTurn.contains(KeyEvent.VK_W))
+            if (keysPressed.contains(KeyEvent.VK_W))
             {
-                dx--
                 dy--
             }
-            if (keysPressedThisTurn.contains(KeyEvent.VK_S))
+            if (keysPressed.contains(KeyEvent.VK_S))
             {
-                dx++
                 dy++
             }
-            if (keysPressedThisTurn.contains(KeyEvent.VK_A))
+            if (keysPressed.contains(KeyEvent.VK_A))
             {
                 dx--
-                dy++
             }
-            if (keysPressedThisTurn.contains(KeyEvent.VK_D))
+            if (keysPressed.contains(KeyEvent.VK_D))
             {
                 dx++
-                dy--
             }
         }
         if (dx != 0) dx /= abs(dx)
@@ -59,15 +57,14 @@ class HumanPlayer : AbstractPlayer()
         if (dx != 0 || dy != 0)
         {
             val coordinates = Coordinates(unit.getCoordinates().x + dx, unit.getCoordinates().y + dy)
-            val targetUnit: Unit? = state.getUnit(coordinates)
 
-            if (keysPressedThisTurn.contains(KeyEvent.VK_SHIFT) && targetUnit != null)
+            if (state.containsCoordinates(coordinates))
             {
-                return AttackCommand(unit, targetUnit)
-            }
-            else
-            {
-                if (state.containsCoordinates(coordinates))
+                if (keysPressed.contains(KeyEvent.VK_SHIFT))
+                {
+                    return DirectionalAttackCommand(unit, coordinates)
+                }
+                else
                 {
                     return MoveCommand(unit, coordinates)
                 }
@@ -83,11 +80,20 @@ class HumanPlayer : AbstractPlayer()
         override fun keyPressed(e: KeyEvent)
         {
             keysPressed.add(e.keyCode)
+            keysPressedThisTurn.add(e.keyCode)
         }
 
         override fun keyReleased(e: KeyEvent)
         {
-            keysToRelease.add(e.keyCode)
+            val keyCode = e.keyCode
+            if (!keysPressedThisTurn.contains(keyCode))
+            {
+                keysPressed.remove(keyCode)
+            }
+            else
+            {
+                keysToRelease.add(keyCode)
+            }
         }
     }
 }

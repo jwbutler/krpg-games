@@ -11,6 +11,7 @@ import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 import kotlin.test.fail
 
 private const val BEHIND_PREFIX = "_B"

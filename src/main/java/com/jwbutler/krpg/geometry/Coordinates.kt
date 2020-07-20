@@ -1,22 +1,23 @@
 package com.jwbutler.krpg.geometry
 
+import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.graphics.GameWindow
 
+const val TILE_WIDTH = 24
+const val TILE_HEIGHT = 12
 data class Coordinates(override val x: Int, override val y: Int) : IntPair
 {
     operator fun plus(other: IntPair): Coordinates = Coordinates(x + other.x, y + other.y)
     operator fun minus(other: IntPair): Coordinates = Coordinates(x - other.x, y - other.y)
+    operator fun plus(direction: Direction): Coordinates = Coordinates(x + direction.dx, y + direction.dy)
 
     /**
      * @return the top-left corner of the floor tile at these coordinates
      */
     fun toPixel(): Pixel
     {
-        val tileWidth = 48
-        val tileHeight = 24
-        val x = (GameWindow.WIDTH / 2) - (tileWidth / 2) + ((this.x - this.y) * tileWidth / 2)
-        val y = (this.x + this.y) * tileHeight / 2
+        val x = this.x * TILE_WIDTH
+        val y = this.y * TILE_HEIGHT
         return Pixel(x, y)
     }
 
