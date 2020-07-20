@@ -2,9 +2,12 @@ package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.geometry.Pixel
 import java.awt.event.KeyListener
+import java.awt.event.WindowAdapter
+import java.awt.event.WindowEvent
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
+import kotlin.system.exitProcess
 
 class GameWindow private constructor()
 {
@@ -14,10 +17,17 @@ class GameWindow private constructor()
 
     init
     {
-        panel.setSize(WIDTH, HEIGHT)
-        frame.setSize(WIDTH, HEIGHT)
+        panel.setSize(SCALED_WIDTH, SCALED_HEIGHT)
+        frame.setSize(SCALED_WIDTH, SCALED_HEIGHT)
         frame.add(panel)
         frame.setVisible(true)
+        frame.addWindowListener(object : WindowAdapter()
+        {
+            override fun windowClosing(e: WindowEvent?)
+            {
+                exitProcess(0)
+            }
+        })
     }
 
     fun clearBuffer()
@@ -32,7 +42,8 @@ class GameWindow private constructor()
 
     fun redraw()
     {
-        panel.getGraphics().drawImage(buffer, 0, 0, null)
+        val scaled = buffer.getScaledInstance(SCALED_WIDTH, SCALED_HEIGHT, Image.SCALE_FAST)
+        panel.getGraphics().drawImage(scaled, 0, 0, null)
     }
 
     fun addKeyListener(keyListener: KeyListener)
@@ -44,6 +55,9 @@ class GameWindow private constructor()
     {
         const val WIDTH = 640
         const val HEIGHT = 360
+
+        const val SCALED_WIDTH = 1280
+        const val SCALED_HEIGHT = 720
 
         private var INSTANCE: GameWindow? = null
 

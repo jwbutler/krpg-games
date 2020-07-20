@@ -60,6 +60,7 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
         this.command = command
         val (activity, direction) = command.chooseActivity()
         setActivity(activity, direction)
+        println(command)
     }
 
     final override fun setActivity(activity: Activity, direction: Direction)

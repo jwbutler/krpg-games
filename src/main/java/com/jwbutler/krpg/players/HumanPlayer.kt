@@ -15,6 +15,7 @@ import java.lang.Math.abs
 class HumanPlayer : AbstractPlayer()
 {
     private val keysPressed = mutableSetOf<Int>()
+    private val keysToRelease = mutableSetOf<Int>()
 
     init
     {
@@ -24,27 +25,29 @@ class HumanPlayer : AbstractPlayer()
     override fun chooseCommand(unit: Unit): Command
     {
         val state = GameState.getInstance()
+        val keysPressedThisTurn = keysPressed.toSet()
+        keysPressed.removeAll(keysToRelease)
 
         var dx = 0
         var dy = 0
-        if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).any(keysPressed::contains))
+        if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).any(keysPressedThisTurn::contains))
         {
-            if (keysPressed.contains(KeyEvent.VK_W))
+            if (keysPressedThisTurn.contains(KeyEvent.VK_W))
             {
                 dx--
                 dy--
             }
-            if (keysPressed.contains(KeyEvent.VK_S))
+            if (keysPressedThisTurn.contains(KeyEvent.VK_S))
             {
                 dx++
                 dy++
             }
-            if (keysPressed.contains(KeyEvent.VK_A))
+            if (keysPressedThisTurn.contains(KeyEvent.VK_A))
             {
                 dx--
                 dy++
             }
-            if (keysPressed.contains(KeyEvent.VK_D))
+            if (keysPressedThisTurn.contains(KeyEvent.VK_D))
             {
                 dx++
                 dy--
@@ -58,7 +61,7 @@ class HumanPlayer : AbstractPlayer()
             val coordinates = Coordinates(unit.getCoordinates().x + dx, unit.getCoordinates().y + dy)
             val targetUnit: Unit? = state.getUnit(coordinates)
 
-            if (keysPressed.contains(KeyEvent.VK_SHIFT) && targetUnit != null)
+            if (keysPressedThisTurn.contains(KeyEvent.VK_SHIFT) && targetUnit != null)
             {
                 return AttackCommand(unit, targetUnit)
             }
@@ -84,7 +87,7 @@ class HumanPlayer : AbstractPlayer()
 
         override fun keyReleased(e: KeyEvent)
         {
-            keysPressed.remove(e.keyCode)
+            keysToRelease.add(e.keyCode)
         }
     }
 }

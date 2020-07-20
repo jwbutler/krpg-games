@@ -14,7 +14,6 @@ import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.HumanPlayer
-import java.awt.Color
 import java.lang.Thread.sleep
 
 fun main()
@@ -32,13 +31,13 @@ fun main()
         .put(Colors.DARK_GREEN, Colors.DARK_RED);
 
     val humanPlayer = HumanPlayer()
-    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 100, paletteSwaps)
+    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), Int.MAX_VALUE, paletteSwaps)
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
     playerUnit.addEquipment(MailArmor())
 
     val enemyPlayer = EnemyPlayer()
-    val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 100)
+    val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 50)
     enemyUnit.addEquipment(Sword())
 
     while (true)
