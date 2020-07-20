@@ -4,7 +4,6 @@ import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
-import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.GameWindow
@@ -14,9 +13,9 @@ import java.lang.Math.abs
 
 class HumanPlayer : AbstractPlayer()
 {
-    private val keysPressed = mutableSetOf<Int>()
-    private val keysPressedThisTurn = mutableSetOf<Int>()
-    private val keysToRelease = mutableSetOf<Int>()
+    private val queuedDirections = mutableSetOf<Int>()
+    private val heldDirections = mutableSetOf<Int>()
+    private val queuedModifiers = mutableSetOf<Int>()
 
     init
     {
@@ -25,53 +24,36 @@ class HumanPlayer : AbstractPlayer()
 
     override fun chooseCommand(unit: Unit): Command
     {
-        val state = GameState.getInstance()
-        keysPressed.removeAll(keysToRelease)
-        keysPressedThisTurn.clear()
-        keysToRelease.clear()
+        var (dx, dy) = Pair(0, 0)
 
-        var dx = 0
-        var dy = 0
-        if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).any(keysPressed::contains))
+        for (directionKey in queuedDirections)
         {
-            if (keysPressed.contains(KeyEvent.VK_W))
+            when (directionKey)
             {
-                dy--
-            }
-            if (keysPressed.contains(KeyEvent.VK_S))
-            {
-                dy++
-            }
-            if (keysPressed.contains(KeyEvent.VK_A))
-            {
-                dx--
-            }
-            if (keysPressed.contains(KeyEvent.VK_D))
-            {
-                dx++
+                KeyEvent.VK_W -> dy--
+                KeyEvent.VK_A -> dx--
+                KeyEvent.VK_S -> dy++
+                KeyEvent.VK_D -> dx++
+                else -> {}
             }
         }
+        queuedDirections.clear()
+
         if (dx != 0) dx /= abs(dx)
         if (dy != 0) dy /= abs(dy)
+        val coordinates = Coordinates(unit.getCoordinates().x + dx, unit.getCoordinates().y + dy)
 
         if (dx != 0 || dy != 0)
         {
-            val coordinates = Coordinates(unit.getCoordinates().x + dx, unit.getCoordinates().y + dy)
-
-            if (state.containsCoordinates(coordinates))
+            if (queuedModifiers.contains(KeyEvent.VK_SHIFT))
             {
-                if (keysPressed.contains(KeyEvent.VK_SHIFT))
-                {
-                    return DirectionalAttackCommand(unit, coordinates)
-                }
-                else
-                {
-                    return MoveCommand(unit, coordinates)
-                }
+                return DirectionalAttackCommand(unit, coordinates)
+            }
+            else
+            {
+                return MoveCommand(unit, coordinates)
             }
         }
-        // fall through, default
-
         return StayCommand(unit)
     }
 
@@ -79,20 +61,29 @@ class HumanPlayer : AbstractPlayer()
     {
         override fun keyPressed(e: KeyEvent)
         {
-            keysPressed.add(e.keyCode)
-            keysPressedThisTurn.add(e.keyCode)
+            if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).contains(e.keyCode))
+            {
+                if (!heldDirections.contains(e.keyCode))
+                {
+                    queuedDirections.add(e.keyCode)
+                    heldDirections.add(e.keyCode)
+                }
+            }
+            else if (arrayOf(KeyEvent.VK_SHIFT).contains(e.keyCode))
+            {
+                queuedModifiers.add(e.keyCode)
+            }
         }
 
         override fun keyReleased(e: KeyEvent)
         {
-            val keyCode = e.keyCode
-            if (!keysPressedThisTurn.contains(keyCode))
+            if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).contains(e.keyCode))
             {
-                keysPressed.remove(keyCode)
+                heldDirections.remove(e.keyCode)
             }
-            else
+            if (arrayOf(KeyEvent.VK_SHIFT).contains(e.keyCode))
             {
-                keysToRelease.add(keyCode)
+                queuedModifiers.remove(e.keyCode)
             }
         }
     }

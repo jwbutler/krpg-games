@@ -10,10 +10,8 @@ interface IntPair
 
     companion object
     {
-        fun of(x: Int, y: Int) = object : IntPair
-        {
-            override val x = x
-            override val y = y
-        }
+        fun of(x: Int, y: Int): IntPair = BasicIntPair(x, y)
     }
 }
+
+private data class BasicIntPair(override val x: Int, override val y: Int) : IntPair

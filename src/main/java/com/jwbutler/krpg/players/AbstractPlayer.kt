@@ -4,7 +4,7 @@ import com.jwbutler.krpg.entities.units.Unit
 
 abstract class AbstractPlayer : Player
 {
-    private val units = mutableListOf<Unit>()
+    protected val units = mutableListOf<Unit>()
 
     init
     {
