@@ -2,6 +2,7 @@ package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.HUDRenderer
 import com.jwbutler.krpg.graphics.Renderable
 
 /**
@@ -24,9 +25,13 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
         state.getEntities().forEach(Entity::afterRender)
     }
 
+    /**
+     * TODO: This should probably be encapsulated in a GameRenderer.
+     * But for now, it's only a couple of lines
+     */
     private fun _render(entities: Collection<Entity>)
     {
-        window.clearBuffer()
+        window.clearBuffer();
 
         val rendered: List<Pair<Entity, Renderable>> = entities.map { it to it.render() }
             .sortedBy { it.second.layer }
@@ -34,6 +39,11 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
 
         rendered.forEach { (_, renderable) ->
             val (image, pixel) = renderable
+            window.render(image, pixel)
+        }
+
+        run {
+            val (image, pixel) = HUDRenderer.render()
             window.render(image, pixel)
         }
 

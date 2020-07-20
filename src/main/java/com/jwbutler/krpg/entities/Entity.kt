@@ -7,13 +7,14 @@ import com.jwbutler.krpg.graphics.sprites.Sprite
 
 interface Entity
 {
+    val sprite: Sprite
     /**
      * Implementations of this will differ:
      * Units, tiles, etc. will delegate this to [GameState],
      * while dependent entities such as equipment will delegate to their owner
      */
     fun getCoordinates(): Coordinates
-    fun getSprite(): Sprite
+    fun isBlocking(): Boolean
 
     fun update()
     fun render(): Renderable

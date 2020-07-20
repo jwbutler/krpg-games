@@ -13,7 +13,7 @@ import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
 import com.jwbutler.krpg.players.Player
 import kotlin.math.max
 
-abstract class AbstractUnit(private var player: Player, private val sprite: UnitSprite, coordinates: Coordinates, hp: Int) : Unit
+abstract class AbstractUnit(private var player: Player, override val sprite: UnitSprite, coordinates: Coordinates, hp: Int) : Unit
 {
     private val state = GameState.getInstance()
 
@@ -44,8 +44,8 @@ abstract class AbstractUnit(private var player: Player, private val sprite: Unit
         maxHP = hp
     }
 
+    override fun isBlocking() = true
     override fun getPlayer() = player
-    override fun getSprite() = sprite
     override fun getCoordinates() = GameState.getInstance().getCoordinates(this)
     override fun getCommand() = command
     override fun getActivity() = activity

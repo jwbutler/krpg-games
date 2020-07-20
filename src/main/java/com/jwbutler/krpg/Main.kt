@@ -29,10 +29,10 @@ fun main()
 
     val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
         .put(Colors.GREEN, Colors.RED)
-        .put(Colors.DARK_GREEN, Colors.DARK_RED);
+        .put(Colors.DARK_GREEN, Colors.DARK_RED)
 
     val humanPlayer = HumanPlayer()
-    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), Int.MAX_VALUE, paletteSwaps)
+    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 1000, paletteSwaps)
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
     playerUnit.addEquipment(MailArmor())

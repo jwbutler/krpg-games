@@ -4,6 +4,7 @@ import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.Tile
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
+import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.players.Player
@@ -21,6 +22,7 @@ interface GameState
     fun addPlayer(player: Player)
     fun getCoordinates(entity: Entity): Coordinates
     fun getUnit(coordinates: Coordinates): Unit?
+    fun getObjects(coordinates: Coordinates): Collection<GameObject>
     fun setTiles(tiles: Map<Coordinates, Tile?>)
     fun addUnit(unit: Unit, coordinates: Coordinates)
     fun removeUnit(unit: Unit)
@@ -62,10 +64,12 @@ private class GameStateImpl : GameState
     private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
     private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
     private val coordinatesToTile: MutableMap<Coordinates, Tile?> = mutableMapOf()
+    private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
     private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
 
     override fun getCoordinates(entity: Entity) = entityToCoordinates[entity] ?: throw IllegalStateException()
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
+    override fun getObjects(coordinates: Coordinates): Collection<GameObject> = coordinatesToObjects[coordinates] ?: listOf()
 
     override fun getPlayers() = players.toList()
     override fun addPlayer(player: Player)

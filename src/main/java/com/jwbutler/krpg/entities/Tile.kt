@@ -12,7 +12,7 @@ class Tile(private val coordinates: Coordinates) : Entity
     /**
      * TODO - tile types, palette swaps, caching, etc.
      */
-    private val sprite = StaticSprite(
+    override val sprite = StaticSprite(
         ImageLoader.getInstance().loadImage(
             // "tiles/48x23/tile_48x23_stone",
             //"tiles/tile_floor",
@@ -22,8 +22,8 @@ class Tile(private val coordinates: Coordinates) : Entity
         RenderLayer.FLOOR_TILE
     )
 
+    override fun isBlocking() = false
     override fun getCoordinates() = coordinates
-    override fun getSprite() = sprite
     override fun update() {}
     override fun afterRender() {}
 
