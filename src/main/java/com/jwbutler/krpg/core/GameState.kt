@@ -89,7 +89,7 @@ private class GameStateImpl : GameState
     override fun addUnit(unit: Unit, coordinates: Coordinates)
     {
         check(coordinatesToTile[coordinates] != null) { "Can't add unit, no tile at ${coordinates}" }
-        check(coordinatesToUnit[coordinates] == null) { "Can't add unit, another unit at ${coordinates}" }
+        check(coordinatesToUnit[coordinates] == null) { "Can't add another unit at ${coordinates}" }
         entityToCoordinates[unit] = coordinates
         coordinatesToUnit[coordinates] = unit
     }

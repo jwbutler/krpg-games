@@ -14,7 +14,7 @@ import com.jwbutler.krpg.graphics.sprites.Sprite
 
 abstract class UnitSprite
 (
-    private val spriteName: String,
+    protected val spriteName: String,
     private val paletteSwaps: PaletteSwaps,
     private val offsets: Offsets
 ) : Sprite
@@ -23,13 +23,13 @@ abstract class UnitSprite
     {
         val unit = entity as Unit
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
-        val filename = formatFilename(frame)
+        val filename = _formatFilename(frame)
         val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
         val pixel = unit.getCoordinates().toPixel() + offsets
         return Renderable(image, pixel, RenderLayer.UNIT)
     }
 
-    open fun formatFilename(frame: UnitFrame): String
+    open fun _formatFilename(frame: UnitFrame): String
     {
         return String.format(
             "units/%s/%s_%s_%s_%s",

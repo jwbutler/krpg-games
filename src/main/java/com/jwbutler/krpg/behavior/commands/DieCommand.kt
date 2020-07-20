@@ -14,20 +14,14 @@ class DieCommand(override val source: Unit) : Command
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
-        val direction = when (source.getDirection())
-        {
-            Direction.N, Direction.NE, Direction.E, Direction.SE -> Direction.NE
-            else -> Direction.S
-        }
-
         if (!hasFallen)
         {
             hasFallen = true
-            return Pair(Activity.FALLING, direction)
+            return Pair(Activity.FALLING, source.getDirection())
         }
         else
         {
-            return Pair(Activity.DEAD, direction)
+            return Pair(Activity.DEAD, source.getDirection())
         }
     }
 

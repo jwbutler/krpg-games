@@ -7,6 +7,7 @@ import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.units.PlayerUnit
+import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.Colors
 import com.jwbutler.krpg.graphics.GameWindow
@@ -39,6 +40,7 @@ fun main()
     val enemyPlayer = EnemyPlayer()
     val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 50)
     enemyUnit.addEquipment(Sword())
+    val enemyZombie = ZombieUnit(enemyPlayer, Coordinates(5, 7), 50)
 
     while (true)
     {

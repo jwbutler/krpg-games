@@ -4,6 +4,7 @@ import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
+import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.GameWindow
@@ -43,7 +44,7 @@ class HumanPlayer : AbstractPlayer()
         if (dy != 0) dy /= abs(dy)
         val coordinates = Coordinates(unit.getCoordinates().x + dx, unit.getCoordinates().y + dy)
 
-        if (dx != 0 || dy != 0)
+        if ((dx != 0 || dy != 0) && GameState.getInstance().containsCoordinates(coordinates))
         {
             if (queuedModifiers.contains(KeyEvent.VK_SHIFT))
             {

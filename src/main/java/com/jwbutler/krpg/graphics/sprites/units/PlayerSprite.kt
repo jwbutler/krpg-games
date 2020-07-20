@@ -48,14 +48,24 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
                     return frames
                 }
                 Activity.FALLING -> arrayOf(1, 1, 2, 2, 3, 3, 4, 4).map {
+                    val fallingDirection = _getFallingDirection(direction)
                     UnitFrame(
                         activity,
-                        direction,
+                        fallingDirection,
                         it.toString()
                     )
                 }
-                Activity.DEAD -> (1..8).map { UnitFrame(Activity.FALLING, direction, "4") }
+                Activity.DEAD -> (1..8).map { UnitFrame(Activity.FALLING, _getFallingDirection(direction), "4") }
                 else -> error("Invalid activity ${activity}")
+            }
+        }
+
+        private fun _getFallingDirection(direction: Direction): Direction
+        {
+            return when (direction)
+            {
+                Direction.N, Direction.NE, Direction.E, Direction.SE -> Direction.NE
+                else -> Direction.S
             }
         }
     }
