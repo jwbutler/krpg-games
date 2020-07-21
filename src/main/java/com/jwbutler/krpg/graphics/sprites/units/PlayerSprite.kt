@@ -5,7 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.geometry.TILE_HEIGHT
 import com.jwbutler.krpg.geometry.TILE_WIDTH
-import com.jwbutler.krpg.graphics.UnitFrame
+import com.jwbutler.krpg.graphics.FrameKey
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import java.awt.Color
 
@@ -15,7 +15,7 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
     OFFSETS
 )
 {
-    override fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
+    override fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>
     {
         return getFrames(activity, direction)
     }
@@ -34,28 +34,24 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
          * Since these patterns are used extensively on other objects, we will reuse this logic
          * across those objects.
          */
-        fun getFrames(activity: Activity, direction: Direction): List<UnitFrame>
+        fun getFrames(activity: Activity, direction: Direction): List<FrameKey>
         {
             return when (activity)
             {
-                Activity.STANDING -> listOf(UnitFrame(activity, direction, "1"))
-                Activity.WALKING -> arrayOf(2, 2, 1).map { UnitFrame(activity, direction, it.toString()) }
+                Activity.STANDING -> listOf(FrameKey(activity, direction, 1))
+                Activity.WALKING -> arrayOf(2, 2, 1).map { FrameKey(activity, direction, it) }
                 Activity.ATTACKING ->
                 {
-                    val frames = mutableListOf<UnitFrame>()
-                    frames.addAll(arrayOf(1, 2, 2, 1).map { UnitFrame(Activity.ATTACKING, direction, it.toString()) })
-                    frames.addAll(arrayOf(1, 1).map { UnitFrame(Activity.STANDING, direction, it.toString()) })
+                    val frames = mutableListOf<FrameKey>()
+                    frames.addAll(arrayOf(1, 2, 2, 1).map { FrameKey(Activity.ATTACKING, direction, it) })
+                    frames.addAll(arrayOf(1, 1).map { FrameKey(Activity.STANDING, direction, it) })
                     return frames
                 }
                 Activity.FALLING -> arrayOf(1, 1, 2, 2, 3, 3, 4, 4).map {
                     val fallingDirection = _getFallingDirection(direction)
-                    UnitFrame(
-                        activity,
-                        fallingDirection,
-                        it.toString()
-                    )
+                    FrameKey(activity, fallingDirection, it)
                 }
-                Activity.DEAD -> (1..8).map { UnitFrame(Activity.FALLING, _getFallingDirection(direction), "4") }
+                Activity.DEAD -> (1..8).map { FrameKey(Activity.FALLING, _getFallingDirection(direction), 4) }
                 else -> error("Invalid activity ${activity}")
             }
         }

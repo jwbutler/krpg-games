@@ -5,7 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.geometry.IntPair
-import com.jwbutler.krpg.graphics.UnitFrame
+import com.jwbutler.krpg.graphics.FrameKey
 import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
@@ -29,30 +29,21 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
         val equipment = entity as Equipment
         val unit = equipment.getUnit()
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
-        val filename = formatFilename(frame)
+        val filename = _formatFilename(frame)
         val (image, renderLayer) = _tryLoadBehindFirst(filename, paletteSwaps)
         val pixel = unit.getCoordinates().toPixel() + offsets
         return Renderable(image, pixel, renderLayer)
     }
 
-    open fun formatFilename(frame: UnitFrame): String
+    private fun _formatFilename(frameKey: FrameKey): String
     {
-        return String.format(
-            "equipment/%s/%s_%s_%s_%s",
-            spriteName,
-            spriteName,
-            frame.activity,
-            frame.direction,
-            frame.key
-        )
+        return "equipment/${spriteName}/${spriteName}_${frameKey.keys.joinToString("_")}"
     }
 
-    private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): UnitFrame
+    private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey
     {
         return _getFrames(activity, direction)[frameNumber]
     }
-
-    protected abstract fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
 
     private fun _tryLoadBehindFirst(filename: String, paletteSwaps: PaletteSwaps): Pair<Image, RenderLayer>
     {
@@ -72,4 +63,6 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
         }
         fail("Could not find image filename ${filename} or ${filename + BEHIND_PREFIX}")
     }
+
+    protected abstract fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>
 }

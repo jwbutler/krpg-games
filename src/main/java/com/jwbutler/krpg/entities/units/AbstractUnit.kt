@@ -72,8 +72,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     final override fun moveTo(coordinates: Coordinates)
     {
         require(state.getUnit(coordinates) == null)
-        state.removeUnit(this)
-        state.addUnit(this, coordinates)
+        state.moveUnit(this, coordinates)
     }
 
     final override fun getDamage(activity: Activity): Int

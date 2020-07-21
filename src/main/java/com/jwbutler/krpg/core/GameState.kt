@@ -47,6 +47,7 @@ interface GameState
     fun getUnit(coordinates: Coordinates): Unit?
     fun addUnit(unit: Unit, coordinates: Coordinates)
     fun removeUnit(unit: Unit)
+    fun moveUnit(unit: Unit, coordinates: Coordinates)
 
     // Objects
 
@@ -143,6 +144,17 @@ private class GameStateImpl : GameState
         entityToCoordinates.remove(unit)
         coordinatesToUnit.remove(coordinates)
         unitToEquipment.remove(unit)
+    }
+
+    override fun moveUnit(unit: Unit, coordinates: Coordinates)
+    {
+        check(coordinatesToTile[coordinates] != null) { "Can't add unit, no tile at ${coordinates}" }
+        check(coordinatesToUnit[coordinates] == null) { "Can't add another unit at ${coordinates}" }
+
+        coordinatesToUnit.remove(unit.getCoordinates())
+        entityToCoordinates.remove(unit)
+        entityToCoordinates[unit] = coordinates
+        coordinatesToUnit[coordinates] = unit
     }
 
     override fun getObjects(coordinates: Coordinates): Collection<GameObject> = coordinatesToObjects[coordinates] ?: listOf()

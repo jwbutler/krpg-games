@@ -6,7 +6,7 @@ import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Offsets
-import com.jwbutler.krpg.graphics.UnitFrame
+import com.jwbutler.krpg.graphics.FrameKey
 import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
@@ -36,28 +36,21 @@ abstract class UnitSprite
         return Renderable(image, pixel, RenderLayer.UNIT)
     }
 
-    open fun _formatFilename(frame: UnitFrame): String
-    {
-        return String.format(
-            "units/%s/%s_%s_%s_%s",
-            spriteName,
-            spriteName,
-            frame.activity,
-            frame.direction,
-            frame.key
-        )
-    }
-
     fun isAnimationComplete(unit: Unit): Boolean
     {
         val frames = _getFrames(unit.getActivity(), unit.getDirection())
         return unit.getFrameNumber() > frames.lastIndex
     }
 
-    private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): UnitFrame
+    private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey
     {
         return _getFrames(activity, direction)[frameNumber]
     }
 
-    protected abstract fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
+    private fun _formatFilename(frameKey: FrameKey): String
+    {
+        return "units/${spriteName}/${spriteName}_${frameKey.keys.joinToString("_")}"
+    }
+
+    protected abstract fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>
 }
