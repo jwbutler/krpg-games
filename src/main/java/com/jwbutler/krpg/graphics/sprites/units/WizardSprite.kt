@@ -2,37 +2,52 @@ package com.jwbutler.krpg.graphics.sprites.units
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.geometry.Offsets
+import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.UnitFrame
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import java.awt.Color
 
-/**
- * Units are 40x40
- * Tiles are 48x23
- * Bottom of unit renders 4 pixels from bottom of frame
- * Vertical center of tile is 12 pixels from bottom
- * 23 - 40 = -17
- * x offset = +4
- * y offset = -12 + 4 + -17 = -25
- *
- * (TODO: This is copied from PlayerSprite, needs validation.)
- */
-private val offsets = Offsets(4, -25);
+private val offsets = PlayerSprite.OFFSETS + IntPair.of(0, 4)
 
-class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("spriteName", paletteSwaps.withTransparentColor(Color.WHITE),
-    offsets
-)
+class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("robed_wizard", paletteSwaps.withTransparentColor(Color.WHITE), offsets)
 {
     override fun _getFrames(activity: Activity, direction: Direction): List<UnitFrame>
     {
         return when (activity)
         {
-            // TODO  these are all made up
-            Activity.STANDING -> (1..4).map { UnitFrame(activity, direction, it.toString()) }
-            Activity.WALKING  -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
-            Activity.FALLING  -> arrayOf(1, 1, 2, 2).map { UnitFrame(activity, direction, it.toString()) }
+            Activity.STANDING -> (1..4).flatMap { listOf(it, it) }.map { UnitFrame(activity, direction, it.toString()) }
+            Activity.WALKING  -> listOf(1, 1, 1, 1).map { UnitFrame(activity, direction, it.toString()) }
+            Activity.FALLING  -> (1..4).flatMap { listOf(it, it) }.map { UnitFrame("vanishing", Direction.SE, it.toString()) }
+            Activity.DEAD  -> (1..4).flatMap { listOf(it, it) }.map { UnitFrame(Activity.DEAD, Direction.SE, "1") }
             else              -> error("Invalid activity ${activity}")
+        }
+    }
+
+    override fun _formatFilename(frame: UnitFrame): String
+    {
+        return when (frame.activity)
+        {
+            Activity.STANDING -> String.format(
+                "units/%s/%s_%s_%s",
+                spriteName,
+                spriteName,
+                frame.direction,
+                frame.key
+            )
+            Activity.DEAD -> String.format(
+                "units/%s/%s_%s",
+                spriteName,
+                spriteName,
+                frame.activity
+            )
+            else -> String.format(
+                "units/%s/%s_%s_%s_%s",
+                spriteName,
+                spriteName,
+                frame.activity,
+                frame.direction,
+                frame.key
+            )
         }
     }
 }

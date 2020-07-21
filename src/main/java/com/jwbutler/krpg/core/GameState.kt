@@ -18,27 +18,49 @@ import java.lang.IllegalStateException
 interface GameState
 {
     var ticks: Int
+
+    // Coordinates
+
+    fun getAllCoordinates(): Collection<Coordinates>
+    fun containsCoordinates(coordinates: Coordinates): Boolean
+    fun isBlocked(coordinates: Coordinates): Boolean
+
+    // Tiles
+
+    fun setTiles(tiles: Map<Coordinates, Tile?>)
+
+    // Players
+
     fun getPlayers(): Collection<Player>
     fun addPlayer(player: Player)
-    fun getCoordinates(entity: Entity): Coordinates
-    fun getUnit(coordinates: Coordinates): Unit?
-    fun getObjects(coordinates: Coordinates): Collection<GameObject>
-    fun setTiles(tiles: Map<Coordinates, Tile?>)
-    fun addUnit(unit: Unit, coordinates: Coordinates)
-    fun removeUnit(unit: Unit)
-    // Equipment state is tracked here so that GameState can be a single source of truth for the list of entities.
-    // Methods in [Unit] will delegate to these.
-    fun addEquipment(equipment: Equipment, unit: Unit)
-    fun removeEquipment(equipment: Equipment, unit: Unit)
-    fun getEquipment(unit: Unit): Map<EquipmentSlot, Equipment>
 
+    // Entities
+
+    fun getCoordinates(entity: Entity): Coordinates
     /**
      * Returns entities in *update* order, which may not be the same as render order
      */
     fun getEntities(): List<Entity>
 
-    fun containsCoordinates(coordinates: Coordinates): Boolean
-    fun isBlocked(coordinates: Coordinates): Boolean
+    // Units
+
+    fun getUnit(coordinates: Coordinates): Unit?
+    fun addUnit(unit: Unit, coordinates: Coordinates)
+    fun removeUnit(unit: Unit)
+
+    // Objects
+
+    fun getObjects(coordinates: Coordinates): Collection<GameObject>
+    fun addObject(`object`: GameObject, coordinates: Coordinates)
+    fun removeObject(`object`: GameObject)
+
+    // Equipment
+    // State is tracked here so that GameState can be a single source of truth for the list of entities.
+    // Methods in [Unit] will delegate to these.
+
+    fun addEquipment(equipment: Equipment, unit: Unit)
+    fun removeEquipment(equipment: Equipment, unit: Unit)
+    fun getEquipment(unit: Unit): Map<EquipmentSlot, Equipment>
 
     companion object
     {
@@ -67,15 +89,13 @@ private class GameStateImpl : GameState
     private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
     private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
 
-    override fun getCoordinates(entity: Entity) = entityToCoordinates[entity] ?: throw IllegalStateException()
-    override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
-    override fun getObjects(coordinates: Coordinates): Collection<GameObject> = coordinatesToObjects[coordinates] ?: listOf()
+    override fun getAllCoordinates(): Collection<Coordinates> = coordinatesToTile.keys
 
-    override fun getPlayers() = players.toList()
-    override fun addPlayer(player: Player)
+    override fun containsCoordinates(coordinates: Coordinates) = coordinatesToTile[coordinates] != null
+
+    override fun isBlocked(coordinates: Coordinates): Boolean
     {
-        check(!players.contains(player))
-        players.add(player)
+        return coordinatesToUnit[coordinates] != null
     }
 
     override fun setTiles(tiles: Map<Coordinates, Tile?>)
@@ -89,6 +109,24 @@ private class GameStateImpl : GameState
             }
         }
     }
+
+    override fun getPlayers() = players.toList()
+    override fun addPlayer(player: Player)
+    {
+        check(!players.contains(player))
+        players.add(player)
+    }
+
+    override fun getCoordinates(entity: Entity) = entityToCoordinates[entity] ?: throw IllegalStateException()
+
+    override fun getEntities(): List<Entity>
+    {
+        val entities = entityToCoordinates.keys.toMutableList()
+        entities.addAll(unitToEquipment.values.flatMap { it.values })
+        return entities
+    }
+
+    override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
 
     override fun addUnit(unit: Unit, coordinates: Coordinates)
     {
@@ -104,6 +142,23 @@ private class GameStateImpl : GameState
         check(coordinatesToUnit[coordinates] == unit)
         entityToCoordinates.remove(unit)
         coordinatesToUnit.remove(coordinates)
+        unitToEquipment.remove(unit)
+    }
+
+    override fun getObjects(coordinates: Coordinates): Collection<GameObject> = coordinatesToObjects[coordinates] ?: listOf()
+    override fun addObject(`object`: GameObject, coordinates: Coordinates)
+    {
+        coordinatesToObjects.computeIfAbsent(coordinates) { mutableListOf() }.add(`object`)
+        entityToCoordinates.put(`object`, coordinates)
+    }
+
+    override fun removeObject(`object`: GameObject)
+    {
+        check(coordinatesToObjects[`object`.getCoordinates()] != null)
+        check(coordinatesToObjects[`object`.getCoordinates()]!!.contains(`object`))
+        check(entityToCoordinates[`object`] != null)
+        coordinatesToObjects[`object`.getCoordinates()]!!.remove(`object`)
+        entityToCoordinates.remove(`object`)
     }
 
     override fun addEquipment(equipment: Equipment, unit: Unit)
@@ -122,18 +177,4 @@ private class GameStateImpl : GameState
     }
 
     override fun getEquipment(unit: Unit) = unitToEquipment.getOrElse(unit) { mapOf<EquipmentSlot, Equipment>() }
-
-    override fun getEntities(): List<Entity>
-    {
-        val entities = entityToCoordinates.keys.toMutableList()
-        entities.addAll(unitToEquipment.values.flatMap { it.values })
-        return entities
-    }
-
-    override fun containsCoordinates(coordinates: Coordinates) = coordinatesToTile[coordinates] != null
-
-    override fun isBlocked(coordinates: Coordinates): Boolean
-    {
-        return coordinatesToUnit[coordinates] != null
-    }
 }

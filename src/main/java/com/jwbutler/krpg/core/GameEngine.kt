@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.entities.Entity
+import com.jwbutler.krpg.entities.Tile
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.HUDRenderer
 import com.jwbutler.krpg.graphics.Renderable
@@ -18,7 +19,7 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
         entities.forEach(Entity::update)
 
         // Render
-        _render(entities)
+        _render()
 
         // Increment ticks
         state.ticks++
@@ -29,9 +30,10 @@ class GameEngine(private val state: GameState, private val window: GameWindow)
      * TODO: This should probably be encapsulated in a GameRenderer.
      * But for now, it's only a couple of lines
      */
-    private fun _render(entities: Collection<Entity>)
+    private fun _render()
     {
-        window.clearBuffer();
+        val entities = state.getEntities()
+        window.clearBuffer()
 
         val rendered: List<Pair<Entity, Renderable>> = entities.map { it to it.render() }
             .sortedBy { it.second.layer }

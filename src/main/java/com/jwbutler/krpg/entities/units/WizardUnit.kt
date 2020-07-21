@@ -7,4 +7,4 @@ import com.jwbutler.krpg.players.Player
 
 private fun _getSprite() = WizardSprite(PaletteSwaps.WHITE_TRANSPARENT)
 
-abstract class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp)
+class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp)

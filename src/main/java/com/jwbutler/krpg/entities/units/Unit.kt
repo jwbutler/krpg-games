@@ -7,10 +7,12 @@ import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
 import com.jwbutler.krpg.players.Player
 
 interface Unit : Entity
 {
+    override val sprite: UnitSprite
     fun getPlayer(): Player
     fun getCommand(): Command
     fun getActivity(): Activity
