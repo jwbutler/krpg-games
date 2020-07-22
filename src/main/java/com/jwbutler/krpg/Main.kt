@@ -11,6 +11,7 @@ import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.Colors
+import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.ImageLoader
 import com.jwbutler.krpg.graphics.PaletteSwaps
@@ -20,13 +21,13 @@ import java.lang.Thread.sleep
 
 fun main()
 {
-    GameState.initialize()
     ImageLoader.initialize()
-    GameWindow.initialize()
+    val window = GameWindow.initialize()
 
     val state = GameState.initialize()
     state.setTiles(_tileBox(20, 20))
-    val engine = GameEngine(state, GameWindow.getInstance())
+    val renderer = GameRenderer(window)
+    val engine = GameEngine(state, renderer)
 
     val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
         .put(Colors.GREEN, Colors.RED)
@@ -42,8 +43,9 @@ fun main()
     val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 50)
     enemyUnit.addEquipment(Sword())
     val enemyZombie = ZombieUnit(enemyPlayer, Coordinates(5, 7), 50)
-    val enemyWizard = WizardUnit(enemyPlayer, Coordinates(0, 0), 1)
+    val enemyWizard = WizardUnit(enemyPlayer, Coordinates(0, 0), 50)
 
+    // TODO - should use a real event loop here
     while (true)
     {
         engine.doLoop()

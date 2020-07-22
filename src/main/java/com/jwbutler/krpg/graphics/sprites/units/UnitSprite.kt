@@ -15,9 +15,9 @@ import com.jwbutler.krpg.graphics.sprites.Sprite
 
 abstract class UnitSprite
 (
-    protected val spriteName: String,
+    private val spriteName: String,
     private val paletteSwaps: PaletteSwaps,
-    val offsets: Offsets
+    private val offsets: Offsets
 ) : Sprite
 {
     override fun render(entity: Entity): Renderable

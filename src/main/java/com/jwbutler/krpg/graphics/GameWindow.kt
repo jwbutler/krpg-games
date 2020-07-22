@@ -61,9 +61,10 @@ class GameWindow private constructor()
 
         private var INSTANCE: GameWindow? = null
 
-        fun initialize()
+        fun initialize(): GameWindow
         {
             INSTANCE = GameWindow()
+            return INSTANCE!!
         }
 
         fun getInstance(): GameWindow = INSTANCE ?: error("GameWindow was not initialized")

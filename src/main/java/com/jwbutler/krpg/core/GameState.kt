@@ -41,6 +41,7 @@ interface GameState
      * Returns entities in *update* order, which may not be the same as render order
      */
     fun getEntities(): List<Entity>
+    fun containsEntity(entity: Entity): Boolean
 
     // Units
 
@@ -126,6 +127,8 @@ private class GameStateImpl : GameState
         entities.addAll(unitToEquipment.values.flatMap { it.values })
         return entities
     }
+
+    override fun containsEntity(entity: Entity) = entityToCoordinates.containsKey(entity)
 
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
 

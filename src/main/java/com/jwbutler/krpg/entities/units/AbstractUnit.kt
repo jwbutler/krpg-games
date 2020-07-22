@@ -77,7 +77,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     final override fun getDamage(activity: Activity): Int
     {
-        return 10; // TODO
+        return 10 // TODO
     }
 
     final override fun takeDamage(amount: Int)
@@ -104,6 +104,14 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
             if (sprite.isAnimationComplete(this))
             {
                 activity.onComplete(this)
+
+                // TODO: Activity#onComplete can result in killing this unit, and making some
+                // subsequent checks fail.  Can we solve this problem some other way?
+                if (!state.containsEntity(this))
+                {
+                    return
+                }
+
                 val nextCommand = getPlayer().chooseCommand(this)
                 if (command.isComplete())
                 {

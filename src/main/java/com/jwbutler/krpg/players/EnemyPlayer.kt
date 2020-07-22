@@ -15,8 +15,8 @@ class EnemyPlayer : AbstractPlayer()
         {
             unit is PlayerUnit -> UnitAI.SIMPLE_ATTACK
             unit is ZombieUnit -> UnitAI.SIMPLE_ATTACK
-            unit is WizardUnit -> UnitAI.NO_OP
-            else -> error("fux")
+            unit is WizardUnit -> UnitAI.WIZARD
+            else -> error("Unsupported unit type ${unit::class}")
         }
 
         return unitAI.chooseCommand(unit)

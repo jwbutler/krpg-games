@@ -2,7 +2,9 @@ package com.jwbutler.krpg.behavior
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
+import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.IntPair
 
 enum class Activity
 {
@@ -49,7 +51,23 @@ enum class Activity
     DEAD,
     VANISHING,
     APPEARING,
-    RESURRECTING;
+    RESURRECTING
+    {
+        override fun onComplete(unit: Unit)
+        {
+            val state = GameState.getInstance()
+            val coordinates = unit.getCoordinates()
+            val corpse = state.getEntities()
+                .filterIsInstance<Corpse>()
+                .firstOrNull { it.getCoordinates() == unit.getCoordinates() || !it.getCoordinates().isBlocked() }
+            if (corpse != null)
+            {
+                state.removeObject(corpse)
+                val reanimatedCoordinates = coordinates.plus(IntPair.of(1, 1)) // TODO
+                val reanimated = ZombieUnit(unit.getPlayer(), reanimatedCoordinates, 20)
+            }
+        }
+    };
 
     override fun toString() = name.toLowerCase()
     open fun onComplete(unit: Unit) {}

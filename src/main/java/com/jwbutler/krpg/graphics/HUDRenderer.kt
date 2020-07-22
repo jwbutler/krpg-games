@@ -42,7 +42,7 @@ object HUDRenderer
         graphics.color = Colors.BLACK
         graphics.fillRect(0, 0, WIDTH, HEIGHT)
         val playerUnit: Unit = GameState.getInstance().getPlayers()
-            .filter { it is HumanPlayer }
+            .filterIsInstance<HumanPlayer>()
             .flatMap(Player::getUnits)
             .firstOrNull()
             ?: error("No player unit found")
