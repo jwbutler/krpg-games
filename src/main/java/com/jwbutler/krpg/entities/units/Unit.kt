@@ -27,6 +27,13 @@ interface Unit : Entity
     fun getCurrentHP(): Int
     fun getMaxHP(): Int
 
+    fun getRemainingCooldown(activity: Activity): Int
+    /**
+     * TODO duration probably wants to go in the unit definition, too
+     */
+    fun triggerCooldown(activity: Activity, duration: Int)
+    fun onActivityComplete(activity: Activity)
+
     fun moveTo(coordinates: Coordinates)
     fun getDamage(activity: Activity): Int
     fun takeDamage(amount: Int)

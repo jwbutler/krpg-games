@@ -12,14 +12,16 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
         val direction = Direction.closestBetween(target, source.getCoordinates())
-        if (!(source.getCoordinates() + direction).isBlocked())
+        if (source.getRemainingCooldown(Activity.WALKING) <= 0)
         {
-            return Pair(Activity.WALKING, direction)
+            val isBlocked = (source.getCoordinates() + direction).isBlocked()
+            if (!isBlocked)
+            {
+                return Pair(Activity.WALKING, direction)
+            }
         }
-        else
-        {
-            return Pair(Activity.STANDING, direction)
-        }
+        // fall through
+        return Pair(Activity.STANDING, direction)
     }
 
     override fun isPreemptible() = true

@@ -34,7 +34,7 @@ fun main()
         .put(Colors.DARK_GREEN, Colors.DARK_RED)
 
     val humanPlayer = HumanPlayer()
-    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 1000, paletteSwaps)
+    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 200, paletteSwaps)
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
     playerUnit.addEquipment(MailArmor())

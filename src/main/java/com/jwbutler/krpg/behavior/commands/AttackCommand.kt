@@ -22,7 +22,11 @@ class AttackCommand(override val source: Unit, private val target: Unit) : Comma
         else
         {
             val direction = Direction.closestBetween(target.getCoordinates(), source.getCoordinates())
-            return Pair(Activity.WALKING, direction)
+            if (source.getRemainingCooldown(Activity.WALKING) <= 0)
+            {
+                return Pair(Activity.WALKING, direction)
+            }
+            return Pair(Activity.STANDING, direction)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.entities.units
 
+import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
@@ -12,3 +13,8 @@ class PlayerUnit
     hp: Int,
     paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
 ) : AbstractUnit(player, PlayerSprite(paletteSwaps), coordinates, hp)
+{
+    override fun onActivityComplete(activity: Activity)
+    {
+    }
+}

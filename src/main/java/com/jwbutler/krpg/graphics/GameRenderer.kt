@@ -5,10 +5,6 @@ import com.jwbutler.krpg.entities.Entity
 
 class GameRenderer(private val window: GameWindow)
 {
-    /**
-     * TODO: This should probably be encapsulated in a GameRenderer.
-     * But for now, it's only a couple of lines
-     */
     fun render()
     {
         val state = GameState.getInstance()

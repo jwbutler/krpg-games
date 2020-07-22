@@ -12,17 +12,20 @@ class ResurrectCommand(override val source: Unit, private val target: Corpse) : 
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
-        if (target.getCoordinates() == source.getCoordinates())
+        if (source.getRemainingCooldown(Activity.RESURRECTING) <= 0)
         {
-            startedCasting = true
-            return Pair(Activity.RESURRECTING, source.getDirection())
-        }
-        else
-        {
-            val direction = Direction.closestBetween(target.getCoordinates(), source.getCoordinates())
-            if (!(source.getCoordinates() + direction).isBlocked())
+            if (target.getCoordinates() == source.getCoordinates())
             {
-                return Pair(Activity.WALKING, direction)
+                startedCasting = true
+                return Pair(Activity.RESURRECTING, source.getDirection())
+            }
+            else
+            {
+                val direction = Direction.closestBetween(target.getCoordinates(), source.getCoordinates())
+                if (!(source.getCoordinates() + direction).isBlocked())
+                {
+                    return Pair(Activity.WALKING, direction)
+                }
             }
         }
         return Pair(Activity.STANDING, source.getDirection())

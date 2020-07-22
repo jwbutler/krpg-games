@@ -15,8 +15,6 @@ import kotlin.math.max
 
 abstract class AbstractUnit(private var player: Player, override val sprite: UnitSprite, coordinates: Coordinates, hp: Int) : Unit
 {
-    private val state = GameState.getInstance()
-
     private var command: Command
     private var activity: Activity
     private var direction: Direction
@@ -27,6 +25,8 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     private var currentHP: Int
     private var maxHP: Int
+
+    private val remainingCooldowns = mutableMapOf<Activity, Int>()
 
     init
     {
@@ -55,6 +55,12 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     override fun getCurrentHP() = currentHP
     override fun getMaxHP() = maxHP
 
+    final override fun getRemainingCooldown(activity: Activity) = remainingCooldowns.getOrDefault(activity, 0)
+    final override fun triggerCooldown(activity: Activity, duration: Int)
+    {
+        remainingCooldowns[activity] = max(remainingCooldowns[activity] ?: 0, duration)
+    }
+
     final override fun setCommand(command: Command)
     {
         this.command = command
@@ -64,6 +70,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     final override fun setActivity(activity: Activity, direction: Direction)
     {
+        check((this.remainingCooldowns[activity] ?: 0) <= 0)
         this.activity = activity
         this.direction = direction
         this.frameNumber = 0
@@ -71,6 +78,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     final override fun moveTo(coordinates: Coordinates)
     {
+        val state = GameState.getInstance()
         require(state.getUnit(coordinates) == null)
         state.moveUnit(this, coordinates)
     }
@@ -88,6 +96,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     final override fun die()
     {
+        val state = GameState.getInstance()
         state.removeUnit(this)
         player.removeUnit(this)
     }
@@ -104,9 +113,11 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
             if (sprite.isAnimationComplete(this))
             {
                 activity.onComplete(this)
+                this.onActivityComplete(activity)
 
                 // TODO: Activity#onComplete can result in killing this unit, and making some
                 // subsequent checks fail.  Can we solve this problem some other way?
+                val state = GameState.getInstance()
                 if (!state.containsEntity(this))
                 {
                     return
@@ -135,6 +146,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     final override fun afterRender()
     {
         frameNumber++
+        remainingCooldowns.replaceAll { activity, current -> max(current - 1, 0) }
     }
 
     override fun addEquipment(equipment: Equipment)
