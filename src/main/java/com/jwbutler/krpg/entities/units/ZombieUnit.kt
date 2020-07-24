@@ -9,17 +9,16 @@ import kotlin.random.Random
 
 private fun _getSprite() = ZombieSprite(PaletteSwaps.WHITE_TRANSPARENT)
 
-class ZombieUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp)
+private val ACTIVITIES = setOf(Activity.STANDING, Activity.WALKING, Activity.ATTACKING, Activity.FALLING);
+
+class ZombieUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp, ACTIVITIES)
 {
-    override fun onActivityComplete(activity: Activity)
+    override fun getCooldown(activity: Activity): Int
     {
-        if (activity == Activity.WALKING)
+        return when (activity)
         {
-            if (Random.nextBoolean())
-            {
-                val waitDuration = Random.nextInt(1, 11)
-                triggerCooldown(activity, waitDuration)
-            }
+            Activity.WALKING -> Random.nextInt(1, 11)
+            else             -> 0
         }
     }
 }

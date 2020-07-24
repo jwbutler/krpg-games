@@ -13,13 +13,13 @@ import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
 import com.jwbutler.krpg.players.Player
 import kotlin.math.max
 
-abstract class AbstractUnit(private var player: Player, override val sprite: UnitSprite, coordinates: Coordinates, hp: Int) : Unit
+abstract class AbstractUnit(private var player: Player, override val sprite: UnitSprite, coordinates: Coordinates, hp: Int, activities: Set<Activity>) : Unit
 {
     private var command: Command
     private var activity: Activity
     private var direction: Direction
     /**
-     * This isn't "1", "2", "2b"... this is 1, 2, 3
+     * This isn't "1", "2", "2b"... this is 0, 1, 2
      */
     private var frameNumber: Int
 
@@ -27,6 +27,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     private var maxHP: Int
 
     private val remainingCooldowns = mutableMapOf<Activity, Int>()
+    protected val activities = activities.toMutableSet()
 
     init
     {
@@ -56,8 +57,10 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     override fun getMaxHP() = maxHP
 
     final override fun getRemainingCooldown(activity: Activity) = remainingCooldowns.getOrDefault(activity, 0)
-    final override fun triggerCooldown(activity: Activity, duration: Int)
+
+    final override fun triggerCooldown(activity: Activity)
     {
+        val duration = getCooldown(activity)
         remainingCooldowns[activity] = max(remainingCooldowns[activity] ?: 0, duration)
     }
 
@@ -113,7 +116,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
             if (sprite.isAnimationComplete(this))
             {
                 activity.onComplete(this)
-                this.onActivityComplete(activity)
+                triggerCooldown(activity)
 
                 // TODO: Activity#onComplete can result in killing this unit, and making some
                 // subsequent checks fail.  Can we solve this problem some other way?
@@ -149,15 +152,15 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
         remainingCooldowns.replaceAll { activity, current -> max(current - 1, 0) }
     }
 
-    override fun addEquipment(equipment: Equipment)
+    final override fun addEquipment(equipment: Equipment)
     {
         GameState.getInstance().addEquipment(equipment, this)
     }
 
-    override fun removeEquipment(equipment: Equipment)
+    final override fun removeEquipment(equipment: Equipment)
     {
         GameState.getInstance().removeEquipment(equipment, this)
     }
 
-    override fun getEquipment() = GameState.getInstance().getEquipment(this)
+    final override fun getEquipment() = GameState.getInstance().getEquipment(this)
 }

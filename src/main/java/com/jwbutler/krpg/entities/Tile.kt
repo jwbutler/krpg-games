@@ -16,7 +16,7 @@ class Tile(private val coordinates: Coordinates) : Entity
         ImageLoader.getInstance().loadImage(
             // "tiles/48x23/tile_48x23_stone",
             //"tiles/tile_floor",
-            "tiles/tile_floor5",
+            "tiles/grass_24x12",
             PaletteSwaps()
         ),
         RenderLayer.FLOOR_TILE
@@ -27,8 +27,5 @@ class Tile(private val coordinates: Coordinates) : Entity
     override fun update() {}
     override fun afterRender() {}
 
-    override fun render(): Renderable
-    {
-        return sprite.render(this)
-    }
+    override fun render(): Renderable = sprite.render(this)
 }

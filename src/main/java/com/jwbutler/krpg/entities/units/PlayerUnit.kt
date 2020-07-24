@@ -6,15 +6,19 @@ import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 import com.jwbutler.krpg.players.Player
 
+private val ACTIVITIES = setOf(
+    Activity.FALLING,
+    Activity.STANDING,
+    Activity.WALKING
+)
+
 class PlayerUnit
 (
     player: Player,
     coordinates: Coordinates,
     hp: Int,
     paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
-) : AbstractUnit(player, PlayerSprite(paletteSwaps), coordinates, hp)
+) : AbstractUnit(player, PlayerSprite(paletteSwaps), coordinates, hp, ACTIVITIES)
 {
-    override fun onActivityComplete(activity: Activity)
-    {
-    }
+    override fun getCooldown(activity: Activity): Int = 0
 }

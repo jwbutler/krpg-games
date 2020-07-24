@@ -8,15 +8,24 @@ import com.jwbutler.krpg.players.Player
 
 private fun _getSprite() = WizardSprite(PaletteSwaps.WHITE_TRANSPARENT)
 
-private const val RESURRECTING_COOLDOWN = 32
+private val ACTIVITIES = setOf(
+    Activity.APPEARING,
+    Activity.FALLING,
+    Activity.RESURRECTING,
+    Activity.STANDING,
+    Activity.WALKING,
+    Activity.VANISHING
+)
 
-class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp)
+class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp, ACTIVITIES)
 {
-    override fun onActivityComplete(activity: Activity)
+    override fun getCooldown(activity: Activity): Int
     {
-        if (activity == Activity.RESURRECTING)
+        return when (activity)
         {
-            triggerCooldown(activity, RESURRECTING_COOLDOWN)
+            Activity.RESURRECTING -> 50
+            Activity.VANISHING    -> 100
+            else                  -> 0
         }
     }
 }
