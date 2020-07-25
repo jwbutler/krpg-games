@@ -3,12 +3,31 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/Activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/Activity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/AttackCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/AttackCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/CommandType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/CommandType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/DieCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/DieCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/DirectionalAttackCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/DirectionalAttackCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/MoveCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/MoveCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/ResurrectCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/ResurrectCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/AbstractEquipment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/AbstractEquipment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/Equipment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/Equipment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Corpse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/PlayerUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/PlayerUnit.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/Unit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/Unit.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/WizardUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/WizardUnit.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/ZombieUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/ZombieUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/EquipmentSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/EquipmentSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/Sprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/Sprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/StaticSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/StaticSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/PlayerSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/PlayerSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/UnitSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/UnitSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/WizardSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/WizardSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/ZombieSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/ZombieSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/ai/UnitAI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/ai/UnitAI.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,10 +41,10 @@
         <option value="Enum" />
         <option value="Kotlin Enum" />
         <option value="Class" />
-        <option value="Kotlin File" />
         <option value="Interface" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -76,11 +95,11 @@
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\resources\png\units\player" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.jwbutler.krpg.entities.objects" />
       <recent name="com.jwbutler.krpg.behavior.commands" />
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
       <recent name="com.jwbutler.krpg.graphics.sprites" />
       <recent name="com.jwbutler.krpg.entities" />
-      <recent name="com.jwbutler.krpg.behavior" />
     </key>
     <key name="CreateKotlinClassDialog.RecentsKey">
       <recent name="com.jwbutler.krpg.players.ai" />
@@ -173,7 +192,7 @@
       <workItem from="1593968147245" duration="16372000" />
       <workItem from="1594948844319" duration="47598000" />
       <workItem from="1595289312831" duration="17345000" />
-      <workItem from="1595392731527" duration="18520000" />
+      <workItem from="1595392731527" duration="36098000" />
     </task>
     <servers />
   </component>

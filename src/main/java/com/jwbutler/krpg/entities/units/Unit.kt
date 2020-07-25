@@ -28,8 +28,15 @@ interface Unit : Entity
     fun getMaxHP(): Int
 
     fun getCooldown(activity: Activity): Int // maybe move this to AbstractUnit?
+    /**
+     * @throws IllegalArgumentException if this unit can't use the specified activity
+     */
     fun getRemainingCooldown(activity: Activity): Int
     fun triggerCooldown(activity: Activity)
+    /**
+     * Does this unit know the specified activity, and is it off cooldown?
+     */
+    fun isActivityReady(activity: Activity): Boolean
 
     fun moveTo(coordinates: Coordinates)
     fun getDamage(activity: Activity): Int

@@ -13,7 +13,10 @@ class DirectionalAttackCommand(override val source: Unit, private val target: Co
     override fun chooseActivity(): Pair<Activity, Direction>
     {
         val direction = Direction.closestBetween(target, source.getCoordinates())
-        if (!hasAttacked)
+        if (
+            !hasAttacked
+            && (source.getRemainingCooldown(Activity.ATTACKING) <= 0)
+        )
         {
             hasAttacked = true
             return Pair(Activity.ATTACKING, direction)

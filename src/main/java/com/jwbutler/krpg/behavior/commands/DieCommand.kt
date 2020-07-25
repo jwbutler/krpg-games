@@ -4,9 +4,6 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 
-/**
- * for the player sprite that only has two directions
- */
 class DieCommand(override val source: Unit) : Command
 {
     override val type = CommandType.DIE
@@ -21,12 +18,13 @@ class DieCommand(override val source: Unit) : Command
         }
         else
         {
+            error("Shouldn't get here!")
             return Pair(Activity.DEAD, source.getDirection())
         }
     }
 
     override fun isPreemptible() = false
-    override fun isComplete() = false // TODO corpses
+    override fun isComplete() = false
 
     override fun toString(): String
     {

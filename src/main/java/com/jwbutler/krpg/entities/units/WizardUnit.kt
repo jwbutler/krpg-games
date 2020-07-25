@@ -5,6 +5,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
 import com.jwbutler.krpg.players.Player
+import kotlin.random.Random
 
 private fun _getSprite() = WizardSprite(PaletteSwaps.WHITE_TRANSPARENT)
 
@@ -25,6 +26,7 @@ class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUn
         {
             Activity.RESURRECTING -> 50
             Activity.VANISHING    -> 100
+            Activity.WALKING      -> Random.nextInt(1, 6)
             else                  -> 0
         }
     }

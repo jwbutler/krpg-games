@@ -1,10 +1,12 @@
 package com.jwbutler.krpg.players.ai
 
+import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.AttackCommand
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.ResurrectCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
+import com.jwbutler.krpg.behavior.commands.WanderCommand
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
@@ -58,14 +60,16 @@ enum class UnitAI
                 .filterIsInstance<Corpse>()
                 .firstOrNull { it.getCoordinates() == unit.getCoordinates() || !it.getCoordinates().isBlocked() }
 
-            if (corpse != null)
+            if (
+                (unit.getRemainingCooldown(Activity.RESURRECTING) <= 0)
+                && corpse != null
+            )
             {
                 return ResurrectCommand(unit, corpse)
             }
-            return StayCommand(unit)
+            return WanderCommand(unit)
         }
-    },
-    ;
+    };
 
     abstract fun chooseCommand(unit: Unit): Command
 
@@ -75,7 +79,7 @@ enum class UnitAI
             .getPlayers()
             .find { it is HumanPlayer }
             ?.getUnits()
-            ?.first()
+            ?.firstOrNull()
             ?: error("Could not find player unit"))
     }
 }

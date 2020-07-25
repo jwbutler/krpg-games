@@ -13,12 +13,7 @@ class Tile(private val coordinates: Coordinates) : Entity
      * TODO - tile types, palette swaps, caching, etc.
      */
     override val sprite = StaticSprite(
-        ImageLoader.getInstance().loadImage(
-            // "tiles/48x23/tile_48x23_stone",
-            //"tiles/tile_floor",
-            "tiles/grass_24x12",
-            PaletteSwaps()
-        ),
+        ImageLoader.getInstance().loadImage("tiles/grass_24x12", PaletteSwaps()),
         RenderLayer.FLOOR_TILE
     )
 

@@ -11,10 +11,11 @@ import java.awt.Color
 
 class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
     "player",
-    paletteSwaps.withTransparentColor(Color.WHITE),
-    OFFSETS
+    paletteSwaps.withTransparentColor(Color.WHITE)
 )
 {
+    override val offsets = OFFSETS
+
     override fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>
     {
         return getFrames(activity, direction)
@@ -39,7 +40,7 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
             return when (activity)
             {
                 Activity.STANDING -> listOf(FrameKey(activity, direction, 1))
-                Activity.WALKING -> arrayOf(2, 2, 1).map { FrameKey(activity, direction, it) }
+                Activity.WALKING -> arrayOf(2, 1, 1).map { FrameKey(activity, direction, it) }
                 Activity.ATTACKING ->
                 {
                     val frames = mutableListOf<FrameKey>()

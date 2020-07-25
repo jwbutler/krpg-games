@@ -11,8 +11,14 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
+        return _tryWalk()
+            ?: _stand()
+    }
+
+    private fun _tryWalk(): Pair<Activity, Direction>?
+    {
         val direction = Direction.closestBetween(target, source.getCoordinates())
-        if (source.getRemainingCooldown(Activity.WALKING) <= 0)
+        if (source.isActivityReady(Activity.WALKING))
         {
             val isBlocked = (source.getCoordinates() + direction).isBlocked()
             if (!isBlocked)
@@ -20,7 +26,12 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
                 return Pair(Activity.WALKING, direction)
             }
         }
-        // fall through
+        return null
+    }
+
+    private fun _stand(): Pair<Activity, Direction>
+    {
+        val direction = Direction.closestBetween(target, source.getCoordinates())
         return Pair(Activity.STANDING, direction)
     }
 

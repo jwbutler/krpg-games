@@ -18,6 +18,7 @@ class ZombieUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUn
         return when (activity)
         {
             Activity.WALKING -> Random.nextInt(1, 11)
+            Activity.ATTACKING -> Random.nextInt(1, 11)
             else             -> 0
         }
     }

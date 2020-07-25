@@ -8,5 +8,6 @@ enum class CommandType
     DIE,
     TELEPORT,
     RESURRECT,
-    VANISH;
+    VANISH,
+    WANDER;
 }

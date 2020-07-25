@@ -8,6 +8,7 @@ import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.equipment.Equipment
+import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
 import com.jwbutler.krpg.players.Player
@@ -60,8 +61,18 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     final override fun triggerCooldown(activity: Activity)
     {
+        require(activities.contains(activity)) { "$this can't use activity $activity" }
         val duration = getCooldown(activity)
         remainingCooldowns[activity] = max(remainingCooldowns[activity] ?: 0, duration)
+    }
+
+    final override fun isActivityReady(activity: Activity): Boolean
+    {
+        if (activities.contains(activity))
+        {
+            return getRemainingCooldown(activity) <= 0
+        }
+        return false
     }
 
     final override fun setCommand(command: Command)
@@ -73,7 +84,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
 
     final override fun setActivity(activity: Activity, direction: Direction)
     {
-        check((this.remainingCooldowns[activity] ?: 0) <= 0)
+        check(getRemainingCooldown(activity) <= 0)
         this.activity = activity
         this.direction = direction
         this.frameNumber = 0
@@ -100,8 +111,17 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     final override fun die()
     {
         val state = GameState.getInstance()
+        val coordinates = getCoordinates()
+        val corpse = Corpse(this)
+        for (equipment in this.getEquipment().values)
+        {
+            equipment.setUnit(null)
+            state.removeEquipment(equipment, this)
+            state.addEquipment(equipment, coordinates)
+        }
         state.removeUnit(this)
         player.removeUnit(this)
+        state.addObject(corpse, coordinates)
     }
 
     final override fun update()
@@ -115,8 +135,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
             // Take player input
             if (sprite.isAnimationComplete(this))
             {
-                activity.onComplete(this)
-                triggerCooldown(activity)
+                _onActivityComplete(activity)
 
                 // TODO: Activity#onComplete can result in killing this unit, and making some
                 // subsequent checks fail.  Can we solve this problem some other way?
@@ -163,4 +182,12 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     }
 
     final override fun getEquipment() = GameState.getInstance().getEquipment(this)
+
+    override fun toString() = this::class.simpleName!!
+
+    private fun _onActivityComplete(activity: Activity)
+    {
+        activity.onComplete(this)
+        triggerCooldown(activity)
+    }
 }

@@ -64,6 +64,9 @@ interface GameState
     fun removeEquipment(equipment: Equipment, unit: Unit)
     fun getEquipment(unit: Unit): Map<EquipmentSlot, Equipment>
 
+    fun addEquipment(equipment: Equipment, coordinates: Coordinates)
+    fun removeEquipment(equipment: Equipment)
+
     companion object
     {
         private var INSTANCE: GameState? = null
@@ -146,7 +149,6 @@ private class GameStateImpl : GameState
         check(coordinatesToUnit[coordinates] == unit)
         entityToCoordinates.remove(unit)
         coordinatesToUnit.remove(coordinates)
-        unitToEquipment.remove(unit)
     }
 
     override fun moveUnit(unit: Unit, coordinates: Coordinates)
@@ -164,7 +166,7 @@ private class GameStateImpl : GameState
     override fun addObject(`object`: GameObject, coordinates: Coordinates)
     {
         coordinatesToObjects.computeIfAbsent(coordinates) { mutableListOf() }.add(`object`)
-        entityToCoordinates.put(`object`, coordinates)
+        entityToCoordinates[`object`] = coordinates
     }
 
     override fun removeObject(`object`: GameObject)
@@ -192,4 +194,23 @@ private class GameStateImpl : GameState
     }
 
     override fun getEquipment(unit: Unit) = unitToEquipment.getOrElse(unit) { mapOf<EquipmentSlot, Equipment>() }
+
+    override fun addEquipment(equipment: Equipment, coordinates: Coordinates)
+    {
+        check(equipment.getUnit() == null)
+        check(entityToCoordinates[equipment] == null)
+        check(!(coordinatesToObjects[coordinates]?.contains(equipment) ?: true))
+        entityToCoordinates[equipment] = coordinates
+        coordinatesToObjects[coordinates]!!.add(equipment)
+    }
+
+    override fun removeEquipment(equipment: Equipment)
+    {
+        val coordinates = equipment.getCoordinates()
+        check(equipment.getUnit() == null)
+        check(entityToCoordinates[equipment] != null)
+        check(coordinatesToObjects[coordinates]?.contains(equipment) ?: true)
+        entityToCoordinates.remove(equipment)
+        coordinatesToObjects[coordinates]!!.remove(equipment)
+    }
 }

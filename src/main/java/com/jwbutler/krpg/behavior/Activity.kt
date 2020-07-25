@@ -4,6 +4,7 @@ import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.GeometryUtils
 import com.jwbutler.krpg.geometry.IntPair
 
 enum class Activity
@@ -41,11 +42,7 @@ enum class Activity
     {
         override fun onComplete(unit: Unit)
         {
-            val state = GameState.getInstance()
-            val coordinates = unit.getCoordinates()
-            val corpse = Corpse(unit)
             unit.die()
-            state.addObject(corpse, coordinates)
         }
     },
     DEAD,
@@ -56,15 +53,17 @@ enum class Activity
         override fun onComplete(unit: Unit)
         {
             val state = GameState.getInstance()
-            val coordinates = unit.getCoordinates()
             val corpse = state.getEntities()
                 .filterIsInstance<Corpse>()
                 .firstOrNull { it.getCoordinates() == unit.getCoordinates() || !it.getCoordinates().isBlocked() }
             if (corpse != null)
             {
-                state.removeObject(corpse)
-                val reanimatedCoordinates = coordinates.plus(IntPair.of(1, 1)) // TODO
-                val reanimated = ZombieUnit(unit.getPlayer(), reanimatedCoordinates, 20)
+                val candidates = GeometryUtils.getAdjacentUnblockedCoordinates(unit.getCoordinates())
+                if (candidates.isNotEmpty())
+                {
+                    state.removeObject(corpse)
+                    val reanimated = ZombieUnit(unit.getPlayer(), candidates.random(), 20)
+                }
             }
         }
     };

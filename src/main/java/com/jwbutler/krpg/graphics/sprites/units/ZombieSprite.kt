@@ -6,13 +6,15 @@ import com.jwbutler.krpg.graphics.FrameKey
 import com.jwbutler.krpg.graphics.PaletteSwaps
 import java.awt.Color
 
+private val OFFSETS = PlayerSprite.OFFSETS
+
 class ZombieSprite(paletteSwaps: PaletteSwaps) : UnitSprite
 (
     "zombie",
-    paletteSwaps.withTransparentColor(Color.WHITE),
-    OFFSETS
+    paletteSwaps.withTransparentColor(Color.WHITE)
 )
 {
+    override val offsets = OFFSETS
     /**
      * Tons of copy-paste from [PlayerSprite.getFrames], but the falling animation is different
      * and it seems cleaner to just rewrite the whole function
@@ -46,10 +48,5 @@ class ZombieSprite(paletteSwaps: PaletteSwaps) : UnitSprite
             Direction.N, Direction.NE, Direction.E, Direction.SE -> "falling"
             else -> "fallingB"
         }
-    }
-
-    companion object
-    {
-        val OFFSETS = PlayerSprite.OFFSETS
     }
 }

@@ -5,6 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.geometry.IntPair
+import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.graphics.FrameKey
 import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.ImageLoader
@@ -22,22 +23,31 @@ private const val BEHIND_PREFIX = "_B"
  *
  * TODO: This is mostly copy-pasted from [PlayerSprite].  However, I can't think of a sane inheritance hierarchy.
  */
-abstract class EquipmentSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, private val offsets: IntPair) : Sprite
+abstract class EquipmentSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, override val offsets: Offsets) : Sprite
 {
     override fun render(entity: Entity): Renderable
     {
         val equipment = entity as Equipment
-        val unit = equipment.getUnit()
-        val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
+        val frame = _getFrame(equipment)
         val filename = _formatFilename(frame)
         val (image, renderLayer) = _tryLoadBehindFirst(filename, paletteSwaps)
-        val pixel = unit.getCoordinates().toPixel() + offsets
+        val pixel = entity.getCoordinates().toPixel() + offsets
         return Renderable(image, pixel, renderLayer)
     }
 
     private fun _formatFilename(frameKey: FrameKey): String
     {
         return "equipment/${spriteName}/${spriteName}_${frameKey.keys.joinToString("_")}"
+    }
+
+    private fun _getFrame(equipment: Equipment): FrameKey
+    {
+        val unit = equipment.getUnit()
+        if (unit != null)
+        {
+            return _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
+        }
+        return _getFrame(Activity.DEAD, Direction.SE, 1)
     }
 
     private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey

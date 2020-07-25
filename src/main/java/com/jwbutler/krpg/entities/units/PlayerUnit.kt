@@ -7,6 +7,7 @@ import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 import com.jwbutler.krpg.players.Player
 
 private val ACTIVITIES = setOf(
+    Activity.ATTACKING,
     Activity.FALLING,
     Activity.STANDING,
     Activity.WALKING

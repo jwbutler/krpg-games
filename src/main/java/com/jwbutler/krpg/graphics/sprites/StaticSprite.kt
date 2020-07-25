@@ -6,7 +6,7 @@ import com.jwbutler.krpg.graphics.Image
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 
-class StaticSprite(private val image: Image, private val layer: RenderLayer, private val offsets: Offsets = Offsets(0, 0)) : Sprite
+class StaticSprite(private val image: Image, private val layer: RenderLayer, override val offsets: Offsets = Offsets(0, 0)) : Sprite
 {
     override fun render(entity: Entity) = Renderable(
         image,
