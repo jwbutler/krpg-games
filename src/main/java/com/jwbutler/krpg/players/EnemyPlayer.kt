@@ -11,11 +11,11 @@ class EnemyPlayer : AbstractPlayer()
 {
     override fun chooseCommand(unit: Unit): Command
     {
-        val unitAI = when
+        val unitAI = when (unit)
         {
-            unit is PlayerUnit -> UnitAI.SIMPLE_ATTACK
-            unit is ZombieUnit -> UnitAI.SIMPLE_ATTACK
-            unit is WizardUnit -> UnitAI.WIZARD
+            is PlayerUnit -> UnitAI.SIMPLE_ATTACK
+            is ZombieUnit -> UnitAI.SIMPLE_ATTACK
+            is WizardUnit -> UnitAI.WIZARD
             else -> error("Unsupported unit type ${unit::class}")
         }
 

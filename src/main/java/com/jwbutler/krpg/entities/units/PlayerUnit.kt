@@ -19,8 +19,9 @@ class PlayerUnit
     coordinates: Coordinates,
     hp: Int,
     paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
-) : AbstractUnit(player, PlayerSprite(paletteSwaps), coordinates, hp, ACTIVITIES)
+) : AbstractUnit(player, coordinates, hp, ACTIVITIES)
 {
+    override val sprite = PlayerSprite(paletteSwaps)
     override fun getCooldown(activity: Activity): Int
     {
         return when(activity)

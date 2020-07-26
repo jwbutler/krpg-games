@@ -4,12 +4,14 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.Pathfinder
 import java.lang.Math.abs
 
 class AttackCommand(override val source: Unit, private val target: Unit) : Command
 {
     override val type = CommandType.ATTACK
     private var hasAttacked = false
+    private var path = Pathfinder.findPath(source, target)
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
@@ -34,18 +36,37 @@ class AttackCommand(override val source: Unit, private val target: Unit) : Comma
 
     private fun _tryWalk(): Pair<Activity, Direction>?
     {
-        val direction = Direction.closestBetween(target.getCoordinates(), source.getCoordinates())
         if (source.isActivityReady(Activity.WALKING))
         {
-            return Pair(Activity.WALKING, direction)
+            var next = _findNextCoordinates(path!!, source.getCoordinates())
+            if (next == null)
+            {
+                path = Pathfinder.findPath(source, target)
+                next = _findNextCoordinates(path!!, source.getCoordinates())
+            }
+            if (next != null)
+            {
+                val direction = Direction.between(next, source.getCoordinates())
+                return Pair(Activity.WALKING, direction)
+            }
+        }
+        return null
+    }
+
+    private fun _findNextCoordinates(path: List<Coordinates>?, current: Coordinates): Coordinates?
+    {
+        if (path != null)
+        {
+            val index = path.indexOf(source.getCoordinates())
+            check(index < path.lastIndex)
+            return path[index + 1]
         }
         return null
     }
 
     private fun _stand(): Pair<Activity, Direction>
     {
-        val direction = Direction.closestBetween(target.getCoordinates(), source.getCoordinates())
-        return Pair(Activity.STANDING, direction)
+        return Pair(Activity.STANDING, source.getDirection())
     }
 
     override fun isPreemptible() = true

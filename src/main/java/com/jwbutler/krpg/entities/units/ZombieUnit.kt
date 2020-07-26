@@ -7,12 +7,11 @@ import com.jwbutler.krpg.graphics.sprites.units.ZombieSprite
 import com.jwbutler.krpg.players.Player
 import kotlin.random.Random
 
-private fun _getSprite() = ZombieSprite(PaletteSwaps.WHITE_TRANSPARENT)
-
 private val ACTIVITIES = setOf(Activity.STANDING, Activity.WALKING, Activity.ATTACKING, Activity.FALLING);
 
-class ZombieUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp, ACTIVITIES)
+class ZombieUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, coordinates, hp, ACTIVITIES)
 {
+    override val sprite = ZombieSprite(PaletteSwaps.WHITE_TRANSPARENT)
     override fun getCooldown(activity: Activity): Int
     {
         return when (activity)

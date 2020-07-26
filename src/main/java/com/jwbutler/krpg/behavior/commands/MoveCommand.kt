@@ -8,6 +8,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 class MoveCommand(override val source: Unit, private val target: Coordinates) : Command
 {
     override val type = CommandType.MOVE
+    private var path: List<Coordinates>? = null;
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {

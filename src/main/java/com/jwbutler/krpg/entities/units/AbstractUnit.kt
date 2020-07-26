@@ -14,8 +14,9 @@ import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
 import com.jwbutler.krpg.players.Player
 import kotlin.math.max
 
-abstract class AbstractUnit(private var player: Player, override val sprite: UnitSprite, coordinates: Coordinates, hp: Int, activities: Set<Activity>) : Unit
+abstract class AbstractUnit(private var player: Player, coordinates: Coordinates, hp: Int, activities: Set<Activity>) : Unit
 {
+    abstract override val sprite: UnitSprite
     private var command: Command
     private var activity: Activity
     private var direction: Direction

@@ -4,7 +4,6 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
-import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.graphics.FrameKey
 import com.jwbutler.krpg.graphics.Image

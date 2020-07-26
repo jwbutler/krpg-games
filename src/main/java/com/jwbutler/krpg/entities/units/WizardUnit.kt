@@ -7,8 +7,6 @@ import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
 import com.jwbutler.krpg.players.Player
 import kotlin.random.Random
 
-private fun _getSprite() = WizardSprite(PaletteSwaps.WHITE_TRANSPARENT)
-
 private val ACTIVITIES = setOf(
     Activity.APPEARING,
     Activity.FALLING,
@@ -18,8 +16,9 @@ private val ACTIVITIES = setOf(
     Activity.VANISHING
 )
 
-class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, _getSprite(), coordinates, hp, ACTIVITIES)
+class WizardUnit(player: Player, coordinates: Coordinates, hp: Int) : AbstractUnit(player, coordinates, hp, ACTIVITIES)
 {
+    override val sprite = WizardSprite(PaletteSwaps.WHITE_TRANSPARENT)
     override fun getCooldown(activity: Activity): Int
     {
         return when (activity)

@@ -6,6 +6,7 @@ import com.jwbutler.krpg.entities.Tile
 import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
+import com.jwbutler.krpg.entities.objects.Wall
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
@@ -25,7 +26,7 @@ fun main()
     val window = GameWindow.initialize()
 
     val state = GameState.initialize()
-    state.setTiles(_tileBox(20, 20))
+    state.setTiles(_tileBox(15, 15))
     val renderer = GameRenderer(window)
     val engine = GameEngine(state, renderer)
 
@@ -34,22 +35,28 @@ fun main()
         .put(Colors.DARK_GREEN, Colors.DARK_RED)
 
     val humanPlayer = HumanPlayer()
-    val playerUnit = PlayerUnit(humanPlayer, Coordinates(2, 4), 200, paletteSwaps)
+    val playerUnit = PlayerUnit(humanPlayer, Coordinates(4, 4), 200, paletteSwaps)
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
     playerUnit.addEquipment(MailArmor())
 
+    Wall(Coordinates(8, 3))
+    Wall(Coordinates(8, 4))
+    Wall(Coordinates(8, 5))
+    Wall(Coordinates(8, 6))
+    Wall(Coordinates(8, 7))
+
     val enemyPlayer = EnemyPlayer()
-    val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(5, 5), 50)
+    val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(12, 5), 50)
     enemyUnit.addEquipment(Sword())
-    val enemyZombie = ZombieUnit(enemyPlayer, Coordinates(5, 7), 50)
-    val enemyWizard = WizardUnit(enemyPlayer, Coordinates(0, 0), 50)
+    val enemyZombie = ZombieUnit(enemyPlayer, Coordinates(12, 7), 50)
+    val enemyWizard = WizardUnit(enemyPlayer, Coordinates(8, 9), 50)
 
     // TODO - should use a real event loop here
     while (true)
     {
         engine.doLoop()
-        sleep(100)
+        sleep(60)
     }
 }
 

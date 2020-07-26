@@ -100,7 +100,10 @@ private class GameStateImpl : GameState
 
     override fun isBlocked(coordinates: Coordinates): Boolean
     {
-        return coordinatesToUnit[coordinates] != null
+        return coordinatesToUnit[coordinates]?.isBlocking()
+            ?: coordinatesToObjects[coordinates]?.any(Entity::isBlocking)
+            ?: coordinatesToTile[coordinates]?.isBlocking()
+            ?: false
     }
 
     override fun setTiles(tiles: Map<Coordinates, Tile?>)
