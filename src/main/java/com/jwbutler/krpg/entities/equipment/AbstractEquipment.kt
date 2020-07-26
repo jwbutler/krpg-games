@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.entities.equipment
 
+import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.sprites.Sprite
@@ -7,6 +8,7 @@ import com.jwbutler.krpg.graphics.sprites.Sprite
 abstract class AbstractEquipment(override val sprite: Sprite) : Equipment
 {
     private var unit: Unit? = null
+    override var direction: Direction? = null
 
     override fun getUnit() = unit
     override fun getCoordinates() = unit?.getCoordinates() ?: GameState.getInstance().getCoordinates(this)

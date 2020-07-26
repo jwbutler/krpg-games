@@ -47,7 +47,7 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
         {
             return _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         }
-        return _getFrame(Activity.DEAD, Direction.SE, 1)
+        return _getFrame(Activity.DEAD, equipment.direction!!, 1)
     }
 
     private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey

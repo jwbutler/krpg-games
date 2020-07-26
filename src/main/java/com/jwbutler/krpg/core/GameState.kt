@@ -107,10 +107,10 @@ private class GameStateImpl : GameState
     {
         coordinatesToTile.clear()
         coordinatesToTile.putAll(tiles)
-        coordinatesToTile.forEach { coordinates, tile ->
+        coordinatesToTile.forEach { (coordinates, tile) ->
             if (tile != null)
             {
-                entityToCoordinates.put(tile, coordinates)
+                entityToCoordinates[tile] = coordinates
             }
         }
     }
@@ -138,6 +138,7 @@ private class GameStateImpl : GameState
     override fun addUnit(unit: Unit, coordinates: Coordinates)
     {
         check(coordinatesToTile[coordinates] != null) { "Can't add unit, no tile at ${coordinates}" }
+        check(!isBlocked(coordinates))
         check(coordinatesToUnit[coordinates] == null) { "Can't add another unit at ${coordinates}" }
         entityToCoordinates[unit] = coordinates
         coordinatesToUnit[coordinates] = unit
@@ -155,6 +156,7 @@ private class GameStateImpl : GameState
     {
         check(coordinatesToTile[coordinates] != null) { "Can't add unit, no tile at ${coordinates}" }
         check(coordinatesToUnit[coordinates] == null) { "Can't add another unit at ${coordinates}" }
+        check(!isBlocked(coordinates))
 
         coordinatesToUnit.remove(unit.getCoordinates())
         entityToCoordinates.remove(unit)

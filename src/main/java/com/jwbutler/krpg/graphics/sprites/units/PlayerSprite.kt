@@ -45,7 +45,6 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(
                 {
                     val frames = mutableListOf<FrameKey>()
                     frames.addAll(arrayOf(1, 2, 2, 1).map { FrameKey(Activity.ATTACKING, direction, it) })
-                    frames.addAll(arrayOf(1, 1).map { FrameKey(Activity.STANDING, direction, it) })
                     return frames
                 }
                 Activity.FALLING -> arrayOf(1, 1, 2, 2, 3, 3, 4, 4).map {

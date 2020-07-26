@@ -21,5 +21,12 @@ class PlayerUnit
     paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
 ) : AbstractUnit(player, PlayerSprite(paletteSwaps), coordinates, hp, ACTIVITIES)
 {
-    override fun getCooldown(activity: Activity): Int = 0
+    override fun getCooldown(activity: Activity): Int
+    {
+        return when(activity)
+        {
+            Activity.ATTACKING -> 2
+            else -> 0
+        }
+    }
 }

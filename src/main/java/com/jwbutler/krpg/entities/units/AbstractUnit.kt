@@ -28,7 +28,7 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
     private var maxHP: Int
 
     private val remainingCooldowns = mutableMapOf<Activity, Int>()
-    protected val activities = activities.toMutableSet()
+    private val activities = activities.toMutableSet()
 
     init
     {
@@ -113,11 +113,14 @@ abstract class AbstractUnit(private var player: Player, override val sprite: Uni
         val state = GameState.getInstance()
         val coordinates = getCoordinates()
         val corpse = Corpse(this)
-        for (equipment in this.getEquipment().values)
+        val equipmentList = getEquipment().values.toMutableList()
+        while (equipmentList.isNotEmpty())
         {
+            val equipment = equipmentList.removeAt(0)
             equipment.setUnit(null)
             state.removeEquipment(equipment, this)
             state.addEquipment(equipment, coordinates)
+            equipment.direction = this.direction
         }
         state.removeUnit(this)
         player.removeUnit(this)
