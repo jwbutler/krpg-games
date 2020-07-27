@@ -56,7 +56,7 @@ fun main()
     while (true)
     {
         engine.doLoop()
-        sleep(60)
+        sleep(100)
     }
 }
 

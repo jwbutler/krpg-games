@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.core.GameState
+import com.jwbutler.krpg.graphics.GameWindow
 import kotlin.math.sqrt
 
 object GeometryUtils
@@ -36,5 +37,13 @@ object GeometryUtils
         val dx = first.x - second.x
         val dy = first.y - second.y
         return sqrt((dx*dx + dy*dy).toDouble())
+    }
+
+    fun coordinatesToPixel(coordinates: Coordinates): Pixel
+    {
+        val cameraCoordinates = GameState.getInstance().getCameraCoordinates()
+        val x = (coordinates.x - cameraCoordinates.x) * TILE_WIDTH + (GameWindow.WIDTH / 2) - (TILE_WIDTH / 2)
+        val y = (coordinates.y - cameraCoordinates.y) * TILE_HEIGHT + (GameWindow.HEIGHT / 2) - (TILE_HEIGHT / 2)
+        return Pixel(x, y)
     }
 }

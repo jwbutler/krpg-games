@@ -7,6 +7,7 @@ import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
@@ -17,7 +18,11 @@ import java.lang.IllegalStateException
  */
 interface GameState
 {
+    // Global stuff
     var ticks: Int
+
+    // UI stuff
+    fun getCameraCoordinates(): Coordinates
 
     // Coordinates
 
@@ -87,12 +92,15 @@ interface GameState
 private class GameStateImpl : GameState
 {
     override var ticks = 0
+
     private val players: MutableSet<Player> = mutableSetOf()
     private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
     private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
     private val coordinatesToTile: MutableMap<Coordinates, Tile?> = mutableMapOf()
     private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
     private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
+
+    override fun getCameraCoordinates() = _getPlayerUnit().getCoordinates()
 
     override fun getAllCoordinates(): Collection<Coordinates> = coordinatesToTile.keys
 
@@ -217,5 +225,18 @@ private class GameStateImpl : GameState
         check(coordinatesToObjects[coordinates]?.contains(equipment) ?: true)
         entityToCoordinates.remove(equipment)
         coordinatesToObjects[coordinates]!!.remove(equipment)
+    }
+
+    companion object
+    {
+        private fun _getPlayerUnit(): Unit
+        {
+            return (GameState.getInstance()
+                .getPlayers()
+                .find { it is HumanPlayer }
+                ?.getUnits()
+                ?.firstOrNull()
+                ?: error("Could not find player unit"))
+        }
     }
 }

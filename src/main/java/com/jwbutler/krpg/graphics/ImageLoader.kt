@@ -52,6 +52,7 @@ class ImageLoader private constructor()
         val fullFilename = "/png/${filename}.png"
         try
         {
+            var c = ImageLoader::class
             val url = ImageLoader::class.java.getResource(fullFilename) ?: error("Could not open filename ${fullFilename}")
             return ImageIO.read(url.openStream())
         }

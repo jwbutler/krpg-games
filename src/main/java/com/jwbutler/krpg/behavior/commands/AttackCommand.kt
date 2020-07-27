@@ -38,28 +38,17 @@ class AttackCommand(override val source: Unit, private val target: Unit) : Comma
     {
         if (source.isActivityReady(Activity.WALKING))
         {
-            var next = _findNextCoordinates(path!!, source.getCoordinates())
+            var next = Pathfinder.findNextCoordinates(path!!, source.getCoordinates())
             if (next == null)
             {
                 path = Pathfinder.findPath(source, target)
-                next = _findNextCoordinates(path!!, source.getCoordinates())
+                next = Pathfinder.findNextCoordinates(path!!, source.getCoordinates())
             }
             if (next != null)
             {
                 val direction = Direction.between(next, source.getCoordinates())
                 return Pair(Activity.WALKING, direction)
             }
-        }
-        return null
-    }
-
-    private fun _findNextCoordinates(path: List<Coordinates>?, current: Coordinates): Coordinates?
-    {
-        if (path != null)
-        {
-            val index = path.indexOf(source.getCoordinates())
-            check(index < path.lastIndex)
-            return path[index + 1]
         }
         return null
     }

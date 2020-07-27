@@ -5,7 +5,7 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.GeometryUtils
-import com.jwbutler.krpg.geometry.IntPair
+import com.jwbutler.krpg.sounds.SoundPlayer
 
 enum class Activity
 {
@@ -35,6 +35,8 @@ enum class Activity
             {
                 val damage = unit.getDamage(this)
                 targetUnit.takeDamage(damage)
+                // TODO: Should this be a unit-specific sound?
+                SoundPlayer.playSoundAsync("hit1.wav")
             }
         }
     },
@@ -56,6 +58,7 @@ enum class Activity
             val corpse = state.getEntities()
                 .filterIsInstance<Corpse>()
                 .firstOrNull { it.getCoordinates() == unit.getCoordinates() || !it.getCoordinates().isBlocked() }
+
             if (corpse != null)
             {
                 val candidates = GeometryUtils.getAdjacentUnblockedCoordinates(unit.getCoordinates())

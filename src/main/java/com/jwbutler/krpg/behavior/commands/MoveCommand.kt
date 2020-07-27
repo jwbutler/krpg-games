@@ -4,11 +4,12 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.Pathfinder
 
 class MoveCommand(override val source: Unit, private val target: Coordinates) : Command
 {
     override val type = CommandType.MOVE
-    private var path: List<Coordinates>? = null;
+    private var path: List<Coordinates>? = Pathfinder.findPath(source.getCoordinates(), target)
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
@@ -18,12 +19,17 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
 
     private fun _tryWalk(): Pair<Activity, Direction>?
     {
-        val direction = Direction.closestBetween(target, source.getCoordinates())
         if (source.isActivityReady(Activity.WALKING))
         {
-            val isBlocked = (source.getCoordinates() + direction).isBlocked()
-            if (!isBlocked)
+            var next = Pathfinder.findNextCoordinates(path!!, source.getCoordinates())
+            if (next == null)
             {
+                path = Pathfinder.findPath(source.getCoordinates(), target)
+                next = Pathfinder.findNextCoordinates(path!!, source.getCoordinates())
+            }
+            if (next != null)
+            {
+                val direction = Direction.between(next, source.getCoordinates())
                 return Pair(Activity.WALKING, direction)
             }
         }

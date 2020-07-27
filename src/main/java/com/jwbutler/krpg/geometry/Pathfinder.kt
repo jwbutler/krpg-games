@@ -17,14 +17,25 @@ class Pathfinder
         {
             return findPath(first.getCoordinates(), second.getCoordinates())
         }
+
+        fun findNextCoordinates(path: List<Coordinates>?, current: Coordinates): Coordinates?
+        {
+            if (path != null)
+            {
+                val index = path.indexOf(current)
+                check(index < path.lastIndex)
+                return path[index + 1]
+            }
+            return null
+        }
     }
 }
 
-enum class Impl
+private enum class Impl
 {
     DIJKSTRA
     {
-        private val INFINITY = 99999.toDouble()
+        private val INFINITY = Integer.MAX_VALUE
 
         override fun findPath(source: Coordinates, target: Coordinates): List<Coordinates>?
         {
@@ -39,7 +50,7 @@ enum class Impl
 
             for (coordinates in allCoordinates.minus(source))
             {
-                bestKnownDistances[coordinates] = INFINITY
+                bestKnownDistances[coordinates] = INFINITY.toDouble()
                 queue.offer(coordinates)
             }
 

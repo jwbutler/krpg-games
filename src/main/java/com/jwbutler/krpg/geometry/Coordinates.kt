@@ -5,6 +5,7 @@ import com.jwbutler.krpg.core.GameState
 
 const val TILE_WIDTH = 24
 const val TILE_HEIGHT = 12
+
 data class Coordinates(override val x: Int, override val y: Int) : IntPair
 {
     operator fun plus(other: IntPair): Coordinates = Coordinates(x + other.x, y + other.y)
@@ -14,12 +15,7 @@ data class Coordinates(override val x: Int, override val y: Int) : IntPair
     /**
      * @return the top-left corner of the floor tile at these coordinates
      */
-    fun toPixel(): Pixel
-    {
-        val x = this.x * TILE_WIDTH
-        val y = this.y * TILE_HEIGHT
-        return Pixel(x, y)
-    }
+    fun toPixel(): Pixel = GeometryUtils.coordinatesToPixel(this)
 
     fun isBlocked(): Boolean
     {
