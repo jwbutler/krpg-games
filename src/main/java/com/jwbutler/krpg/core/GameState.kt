@@ -99,7 +99,7 @@ private class GameStateImpl : GameState
     private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
     private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
 
-    override fun getCameraCoordinates() = _getPlayerUnit().getCoordinates()
+    override fun getCameraCoordinates() = Coordinates(5, 5) // TODO // _getPlayerUnit().getCoordinates()
 
     override fun getAllCoordinates(): Collection<Coordinates> = coordinatesToTile.keys
 
@@ -224,18 +224,5 @@ private class GameStateImpl : GameState
         check(coordinatesToObjects[coordinates]?.contains(equipment) ?: true)
         entityToCoordinates.remove(equipment)
         coordinatesToObjects[coordinates]!!.remove(equipment)
-    }
-
-    companion object
-    {
-        private fun _getPlayerUnit(): Unit
-        {
-            return GameState.getInstance()
-                .getPlayers()
-                .firstOrNull(Player::isHuman)
-                ?.getUnits()
-                ?.firstOrNull()
-                ?: error("Could not find player unit")
-        }
     }
 }
