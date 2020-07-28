@@ -7,10 +7,6 @@ import javax.sound.sampled.LineEvent
 
 private const val SOUNDS_FOLDER = "sounds"
 
-/**
- * Used to play sounds.
- * TODO Music
- */
 object SoundPlayer
 {
     fun playSoundAsync(filename: String) = GlobalScope.launch { _playSound(filename) }

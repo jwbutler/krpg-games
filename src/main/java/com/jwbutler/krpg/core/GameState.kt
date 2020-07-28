@@ -231,12 +231,12 @@ private class GameStateImpl : GameState
     {
         private fun _getPlayerUnit(): Unit
         {
-            return (GameState.getInstance()
+            return GameState.getInstance()
                 .getPlayers()
                 .find { it is HumanPlayer }
                 ?.getUnits()
                 ?.firstOrNull()
-                ?: error("Could not find player unit"))
+                ?: error("Could not find player unit")
         }
     }
 }

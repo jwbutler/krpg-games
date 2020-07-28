@@ -8,15 +8,13 @@ import com.jwbutler.krpg.geometry.Coordinates
 class DirectionalAttackCommand(override val source: Unit, private val target: Coordinates) : Command
 {
     override val type = CommandType.ATTACK
+
     private var hasAttacked = false
 
     override fun chooseActivity(): Pair<Activity, Direction>
     {
         val direction = Direction.closestBetween(target, source.getCoordinates())
-        if (
-            !hasAttacked
-            && (source.getRemainingCooldown(Activity.ATTACKING) <= 0)
-        )
+        if (!hasAttacked && source.isActivityReady(Activity.ATTACKING))
         {
             hasAttacked = true
             return Pair(Activity.ATTACKING, direction)

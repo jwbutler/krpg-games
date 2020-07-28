@@ -60,7 +60,7 @@ fun main()
     }
 }
 
-fun _tileBox(width: Int, height: Int): Map<Coordinates, Tile?>
+private fun _tileBox(width: Int, height: Int): Map<Coordinates, Tile?>
 {
     val tiles: MutableMap<Coordinates, Tile?> = mutableMapOf()
     for (y in (0 until height))

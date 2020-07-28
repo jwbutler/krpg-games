@@ -60,10 +60,7 @@ enum class UnitAI
                 .filterIsInstance<Corpse>()
                 .firstOrNull { it.getCoordinates() == unit.getCoordinates() || !it.getCoordinates().isBlocked() }
 
-            if (
-                (unit.getRemainingCooldown(Activity.RESURRECTING) <= 0)
-                && corpse != null
-            )
+            if (corpse != null && unit.isActivityReady(Activity.RESURRECTING))
             {
                 return ResurrectCommand(unit, corpse)
             }

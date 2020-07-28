@@ -13,6 +13,7 @@ private val OFFSETS = PlayerSprite.OFFSETS + IntPair.of(0, 4)
 class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("robed_wizard", paletteSwaps.withTransparentColor(Color.WHITE))
 {
     override val offsets = OFFSETS
+
     override fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>
     {
         return when (activity)

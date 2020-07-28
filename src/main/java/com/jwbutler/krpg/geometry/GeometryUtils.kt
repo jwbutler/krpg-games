@@ -2,6 +2,7 @@ package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.graphics.GameWindow
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 object GeometryUtils
@@ -30,6 +31,11 @@ object GeometryUtils
     fun getAdjacentUnblockedCoordinates(coordinates: Coordinates): Set<Coordinates>
     {
         return getAdjacentCoordinates(coordinates).filter { !it.isBlocked() }.toSet()
+    }
+
+    fun manhattanDistance(first: Coordinates, second: Coordinates): Int
+    {
+        return abs(first.x - second.x) + abs(first.y + second.y)
     }
 
     fun hypotenuse(first: Coordinates, second: Coordinates): Double
