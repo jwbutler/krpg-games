@@ -21,11 +21,11 @@ class MoveCommand(override val source: Unit, private val target: Coordinates) : 
     {
         if (source.isActivityReady(Activity.WALKING))
         {
-            var next = Pathfinder.findNextCoordinates(path!!, source.getCoordinates())
+            var next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
             if (next == null)
             {
                 path = Pathfinder.findPath(source.getCoordinates(), target)
-                next = Pathfinder.findNextCoordinates(path!!, source.getCoordinates())
+                next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
             }
             if (next != null)
             {

@@ -4,8 +4,8 @@ import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.GeometryUtils
 import com.jwbutler.krpg.sounds.SoundPlayer
+import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
 
 enum class Activity
 {
@@ -61,7 +61,7 @@ enum class Activity
 
             if (corpse != null)
             {
-                val candidates = GeometryUtils.getAdjacentUnblockedCoordinates(unit.getCoordinates())
+                val candidates = getAdjacentUnblockedCoordinates(unit.getCoordinates())
                 if (candidates.isNotEmpty())
                 {
                     state.removeObject(corpse)

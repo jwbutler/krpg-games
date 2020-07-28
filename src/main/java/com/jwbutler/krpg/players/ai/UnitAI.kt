@@ -10,7 +10,8 @@ import com.jwbutler.krpg.behavior.commands.WanderCommand
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.krpg.utils.getPlayerUnits
+import com.jwbutler.krpg.utils.manhattanDistance
 import kotlin.random.Random
 
 enum class UnitAI
@@ -26,8 +27,9 @@ enum class UnitAI
     {
         override fun chooseCommand(unit: Unit): Command
         {
-            val playerUnit = _getPlayerUnit()
-            return AttackCommand(unit, playerUnit)
+            val targetUnit = getPlayerUnits()
+                .minBy { manhattanDistance(it, unit) }!! // assume player units exist
+            return AttackCommand(unit, targetUnit)
         }
     },
     WANDER
@@ -69,15 +71,5 @@ enum class UnitAI
     };
 
     abstract fun chooseCommand(unit: Unit): Command
-
-    protected fun _getPlayerUnit(): Unit
-    {
-        return (GameState.getInstance()
-            .getPlayers()
-            .find { it is HumanPlayer }
-            ?.getUnits()
-            ?.firstOrNull()
-            ?: error("Could not find player unit"))
-    }
 }
 

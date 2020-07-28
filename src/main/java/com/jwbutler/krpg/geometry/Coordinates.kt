@@ -2,6 +2,7 @@ package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
+import com.jwbutler.krpg.utils.coordinatesToPixel
 
 const val TILE_WIDTH = 24
 const val TILE_HEIGHT = 12
@@ -15,7 +16,7 @@ data class Coordinates(override val x: Int, override val y: Int) : IntPair
     /**
      * @return the top-left corner of the floor tile at these coordinates
      */
-    fun toPixel(): Pixel = GeometryUtils.coordinatesToPixel(this)
+    fun toPixel(): Pixel = coordinatesToPixel(this)
 
     fun isBlocked(): Boolean
     {

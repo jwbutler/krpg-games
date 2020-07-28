@@ -2,12 +2,11 @@ package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.geometry.Pixel
 import java.awt.event.KeyListener
-import java.awt.event.WindowAdapter
-import java.awt.event.WindowEvent
+import java.awt.event.MouseListener
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
-import kotlin.system.exitProcess
+import javax.swing.WindowConstants
 
 class GameWindow private constructor()
 {
@@ -18,16 +17,13 @@ class GameWindow private constructor()
     init
     {
         panel.setSize(SCALED_WIDTH, SCALED_HEIGHT)
-        frame.setSize(SCALED_WIDTH, SCALED_HEIGHT)
+        val insets = frame.getInsets()
+        val outerWidth = SCALED_WIDTH + insets.left + insets.right
+        val outerHeight = SCALED_WIDTH + insets.top + insets.bottom
+        frame.setSize(outerWidth, outerHeight)
         frame.add(panel)
         frame.setVisible(true)
-        frame.addWindowListener(object : WindowAdapter()
-        {
-            override fun windowClosing(e: WindowEvent?)
-            {
-                exitProcess(0)
-            }
-        })
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     }
 
     fun clearBuffer()
@@ -46,10 +42,17 @@ class GameWindow private constructor()
         panel.getGraphics().drawImage(scaled, 0, 0, null)
     }
 
-    fun addKeyListener(keyListener: KeyListener)
+    fun mapPixel(p: Pixel): Pixel
     {
-        frame.addKeyListener(keyListener)
+        val insets = frame.getInsets()
+        return Pixel(
+            (p.x - insets.left) / SCALE_FACTOR,
+            (p.y - insets.top) / SCALE_FACTOR
+        )
     }
+
+    fun addKeyListener(keyListener: KeyListener) = frame.addKeyListener(keyListener)
+    fun addMouseListener(mouseListener: MouseListener) = frame.addMouseListener(mouseListener)
 
     companion object
     {
@@ -58,6 +61,8 @@ class GameWindow private constructor()
 
         const val SCALED_WIDTH = 1280
         const val SCALED_HEIGHT = 720
+
+        const val SCALE_FACTOR = 4
 
         private var INSTANCE: GameWindow? = null
 

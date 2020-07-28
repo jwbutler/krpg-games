@@ -12,8 +12,9 @@ import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.lang.Math.abs
 
-class HumanPlayer : AbstractPlayer()
+class KeyboardPlayer : AbstractPlayer()
 {
+    override val isHuman = true
     private val queuedDirections = mutableSetOf<Int>()
     private val heldDirections = mutableSetOf<Int>()
     private val queuedModifiers = mutableSetOf<Int>()

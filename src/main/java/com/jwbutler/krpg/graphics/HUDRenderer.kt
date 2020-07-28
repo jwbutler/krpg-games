@@ -3,7 +3,7 @@ package com.jwbutler.krpg.graphics
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.krpg.players.KeyboardPlayer
 import com.jwbutler.krpg.players.Player
 import java.awt.Graphics2D
 import kotlin.math.round
@@ -41,10 +41,11 @@ object HUDRenderer
 
         graphics.color = Colors.BLACK
         graphics.fillRect(0, 0, WIDTH, HEIGHT)
+
         val playerUnit: Unit = GameState.getInstance().getPlayers()
-            .filterIsInstance<HumanPlayer>()
-            .flatMap(Player::getUnits)
-            .firstOrNull()
+            .find(Player::isHuman)
+            ?.getUnits()
+            ?.firstOrNull()
             ?: error("No player unit found")
 
         val fullPercentage = 100.0 * playerUnit.getCurrentHP() / playerUnit.getMaxHP()

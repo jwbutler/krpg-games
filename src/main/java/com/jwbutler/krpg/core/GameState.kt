@@ -7,7 +7,6 @@ import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
@@ -233,7 +232,7 @@ private class GameStateImpl : GameState
         {
             return GameState.getInstance()
                 .getPlayers()
-                .find { it is HumanPlayer }
+                .firstOrNull(Player::isHuman)
                 ?.getUnits()
                 ?.firstOrNull()
                 ?: error("Could not find player unit")
