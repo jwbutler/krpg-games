@@ -60,7 +60,7 @@ class KeyboardPlayer : HumanPlayer()
         return StayCommand(unit)
     }
 
-    override fun getOverlays() = listOf<Overlay>()
+    override fun getOverlays() = mutableMapOf<Coordinates, Overlay>()
 
     private fun _getKeyListener() = object : KeyAdapter()
     {

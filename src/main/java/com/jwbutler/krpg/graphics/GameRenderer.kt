@@ -30,7 +30,7 @@ class GameRenderer(private val window: GameWindow)
         val entities = state.getEntities()
         val players = state.getPlayers()
         val overlays = players.filterIsInstance<HumanPlayer>()
-            .flatMap(HumanPlayer::getOverlays)
+            .flatMap { it.getOverlays().values }
 
         val renderables = entities.plus(overlays).map { it to it.render() }
 

@@ -6,7 +6,7 @@ import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Overlay
-import com.jwbutler.krpg.entities.OverlayUtils
+import com.jwbutler.krpg.entities.OverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
@@ -36,20 +36,26 @@ class MousePlayer : HumanPlayer()
             ?: StayCommand(unit)
     }
 
-    override fun getOverlays(): Collection<Overlay>
+    override fun getOverlays(): Map<Coordinates, Overlay>
     {
-        val overlays = mutableListOf<Overlay>()
+        val overlays = mutableMapOf<Coordinates, Overlay>()
 
         val playerUnits = getPlayerUnits()
         for (unit in playerUnits)
         {
-            overlays += OverlayUtils.createPlayerOverlay(unit.getCoordinates(), true)
+            overlays[unit.getCoordinates()] = OverlayFactory.createPlayerOverlay(unit.getCoordinates(), true)
         }
 
         val targetUnits = getTargetedEnemies(playerUnits)
         for (unit in targetUnits)
         {
-            overlays += OverlayUtils.createEnemyoverlay(unit.getCoordinates(), true)
+            overlays[unit.getCoordinates()] = OverlayFactory.createEnemyoverlay(unit.getCoordinates(), true)
+        }
+
+        val targetCoordinates = _getTargetedCoordinates(playerUnits)
+        for (coordinates in targetCoordinates)
+        {
+            overlays[coordinates] = OverlayFactory.createPositionOverlay(coordinates, true)
         }
 
         return overlays
@@ -77,27 +83,44 @@ class MousePlayer : HumanPlayer()
         }
     }
 
-    private fun _tryAttack(u: Unit, coordinates: Coordinates): Command?
+    companion object
     {
-        if (coordinates != u.getCoordinates())
+        private fun _tryAttack(u: Unit, coordinates: Coordinates): Command?
         {
-            val targetUnit = GameState.getInstance().getUnit(coordinates)
-            if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
+            if (coordinates != u.getCoordinates())
             {
-                return AttackCommand(u, targetUnit)
+                val targetUnit = GameState.getInstance().getUnit(coordinates)
+                if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
+                {
+                    return AttackCommand(u, targetUnit)
+                }
             }
+            return null
         }
-        return null
-    }
 
-    private fun _tryMove(u: Unit, coordinates: Coordinates): Command?
-    {
-        if (coordinates != u.getCoordinates())
+        private fun _tryMove(u: Unit, coordinates: Coordinates): Command?
         {
-            return MoveCommand(u, coordinates)
+            if (coordinates != u.getCoordinates())
+            {
+                return MoveCommand(u, coordinates)
+            }
+            return null
         }
-        return null
+
+        private fun _stay(u: Unit, coordinates: Coordinates) = StayCommand(u)
+
+        private fun _getTargetedCoordinates(units: Collection<Unit>): Collection<Coordinates>
+        {
+            val coordinates = mutableListOf<Coordinates>()
+            for (unit in units)
+            {
+                when (val command = unit.getCommand())
+                {
+                    is MoveCommand -> coordinates += command.target
+                }
+            }
+            return coordinates
+        }
     }
 
-    private fun _stay(u: Unit, coordinates: Coordinates) = StayCommand(u)
 }

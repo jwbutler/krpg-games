@@ -4,6 +4,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.utils.coordinatesToPixel
 
+// TODO put these somewhere else
 const val TILE_WIDTH = 24
 const val TILE_HEIGHT = 12
 
