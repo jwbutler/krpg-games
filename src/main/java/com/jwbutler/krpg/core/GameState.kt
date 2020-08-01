@@ -7,6 +7,7 @@ import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.players.Player
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
@@ -71,21 +72,7 @@ interface GameState
     fun addEquipment(equipment: Equipment, coordinates: Coordinates)
     fun removeEquipment(equipment: Equipment)
 
-    companion object
-    {
-        private var INSTANCE: GameState? = null
-
-        fun getInstance(): GameState
-        {
-            return INSTANCE ?: throw IllegalStateException()
-        }
-
-        fun initialize(): GameState
-        {
-            INSTANCE = GameStateImpl()
-            return INSTANCE!!
-        }
-    }
+    companion object : SingletonHolder<GameState>(::GameStateImpl)
 }
 
 private class GameStateImpl : GameState

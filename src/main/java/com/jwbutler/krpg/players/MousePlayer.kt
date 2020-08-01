@@ -4,16 +4,19 @@ import com.jwbutler.krpg.behavior.commands.AttackCommand
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
+import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Overlay
 import com.jwbutler.krpg.entities.OverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.getTargetedEnemies
 import com.jwbutler.krpg.utils.pixelToCoordinates
+import java.awt.event.KeyAdapter
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
@@ -23,11 +26,6 @@ private typealias CommandSupplier = (Unit) -> Command
 class MousePlayer : HumanPlayer()
 {
     private var queuedCommands = mutableMapOf<Unit, CommandSupplier>()
-
-    init
-    {
-        GameWindow.getInstance().addMouseListener(_getMouseListener())
-    }
 
     override fun chooseCommand(unit: Unit): Command
     {
@@ -61,7 +59,21 @@ class MousePlayer : HumanPlayer()
         return overlays
     }
 
-    private fun _getMouseListener(): MouseListener
+    override fun getKeyListener(): KeyListener
+    {
+        return object : KeyAdapter()
+        {
+            override fun keyReleased(e: KeyEvent)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE)
+                {
+                    GameEngine.getInstance().togglePause()
+                }
+            }
+        }
+    }
+
+    override fun getMouseListener(): MouseListener
     {
         return object : MouseAdapter()
         {

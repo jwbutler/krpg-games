@@ -13,22 +13,19 @@ import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
-import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.MousePlayer
-import java.lang.Thread.sleep
 
 fun main()
 {
     ImageLoader.initialize()
-    val window = GameWindow.initialize()
 
     val state = GameState.initialize()
     state.setTiles(_tileBox(15, 15))
-    val renderer = GameRenderer(window)
-    val engine = GameEngine(state, renderer)
+    val renderer = GameRenderer.initialize()
+    val engine = GameEngine.initialize()
 
     val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
         .put(Colors.GREEN, Colors.RED)
@@ -57,12 +54,7 @@ fun main()
     val enemyZombie = ZombieUnit(enemyPlayer, Coordinates(12, 7), 50)
     val enemyWizard = WizardUnit(enemyPlayer, Coordinates(8, 9), 50)
 
-    // TODO - should use a real event loop here
-    while (true)
-    {
-        engine.doLoop()
-        sleep(100)
-    }
+    engine.start()
 }
 
 private fun _tileBox(width: Int, height: Int): Map<Coordinates, Tile?>

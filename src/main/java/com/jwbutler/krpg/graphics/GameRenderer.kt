@@ -1,11 +1,13 @@
 package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.core.GameState
+import com.jwbutler.krpg.core.SingletonHolder
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.players.HumanPlayer
 
-class GameRenderer(private val window: GameWindow)
+class GameRenderer
 {
+    private val window = GameWindow.initialize()
     fun render()
     {
         window.clearBuffer()
@@ -38,4 +40,6 @@ class GameRenderer(private val window: GameWindow)
             .sortedBy { it.second.layer }
             .sortedBy { it.first.getCoordinates().y }
     }
+
+    companion object : SingletonHolder<GameRenderer>(::GameRenderer)
 }

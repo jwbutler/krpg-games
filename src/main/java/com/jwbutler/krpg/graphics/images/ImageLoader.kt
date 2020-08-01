@@ -1,5 +1,7 @@
 package com.jwbutler.krpg.graphics.images
 
+import com.jwbutler.krpg.core.SingletonHolder
+
 class ImageLoader private constructor()
 {
     fun loadImage(filename: String, paletteSwaps: PaletteSwaps? = null): Image
@@ -18,18 +20,5 @@ class ImageLoader private constructor()
         return null
     }
 
-    companion object
-    {
-        private var INSTANCE : ImageLoader? = null
-
-        fun getInstance(): ImageLoader
-        {
-            return INSTANCE ?: error("ImageLoader has not been instantiated")
-        }
-
-        fun initialize()
-        {
-            INSTANCE = ImageLoader()
-        }
-    }
+    companion object : SingletonHolder<ImageLoader>(::ImageLoader)
 }

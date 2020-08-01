@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.graphics
 
+import com.jwbutler.krpg.core.SingletonHolder
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.images.Image
 import java.awt.event.KeyListener
@@ -54,7 +55,7 @@ class GameWindow private constructor()
     fun addKeyListener(keyListener: KeyListener) = frame.addKeyListener(keyListener)
     fun addMouseListener(mouseListener: MouseListener) = frame.addMouseListener(mouseListener)
 
-    companion object
+    companion object : SingletonHolder<GameWindow>(::GameWindow)
     {
         const val WIDTH = 320
         const val HEIGHT = 180
@@ -63,15 +64,5 @@ class GameWindow private constructor()
         const val SCALED_HEIGHT = 720
 
         const val SCALE_FACTOR = 4
-
-        private var INSTANCE: GameWindow? = null
-
-        fun initialize(): GameWindow
-        {
-            INSTANCE = GameWindow()
-            return INSTANCE!!
-        }
-
-        fun getInstance(): GameWindow = INSTANCE ?: error("GameWindow was not initialized")
     }
 }
