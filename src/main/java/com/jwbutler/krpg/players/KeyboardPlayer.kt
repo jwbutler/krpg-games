@@ -5,16 +5,17 @@ import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameState
+import com.jwbutler.krpg.entities.Overlay
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.sprites.Sprite
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.lang.Math.abs
 
-class KeyboardPlayer : AbstractPlayer()
+class KeyboardPlayer : HumanPlayer()
 {
-    override val isHuman = true
     private val queuedDirections = mutableSetOf<Int>()
     private val heldDirections = mutableSetOf<Int>()
     private val queuedModifiers = mutableSetOf<Int>()
@@ -58,6 +59,8 @@ class KeyboardPlayer : AbstractPlayer()
         }
         return StayCommand(unit)
     }
+
+    override fun getOverlays() = listOf<Overlay>()
 
     private fun _getKeyListener() = object : KeyAdapter()
     {

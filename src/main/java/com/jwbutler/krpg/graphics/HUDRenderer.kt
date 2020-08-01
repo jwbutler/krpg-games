@@ -5,8 +5,9 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
+import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
-import java.awt.Graphics2D
+import com.jwbutler.krpg.utils.getPlayerUnits
 import kotlin.math.round
 
 private const val WIDTH = GameWindow.WIDTH
@@ -43,11 +44,7 @@ object HUDRenderer
         graphics.color = Colors.BLACK
         graphics.fillRect(0, 0, WIDTH, HEIGHT)
 
-        val playerUnit: Unit = GameState.getInstance().getPlayers()
-            .find(Player::isHuman)
-            ?.getUnits()
-            ?.firstOrNull()
-            ?: error("No player unit found")
+        val playerUnit = getPlayerUnits().first()
 
         val fullPercentage = 100.0 * playerUnit.getCurrentHP() / playerUnit.getMaxHP()
         val healthWidth = round((width - 2) * fullPercentage / 100.0).toInt()

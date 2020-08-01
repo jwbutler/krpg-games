@@ -2,8 +2,10 @@ package com.jwbutler.krpg.graphics.images
 
 import java.awt.Color
 
-class PaletteSwaps(delegate: Map<Color, Color>)
+class PaletteSwaps
+private constructor(delegate: Map<Color, Color>)
 {
+    constructor(vararg pairs: Pair<Color, Color>) : this(mapOf(*pairs))
     constructor() : this(mutableMapOf())
 
     private val delegate = delegate.toMutableMap()

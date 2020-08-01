@@ -14,13 +14,15 @@ interface Entity
      * while dependent entities such as equipment will delegate to their owner
      */
     fun getCoordinates(): Coordinates
-    fun isBlocking(): Boolean
+    fun getX() = getCoordinates().x
+    fun getY() = getCoordinates().y
+    fun isBlocking(): Boolean = false
     /**
      * Syntactic sugar for [GameState.containsEntity].
      */
-    fun exists(): Boolean
+    fun exists(): Boolean = false
 
-    fun update()
+    fun update() {}
     fun render(): Renderable
-    fun afterRender()
+    fun afterRender() {}
 }

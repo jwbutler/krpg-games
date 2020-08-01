@@ -2,13 +2,14 @@ package com.jwbutler.krpg.utils
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.krpg.players.HumanPlayer
 
 fun getPlayerUnits(): Collection<Unit>
 {
-    return GameState.getInstance()
+    val humanPlayer = GameState.getInstance()
         .getPlayers()
-        .find(Player::isHuman)
-        ?.getUnits()
-        ?: error("Could not find player units")
+        .filterIsInstance<HumanPlayer>()
+        .firstOrNull()
+        ?: error("Could not find human player")
+    return humanPlayer.getUnits()
 }

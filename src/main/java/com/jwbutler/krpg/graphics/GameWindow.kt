@@ -19,7 +19,7 @@ class GameWindow private constructor()
         panel.setSize(SCALED_WIDTH, SCALED_HEIGHT)
         val insets = frame.getInsets()
         val outerWidth = SCALED_WIDTH + insets.left + insets.right
-        val outerHeight = SCALED_WIDTH + insets.top + insets.bottom
+        val outerHeight = SCALED_HEIGHT + insets.top + insets.bottom
         frame.setSize(outerWidth, outerHeight)
         frame.add(panel)
         frame.setVisible(true)

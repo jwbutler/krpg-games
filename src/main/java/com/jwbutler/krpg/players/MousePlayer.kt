@@ -5,21 +5,24 @@ import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameState
+import com.jwbutler.krpg.entities.Entity
+import com.jwbutler.krpg.entities.Overlay
+import com.jwbutler.krpg.entities.OverlayUtils
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.pixelToCoordinates
+import java.awt.Color
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 
 private typealias CommandSupplier = (Unit) -> Command
 
-class MousePlayer : AbstractPlayer()
+class MousePlayer : HumanPlayer()
 {
-    override val isHuman = true
     private var queuedCommands = mutableMapOf<Unit, CommandSupplier>()
 
     init
@@ -32,6 +35,12 @@ class MousePlayer : AbstractPlayer()
         return queuedCommands.remove(unit)
             ?.invoke(unit)
             ?: StayCommand(unit)
+    }
+
+    override fun getOverlays(): Collection<Overlay>
+    {
+        return getPlayerUnits()
+            .map { OverlayUtils.createPlayerOverlay(it.getCoordinates(), true) }
     }
 
     private fun _getMouseListener(): MouseListener
@@ -61,7 +70,7 @@ class MousePlayer : AbstractPlayer()
         if (coordinates != u.getCoordinates())
         {
             val targetUnit = GameState.getInstance().getUnit(coordinates)
-            if (targetUnit != null && !targetUnit.getPlayer().isHuman)
+            if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
             {
                 return AttackCommand(u, targetUnit)
             }
