@@ -7,7 +7,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pathfinder
 import java.lang.Math.abs
 
-class AttackCommand(override val source: Unit, private val target: Unit) : Command
+class AttackCommand(override val source: Unit, val target: Unit) : Command
 {
     override val type = CommandType.ATTACK
     private var hasAttacked = false

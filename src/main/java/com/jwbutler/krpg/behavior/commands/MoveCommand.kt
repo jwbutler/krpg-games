@@ -6,7 +6,7 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pathfinder
 
-class MoveCommand(override val source: Unit, private val target: Coordinates) : Command
+class MoveCommand(override val source: Unit, val target: Coordinates) : Command
 {
     override val type = CommandType.MOVE
     private var path: List<Coordinates>? = Pathfinder.findPath(source.getCoordinates(), target)

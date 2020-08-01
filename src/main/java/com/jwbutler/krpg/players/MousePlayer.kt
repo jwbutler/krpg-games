@@ -5,7 +5,6 @@ import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.Overlay
 import com.jwbutler.krpg.entities.OverlayUtils
 import com.jwbutler.krpg.entities.units.Unit
@@ -13,8 +12,8 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.utils.getPlayerUnits
+import com.jwbutler.krpg.utils.getTargetedEnemies
 import com.jwbutler.krpg.utils.pixelToCoordinates
-import java.awt.Color
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
@@ -39,8 +38,21 @@ class MousePlayer : HumanPlayer()
 
     override fun getOverlays(): Collection<Overlay>
     {
-        return getPlayerUnits()
-            .map { OverlayUtils.createPlayerOverlay(it.getCoordinates(), true) }
+        val overlays = mutableListOf<Overlay>()
+
+        val playerUnits = getPlayerUnits().filter(Unit::exists) // TODO this sucks
+        for (unit in playerUnits)
+        {
+            overlays += OverlayUtils.createPlayerOverlay(unit.getCoordinates(), true)
+        }
+
+        val targetUnits = getTargetedEnemies(playerUnits).filter(Unit::exists) // TODO this sucks
+        for (unit in targetUnits)
+        {
+            overlays += OverlayUtils.createEnemyoverlay(unit.getCoordinates(), true)
+        }
+
+        return overlays
     }
 
     private fun _getMouseListener(): MouseListener

@@ -5,7 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 
-class DirectionalAttackCommand(override val source: Unit, private val target: Coordinates) : Command
+class DirectionalAttackCommand(override val source: Unit, val target: Coordinates) : Command
 {
     override val type = CommandType.ATTACK
 

@@ -12,6 +12,6 @@ object OverlayUtils
 
     fun createEnemyoverlay(coordinates: Coordinates, targeted: Boolean): Overlay
     {
-        return Overlay(coordinates, Color(255, 0, 0, 64), Color(255, 0, 0, 32))
+        return Overlay(coordinates, Color(255, 0, 0, 192), Color(255, 0, 0, 32))
     }
 }
