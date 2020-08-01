@@ -4,7 +4,7 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.FrameKey
-import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import java.awt.Color
 import java.lang.RuntimeException
 

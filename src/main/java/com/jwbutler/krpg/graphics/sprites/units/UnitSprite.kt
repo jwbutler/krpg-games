@@ -5,8 +5,8 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.FrameKey
-import com.jwbutler.krpg.graphics.ImageLoader
-import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.images.ImageLoader
+import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.Sprite

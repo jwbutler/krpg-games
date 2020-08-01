@@ -22,14 +22,17 @@ class AttackCommand(override val source: Unit, private val target: Unit) : Comma
 
     private fun _tryAttack(): Pair<Activity, Direction>?
     {
-        if (
-            _isInRange(source.getCoordinates(), target.getCoordinates())
-            && source.isActivityReady(Activity.ATTACKING)
-        )
+        if (target.exists())
         {
-            val direction = Direction.between(target.getCoordinates(), source.getCoordinates())
-            hasAttacked = true
-            return Pair(Activity.ATTACKING, direction)
+            if (
+                _isInRange(source.getCoordinates(), target.getCoordinates())
+                && source.isActivityReady(Activity.ATTACKING)
+            )
+            {
+                val direction = Direction.between(target.getCoordinates(), source.getCoordinates())
+                hasAttacked = true
+                return Pair(Activity.ATTACKING, direction)
+            }
         }
         return null
     }

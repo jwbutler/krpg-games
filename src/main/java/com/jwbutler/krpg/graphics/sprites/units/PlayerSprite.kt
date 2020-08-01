@@ -6,7 +6,7 @@ import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.geometry.TILE_HEIGHT
 import com.jwbutler.krpg.geometry.TILE_WIDTH
 import com.jwbutler.krpg.graphics.FrameKey
-import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import java.awt.Color
 
 class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite(

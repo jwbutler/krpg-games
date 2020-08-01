@@ -12,7 +12,7 @@ abstract class AbstractEquipment(override val sprite: Sprite) : Equipment
 
     override fun getUnit() = unit
     override fun getCoordinates() = unit?.getCoordinates() ?: GameState.getInstance().getCoordinates(this)
-
+    override fun exists() = GameState.getInstance().containsEntity(this)
     override fun render() = sprite.render(this)
 
     override fun update() {}

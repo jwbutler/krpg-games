@@ -1,16 +1,16 @@
 package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.graphics.images.Image
 import java.awt.event.KeyListener
 import java.awt.event.MouseListener
-import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.WindowConstants
 
 class GameWindow private constructor()
 {
-    private val buffer: Image = BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB)
+    private val buffer: Image = Image(WIDTH, HEIGHT)
     private val frame: JFrame = JFrame()
     private val panel: JPanel = JPanel()
 
@@ -28,18 +28,18 @@ class GameWindow private constructor()
 
     fun clearBuffer()
     {
-        buffer.getGraphics().clearRect(0, 0, WIDTH, HEIGHT)
+        buffer.clearRect(0, 0, WIDTH, HEIGHT)
     }
 
     fun render(image: Image, pixel: Pixel)
     {
-        buffer.getGraphics().drawImage(image, pixel.x, pixel.y, null)
+        buffer.drawImage(image, pixel.x, pixel.y)
     }
 
     fun redraw()
     {
-        val scaled = buffer.getScaledInstance(SCALED_WIDTH, SCALED_HEIGHT, Image.SCALE_FAST)
-        panel.getGraphics().drawImage(scaled, 0, 0, null)
+        val scaled = buffer.scaleTo(SCALED_WIDTH, SCALED_HEIGHT)
+        scaled.draw(panel.getGraphics(), 0, 0)
     }
 
     fun mapPixel(p: Pixel): Pixel

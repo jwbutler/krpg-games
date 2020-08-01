@@ -2,7 +2,7 @@ package com.jwbutler.krpg.graphics.sprites
 
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.geometry.Offsets
-import com.jwbutler.krpg.graphics.Image
+import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 

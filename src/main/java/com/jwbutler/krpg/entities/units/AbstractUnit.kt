@@ -50,6 +50,7 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
     override fun isBlocking() = true
     override fun getPlayer() = player
     override fun getCoordinates() = GameState.getInstance().getCoordinates(this)
+    override fun exists() = GameState.getInstance().containsEntity(this)
     override fun getCommand() = command
     override fun getActivity() = activity
     override fun getDirection() = direction

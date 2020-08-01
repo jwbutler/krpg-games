@@ -1,7 +1,7 @@
 package com.jwbutler.krpg.entities.objects
 
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.ImageLoader
+import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.sprites.StaticSprite
 

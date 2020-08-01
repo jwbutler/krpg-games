@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.graphics
+package com.jwbutler.krpg.graphics.images
 
 import java.awt.Color
 

@@ -6,9 +6,9 @@ import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.geometry.Offsets
 import com.jwbutler.krpg.graphics.FrameKey
-import com.jwbutler.krpg.graphics.Image
-import com.jwbutler.krpg.graphics.ImageLoader
-import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.images.Image
+import com.jwbutler.krpg.graphics.images.ImageLoader
+import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite

@@ -11,13 +11,12 @@ import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.Colors
+import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
-import com.jwbutler.krpg.graphics.ImageLoader
-import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.images.ImageLoader
+import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer
-import com.jwbutler.krpg.players.KeyboardPlayer
 import com.jwbutler.krpg.players.MousePlayer
 import java.lang.Thread.sleep
 
@@ -41,6 +40,10 @@ fun main()
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
     playerUnit.addEquipment(MailArmor())
+    val playerUnit2 = PlayerUnit(humanPlayer, Coordinates(4, 6), 200, paletteSwaps)
+    playerUnit2.addEquipment(Sword())
+    playerUnit2.addEquipment(Shield())
+    playerUnit2.addEquipment(MailArmor())
 
     Wall(Coordinates(8, 3))
     Wall(Coordinates(8, 4))

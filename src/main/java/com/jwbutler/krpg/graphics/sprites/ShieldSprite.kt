@@ -3,7 +3,7 @@ package com.jwbutler.krpg.graphics.sprites
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.graphics.FrameKey
-import com.jwbutler.krpg.graphics.PaletteSwaps
+import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 import java.awt.Color
 

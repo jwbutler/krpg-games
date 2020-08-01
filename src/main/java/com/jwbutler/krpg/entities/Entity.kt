@@ -15,6 +15,10 @@ interface Entity
      */
     fun getCoordinates(): Coordinates
     fun isBlocking(): Boolean
+    /**
+     * Syntactic sugar for [GameState.containsEntity].
+     */
+    fun exists(): Boolean
 
     fun update()
     fun render(): Renderable

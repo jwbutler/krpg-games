@@ -3,7 +3,8 @@ package com.jwbutler.krpg.graphics
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.players.KeyboardPlayer
+import com.jwbutler.krpg.graphics.images.Colors
+import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.players.Player
 import java.awt.Graphics2D
 import kotlin.math.round
@@ -14,13 +15,13 @@ private const val TOP = GameWindow.HEIGHT - HEIGHT
 
 object HUDRenderer
 {
-    private val image: Image = Image(WIDTH, HEIGHT, Image.TYPE_INT_ARGB)
+    private val image = Image(WIDTH, HEIGHT)
 
     fun render(): Pair<Image, Pixel>
     {
         val state = GameState.getInstance()
 
-        val graphics = image.graphics as Graphics2D
+        val graphics = image.getGraphics()
 
         graphics.color = Colors.BLACK
         graphics.fillRect(0, 0, WIDTH, HEIGHT)
@@ -29,15 +30,15 @@ object HUDRenderer
         graphics.drawRect(0, 0, WIDTH, HEIGHT)
         graphics.drawString("Chigz Jupsiz", 6, 12)
         val healthBar = _drawHealthBar(64, 8)
-        graphics.drawImage(healthBar, 6, 18, null)
+        healthBar.draw(graphics, 6, 18)
         val pixel = Pixel(0, TOP)
         return Pair(image, pixel)
     }
 
     private fun _drawHealthBar(width: Int, height: Int): Image
     {
-        val image = Image(width, height, Image.TYPE_INT_ARGB)
-        val graphics = image.graphics as Graphics2D
+        val image = Image(width, height)
+        val graphics = image.getGraphics()
 
         graphics.color = Colors.BLACK
         graphics.fillRect(0, 0, WIDTH, HEIGHT)

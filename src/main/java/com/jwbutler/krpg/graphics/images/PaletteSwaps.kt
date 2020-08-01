@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.graphics
+package com.jwbutler.krpg.graphics.images
 
 import java.awt.Color
 
@@ -34,7 +34,9 @@ class PaletteSwaps(delegate: Map<Color, Color>)
 
     companion object
     {
-        val WHITE_TRANSPARENT = PaletteSwaps(mutableMapOf(Colors.WHITE to Colors.TRANSPARENT))
-        val BLACK_TRANSPARENT = PaletteSwaps(mutableMapOf(Colors.BLACK to Colors.TRANSPARENT))
+        val WHITE_TRANSPARENT =
+            PaletteSwaps(mutableMapOf(Colors.WHITE to Colors.TRANSPARENT))
+        val BLACK_TRANSPARENT =
+            PaletteSwaps(mutableMapOf(Colors.BLACK to Colors.TRANSPARENT))
     }
 }
