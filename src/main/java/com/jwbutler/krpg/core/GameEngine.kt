@@ -17,7 +17,7 @@ class GameEngine(private val state: GameState, private val renderer: GameRendere
         {
             // Unfortunately we have to do this superfluous-looking check here
             // because they could die (or kill each other) during update() methods
-            if (state.containsEntity(entity))
+            if (entity.exists())
             {
                 entity.update()
             }

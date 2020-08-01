@@ -40,13 +40,13 @@ class MousePlayer : HumanPlayer()
     {
         val overlays = mutableListOf<Overlay>()
 
-        val playerUnits = getPlayerUnits().filter(Unit::exists) // TODO this sucks
+        val playerUnits = getPlayerUnits()
         for (unit in playerUnits)
         {
             overlays += OverlayUtils.createPlayerOverlay(unit.getCoordinates(), true)
         }
 
-        val targetUnits = getTargetedEnemies(playerUnits).filter(Unit::exists) // TODO this sucks
+        val targetUnits = getTargetedEnemies(playerUnits)
         for (unit in targetUnits)
         {
             overlays += OverlayUtils.createEnemyoverlay(unit.getCoordinates(), true)

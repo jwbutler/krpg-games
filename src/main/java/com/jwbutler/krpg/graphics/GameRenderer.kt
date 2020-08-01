@@ -3,7 +3,6 @@ package com.jwbutler.krpg.graphics
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.players.HumanPlayer
-import com.jwbutler.krpg.players.Player
 
 class GameRenderer(private val window: GameWindow)
 {

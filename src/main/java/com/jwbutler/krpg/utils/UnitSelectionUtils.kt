@@ -36,7 +36,10 @@ fun getTargetedEnemies(units: Collection<Unit>): Collection<Unit>
             else                        -> null
         }
 
-        targetUnit?.let(targetedEnemies::add)
+        if (targetUnit != null && targetUnit.exists())
+        {
+            targetedEnemies.add(targetUnit)
+        }
     }
     return targetedEnemies
 }

@@ -144,8 +144,7 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
 
                 // TODO: Activity#onComplete can result in killing this unit, and making some
                 // subsequent checks fail.  Can we solve this problem some other way?
-                val state = GameState.getInstance()
-                if (!state.containsEntity(this))
+                if (!this.exists())
                 {
                     return
                 }
