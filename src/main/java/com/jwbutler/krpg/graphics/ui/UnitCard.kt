@@ -1,23 +1,23 @@
-package com.jwbutler.krpg.graphics
+package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.geometry.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GAME_WIDTH
-import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
-import com.jwbutler.krpg.utils.getPlayerUnits
+import java.awt.Font
 import kotlin.math.round
 import kotlin.math.roundToInt
 
-private const val WIDTH = GAME_WIDTH
-private const val HEIGHT = 40 // If HEIGHT = 180, then this is ~22%
-private const val TOP = GAME_HEIGHT - HEIGHT
-
-object HUDRenderer
+class UnitCard(val unit: Unit)
 {
-    private val image = Image(WIDTH, HEIGHT)
+    companion object
+    {
+        const val WIDTH = 60
+        private const val HEIGHT = HUDRenderer.HEIGHT - 10
+        private val FONT = Font("Dialog", Font.PLAIN, 10)
+    }
 
-    fun render(): Pair<Image, Pixel>
+    val image = Image(WIDTH, HEIGHT)
+    fun render(): Image
     {
         val graphics = image.getGraphics()
 
@@ -26,11 +26,11 @@ object HUDRenderer
 
         graphics.color = Colors.WHITE
         graphics.drawRect(0, 0, WIDTH - 1, HEIGHT - 1)
-        graphics.drawString("Chigz Jupsiz", 6, 12)
-        val healthBar = _drawHealthBar(64, 8)
-        healthBar.draw(graphics, 6, 18)
-        val pixel = Pixel(0, TOP)
-        return Pair(image, pixel)
+        graphics.font = FONT
+        graphics.drawString("Chigz Jupsiz", 3, 12)
+        val healthBar = _drawHealthBar(WIDTH - 6, 5)
+        healthBar.draw(graphics, 3, 18)
+        return image
     }
 
     private fun _drawHealthBar(width: Int, height: Int): Image
@@ -41,9 +41,7 @@ object HUDRenderer
         graphics.color = Colors.BLACK
         graphics.fillRect(0, 0, WIDTH, HEIGHT)
 
-        val playerUnit = getPlayerUnits().first()
-
-        val fullPercentage = 100.0 * playerUnit.getCurrentHP() / playerUnit.getMaxHP()
+        val fullPercentage = 100.0 * unit.getCurrentHP() / unit.getMaxHP()
         val healthWidth = round((width - 2) * fullPercentage / 100.0).roundToInt()
         val healthHeight = height - 2
 

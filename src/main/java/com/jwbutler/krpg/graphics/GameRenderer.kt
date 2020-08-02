@@ -2,7 +2,7 @@ package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.core.SingletonHolder
-import com.jwbutler.krpg.graphics.sprites.Sprite
+import com.jwbutler.krpg.graphics.ui.HUDRenderer
 import com.jwbutler.krpg.players.HumanPlayer
 
 class GameRenderer

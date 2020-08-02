@@ -16,7 +16,7 @@ fun getPlayerUnits(): Collection<Unit>
         .filterIsInstance<HumanPlayer>()
         .firstOrNull()
         ?: error("Could not find human player")
-    return humanPlayer.getUnits()
+    return humanPlayer.getUnits() // TODO: Sorting?
 }
 
 fun getEnemyUnits(): Collection<Unit>

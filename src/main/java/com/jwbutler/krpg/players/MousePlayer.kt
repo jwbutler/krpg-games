@@ -14,7 +14,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.Renderable
-import com.jwbutler.krpg.graphics.UIOverlays
+import com.jwbutler.krpg.graphics.ui.UIOverlays
 import com.jwbutler.krpg.utils.getEnemyUnits
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.getUnitsInPixelRect
@@ -64,8 +64,6 @@ class MousePlayer : HumanPlayer()
         val playerUnits = getPlayerUnits()
         for (unit in playerUnits)
         {
-            overlays[unit.getCoordinates()] = TileOverlayFactory.playerOverlay(unit.getCoordinates(), selectedUnits.contains(unit))
-
             val command = getQueuedCommand(unit) ?: unit.getCommand()
             when (command)
             {
@@ -89,6 +87,8 @@ class MousePlayer : HumanPlayer()
                     overlays[coordinates] = TileOverlayFactory.positionOverlay(coordinates, true)
                 }
             }
+
+            overlays[unit.getCoordinates()] = TileOverlayFactory.playerOverlay(unit.getCoordinates(), selectedUnits.contains(unit))
         }
 
         return overlays
@@ -168,7 +168,6 @@ class MousePlayer : HumanPlayer()
                 if (isLeftMouseButton(e))
                 {
                     selectionEnd = Pixel.fromPoint(e.getPoint())
-                    println("$selectionStart, $selectionEnd")
                 }
             }
 

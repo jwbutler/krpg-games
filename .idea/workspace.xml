@@ -7,25 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/TileOverlayFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/AttackCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/AttackCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Overlay.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/TileOverlay.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/OverlayFactory.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Coordinates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Coordinates.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/HUDRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/HUDRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/RenderLayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/RenderLayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Image.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/HUDRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/HUDRenderer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/UIOverlays.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UIOverlays.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/AbstractPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/AbstractPlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/HumanPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/HumanPlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/KeyboardPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/KeyboardPlayer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/Player.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/GeometryUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/GeometryUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/UnitSelectionUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/UnitSelectionUtils.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,8 +31,8 @@
         <option value="Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin File" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -79,15 +67,19 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateKotlinClassDialog.RecentsKey">
-      <recent name="com.jwbutler.krpg.players.ai" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\ui" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\images" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites\units" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.jwbutler.krpg.graphics.ui" />
       <recent name="com.jwbutler.krpg.graphics.images" />
       <recent name="com.jwbutler.krpg.utils" />
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
       <recent name="com.jwbutler.krpg.graphics.sprites.units.classes" />
-      <recent name="com.jwbutler.krpg.entities.objects" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
@@ -102,12 +94,8 @@
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
       <recent name="com.jwbutler.krpg.graphics.sprites" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\images" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites\units" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\behavior\commands" />
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="com.jwbutler.krpg.players.ai" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -199,7 +187,7 @@
       <workItem from="1595289312831" duration="17345000" />
       <workItem from="1595392731527" duration="63608000" />
       <workItem from="1595916663554" duration="27380000" />
-      <workItem from="1596332754185" duration="9283000" />
+      <workItem from="1596332754185" duration="11280000" />
     </task>
     <servers />
   </component>
