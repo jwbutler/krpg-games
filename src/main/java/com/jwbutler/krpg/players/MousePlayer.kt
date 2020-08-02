@@ -98,15 +98,18 @@ class MousePlayer : HumanPlayer()
             {
                 val pixel = Pixel.fromPoint(e.getPoint())
                 val coordinates = pixelToCoordinates(pixel)
-                for (unit in getPlayerUnits())
+                if (GameState.getInstance().containsCoordinates(coordinates))
                 {
-                    val command: CommandSupplier = { u ->
-                        _tryAttack(u, coordinates)
-                            ?: _tryMove(u, coordinates)
-                            ?: _stay(u, coordinates)
-                    }
+                    for (unit in getPlayerUnits())
+                    {
+                        val command: CommandSupplier = { u ->
+                            _tryAttack(u, coordinates)
+                                ?: _tryMove(u, coordinates)
+                                ?: _stay(u, coordinates)
+                        }
 
-                    queuedCommands[unit] = command
+                        queuedCommands[unit] = command
+                    }
                 }
             }
         }

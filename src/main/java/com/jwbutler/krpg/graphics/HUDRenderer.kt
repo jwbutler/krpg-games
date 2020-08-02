@@ -20,8 +20,6 @@ object HUDRenderer
 
     fun render(): Pair<Image, Pixel>
     {
-        val state = GameState.getInstance()
-
         val graphics = image.getGraphics()
 
         graphics.color = Colors.BLACK

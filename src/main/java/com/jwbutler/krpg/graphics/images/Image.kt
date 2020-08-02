@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.graphics.images
 
+import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
@@ -12,7 +13,7 @@ data class Image
     constructor(width: Int, height: Int) : this(BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB))
 
     val width = delegate.width
-    val height = delegate.width
+    val height = delegate.height
 
     fun getRGB(x: Int, y: Int) = delegate.getRGB(x, y)
     fun setRGB(x: Int, y: Int, rgb: Int) = delegate.setRGB(x, y, rgb)
@@ -25,6 +26,13 @@ data class Image
     fun clearRect(x: Int, y: Int, width: Int, height: Int)
     {
         delegate.getGraphics().clearRect(x, y, width, height)
+    }
+
+    fun fillRect(left: Int, top: Int, width: Int, height: Int, color: Color)
+    {
+        val graphics = delegate.getGraphics()
+        graphics.setColor(color)
+        graphics.fillRect(left, top, width, height)
     }
 
     fun drawImage(image: java.awt.Image, x: Int, y: Int)
