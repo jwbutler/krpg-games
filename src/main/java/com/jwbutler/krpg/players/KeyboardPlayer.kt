@@ -5,9 +5,10 @@ import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.Overlay
+import com.jwbutler.krpg.entities.TileOverlay
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.graphics.Renderable
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.lang.Math.abs
@@ -63,7 +64,9 @@ class KeyboardPlayer : HumanPlayer()
         return StayCommand(unit)
     }
 
-    override fun getOverlays() = mutableMapOf<Coordinates, Overlay>()
+    override fun getTileOverlays() = mutableMapOf<Coordinates, TileOverlay>()
+
+    override fun getUIOverlays() = listOf<Renderable>()
 
     override fun getKeyListener() = object : KeyAdapter()
     {

@@ -7,5 +7,6 @@ enum class RenderLayer
     OBJECT,
     EQUIPMENT_BEHIND,
     UNIT,
-    EQUIPMENT_ABOVE;
+    EQUIPMENT_ABOVE,
+    UI_OVERLAY;
 }

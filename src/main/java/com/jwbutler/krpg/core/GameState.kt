@@ -7,7 +7,6 @@ import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.players.Player
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
@@ -50,6 +49,7 @@ interface GameState
 
     // Units
 
+    fun getUnits(): Collection<Unit>
     fun getUnit(coordinates: Coordinates): Unit?
     fun addUnit(unit: Unit, coordinates: Coordinates)
     fun removeUnit(unit: Unit)
@@ -130,6 +130,7 @@ private class GameStateImpl : GameState
 
     override fun containsEntity(entity: Entity) = entityToCoordinates.containsKey(entity)
 
+    override fun getUnits() = entityToCoordinates.keys.filterIsInstance<Unit>()
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
 
     override fun addUnit(unit: Unit, coordinates: Coordinates)

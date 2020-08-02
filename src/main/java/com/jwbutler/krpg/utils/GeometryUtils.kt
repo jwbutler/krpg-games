@@ -3,14 +3,15 @@ package com.jwbutler.krpg.utils
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.GAME_HEIGHT
+import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.geometry.Rectangle
 import com.jwbutler.krpg.geometry.TILE_HEIGHT
 import com.jwbutler.krpg.geometry.TILE_WIDTH
-import com.jwbutler.krpg.graphics.GameWindow
+import java.awt.Point
 import kotlin.math.abs
 import kotlin.math.sqrt
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTimedValue
 
 fun getAdjacentCoordinates(coordinates: Coordinates): Set<Coordinates>
 {
@@ -61,8 +62,8 @@ fun hypotenuse(first: Coordinates, second: Coordinates): Double
 fun coordinatesToPixel(coordinates: Coordinates): Pixel
 {
     val cameraCoordinates = GameState.getInstance().getCameraCoordinates()
-    val x = (coordinates.x - cameraCoordinates.x) * TILE_WIDTH + (GameWindow.WIDTH / 2) - (TILE_WIDTH / 2)
-    val y = (coordinates.y - cameraCoordinates.y) * TILE_HEIGHT + (GameWindow.HEIGHT / 2) - (TILE_HEIGHT / 2)
+    val x = (coordinates.x - cameraCoordinates.x) * TILE_WIDTH + (GAME_WIDTH / 2) - (TILE_WIDTH / 2)
+    val y = (coordinates.y - cameraCoordinates.y) * TILE_HEIGHT + (GAME_HEIGHT / 2) - (TILE_HEIGHT / 2)
     return Pixel(x, y)
 }
 
@@ -72,11 +73,21 @@ fun pixelToCoordinates(pixel: Pixel): Coordinates
 {
     val cameraCoordinates = GameState.getInstance().getCameraCoordinates()
     val originTopLeft = Pixel(
-        (GameWindow.WIDTH / 2) - (cameraCoordinates.x * TILE_WIDTH) - (TILE_WIDTH / 2),
-        (GameWindow.HEIGHT / 2) - (cameraCoordinates.y * TILE_HEIGHT) - (TILE_HEIGHT/ 2)
+        (GAME_WIDTH / 2) - (cameraCoordinates.x * TILE_WIDTH) - (TILE_WIDTH / 2),
+        (GAME_HEIGHT / 2) - (cameraCoordinates.y * TILE_HEIGHT) - (TILE_HEIGHT/ 2)
     )
 
     val x = (pixel.x - originTopLeft.x) / TILE_WIDTH
     val y = (pixel.y - originTopLeft.y) / TILE_HEIGHT
     return Coordinates(x, y)
+}
+
+fun rectFromPixels(first: Pixel, vararg rest: Pixel): Rectangle
+{
+    val rect = Rectangle(Point(first.x, first.y))
+    for (pixel in rest)
+    {
+        rect.add(pixel.x, pixel.y)
+    }
+    return rect
 }

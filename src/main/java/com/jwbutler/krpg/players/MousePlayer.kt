@@ -7,26 +7,35 @@ import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.Overlay
-import com.jwbutler.krpg.entities.OverlayFactory
+import com.jwbutler.krpg.entities.TileOverlay
+import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.graphics.UIOverlays
+import com.jwbutler.krpg.utils.getEnemyUnits
 import com.jwbutler.krpg.utils.getPlayerUnits
+import com.jwbutler.krpg.utils.getUnitsInPixelRect
 import com.jwbutler.krpg.utils.pixelToCoordinates
+import com.jwbutler.krpg.utils.rectFromPixels
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
+import javax.swing.SwingUtilities.isLeftMouseButton
+import javax.swing.SwingUtilities.isRightMouseButton
 
 private typealias CommandSupplier = (Unit) -> Command
 
 class MousePlayer : HumanPlayer()
 {
-    private var queuedCommands = mutableMapOf<Unit, CommandSupplier>()
+    private val queuedCommands = mutableMapOf<Unit, CommandSupplier>()
+    private val selectedUnits = mutableSetOf<Unit>()
+    var selectionStart: Pixel? = null
+    var selectionEnd: Pixel? = null
 
     override fun chooseCommand(unit: Unit): Command
     {
@@ -40,14 +49,22 @@ class MousePlayer : HumanPlayer()
         return queuedCommands[unit]?.invoke(unit)
     }
 
-    override fun getOverlays(): Map<Coordinates, Overlay>
+    override fun getSelectedUnits() = selectedUnits
+
+    override fun getTileOverlays(): Map<Coordinates, TileOverlay>
     {
-        val overlays = mutableMapOf<Coordinates, Overlay>()
+        val overlays = mutableMapOf<Coordinates, TileOverlay>()
+
+        val enemyUnits = getEnemyUnits()
+        for (unit in enemyUnits)
+        {
+            overlays[unit.getCoordinates()] = TileOverlayFactory.enemyOverlay(unit.getCoordinates(), false)
+        }
 
         val playerUnits = getPlayerUnits()
         for (unit in playerUnits)
         {
-            overlays[unit.getCoordinates()] = OverlayFactory.playerOverlay(unit.getCoordinates(), true)
+            overlays[unit.getCoordinates()] = TileOverlayFactory.playerOverlay(unit.getCoordinates(), selectedUnits.contains(unit))
 
             val command = getQueuedCommand(unit) ?: unit.getCommand()
             when (command)
@@ -58,23 +75,32 @@ class MousePlayer : HumanPlayer()
                     if (target.exists())
                     {
                         val coordinates = command.target.getCoordinates()
-                        overlays[coordinates] = OverlayFactory.enemyOverlay(coordinates, true)
+                        overlays[coordinates] = TileOverlayFactory.enemyOverlay(coordinates, true)
                     }
                 }
                 is DirectionalAttackCommand ->
                 {
                     val coordinates = command.target
-                    overlays[coordinates] = OverlayFactory.enemyOverlay(coordinates, true)
+                    overlays[coordinates] = TileOverlayFactory.enemyOverlay(coordinates, true)
                 }
                 is MoveCommand ->
                 {
                     val coordinates = command.target
-                    overlays[coordinates] = OverlayFactory.positionOverlay(coordinates, true)
+                    overlays[coordinates] = TileOverlayFactory.positionOverlay(coordinates, true)
                 }
             }
         }
 
         return overlays
+    }
+
+    override fun getUIOverlays(): Collection<Renderable>
+    {
+        if (selectionStart != null && selectionEnd != null)
+        {
+            return listOf(UIOverlays.getSelectionRect(selectionStart!!, selectionEnd!!))
+        }
+        return listOf()
     }
 
     override fun getKeyListener(): KeyListener
@@ -93,31 +119,81 @@ class MousePlayer : HumanPlayer()
                             GameWindow.getInstance().toggleMaximized()
                         }
                     }
+                    KeyEvent.VK_A ->
+                    {
+                        if (e.isControlDown())
+                        {
+                            selectedUnits.clear()
+                            selectedUnits.addAll(getPlayerUnits())
+                        }
+                    }
                 }
             }
         }
     }
 
-    override fun getMouseListener(): MouseListener
+    override fun getMouseListener(): MouseAdapter
     {
         return object : MouseAdapter()
         {
+            override fun mousePressed(e: MouseEvent)
+            {
+                if (isLeftMouseButton(e))
+                {
+                    selectionStart = Pixel.fromPoint(e.getPoint())
+                }
+
+                if (isRightMouseButton(e))
+                {
+                    val pixel = Pixel.fromPoint(e.getPoint())
+                    val coordinates = pixelToCoordinates(pixel)
+                    if (GameState.getInstance().containsCoordinates(coordinates))
+                    {
+                        for (unit in selectedUnits)
+                        {
+                            val command: CommandSupplier = { u ->
+                                _tryAttack(u, coordinates)
+                                    ?: _tryMove(u, coordinates)
+                                    ?: _stay(u, coordinates)
+                            }
+
+                            queuedCommands[unit] = command
+                        }
+                    }
+                }
+            }
+
+            override fun mouseDragged(e: MouseEvent)
+            {
+                if (isLeftMouseButton(e))
+                {
+                    selectionEnd = Pixel.fromPoint(e.getPoint())
+                    println("$selectionStart, $selectionEnd")
+                }
+            }
+
             override fun mouseReleased(e: MouseEvent)
             {
-                val pixel = Pixel.fromPoint(e.getPoint())
-                val coordinates = pixelToCoordinates(pixel)
-                if (GameState.getInstance().containsCoordinates(coordinates))
+                if (isLeftMouseButton(e))
                 {
-                    for (unit in getPlayerUnits())
+                    if (selectionStart != null && selectionEnd != null)
                     {
-                        val command: CommandSupplier = { u ->
-                            _tryAttack(u, coordinates)
-                                ?: _tryMove(u, coordinates)
-                                ?: _stay(u, coordinates)
-                        }
-
-                        queuedCommands[unit] = command
+                        val selectionRect = rectFromPixels(selectionStart!!, selectionEnd!!)
+                        selectedUnits.clear()
+                        selectedUnits.addAll(getUnitsInPixelRect(selectionRect))
                     }
+                    selectionStart = null
+                    selectionEnd = null
+                }
+            }
+
+            override fun mouseClicked(e: MouseEvent)
+            {
+                if (isLeftMouseButton(e))
+                {
+                    selectionStart = null
+                    selectionEnd = null
+                    selectedUnits.clear()
                 }
             }
         }

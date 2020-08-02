@@ -2,8 +2,12 @@ package com.jwbutler.krpg.utils
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.IntPair
+import com.jwbutler.krpg.geometry.Rectangle
+import com.jwbutler.krpg.geometry.TILE_HEIGHT
+import com.jwbutler.krpg.geometry.TILE_WIDTH
 import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.krpg.players.Player
 
 fun getPlayerUnits(): Collection<Unit>
 {
@@ -15,9 +19,25 @@ fun getPlayerUnits(): Collection<Unit>
     return humanPlayer.getUnits()
 }
 
-fun getEnemyUnit(coordinates: Coordinates): Unit?
+fun getEnemyUnits(): Collection<Unit>
 {
     return GameState.getInstance()
-        .getUnit(coordinates)
-        ?.takeUnless { it.getPlayer() is HumanPlayer }
+        .getPlayers()
+        .filterNot { it is HumanPlayer }
+        .flatMap(Player::getUnits)
+}
+
+fun getUnitsInPixelRect(rect: Rectangle): Collection<Unit>
+{
+    val selectedUnits = mutableListOf<Unit>()
+    val allUnits = GameState.getInstance().getUnits()
+    for (unit in allUnits)
+    {
+        val (x, y) = unit.getCoordinates().toPixel() + IntPair.of(TILE_WIDTH / 2, TILE_HEIGHT / 2)
+        if (rect.contains(x, y))
+        {
+            selectedUnits.add(unit)
+        }
+    }
+    return selectedUnits
 }

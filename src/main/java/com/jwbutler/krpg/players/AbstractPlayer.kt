@@ -4,14 +4,14 @@ import com.jwbutler.krpg.entities.units.Unit
 
 abstract class AbstractPlayer : Player
 {
-    protected val units = mutableListOf<Unit>()
+    private val units = mutableSetOf<Unit>()
 
     init
     {
         GameState.getInstance().addPlayer(this)
     }
 
-    override fun getUnits(): Collection<Unit> = units
+    override fun getUnits(): Set<Unit> = units
 
     override fun addUnit(unit: Unit)
     {

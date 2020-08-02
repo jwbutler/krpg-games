@@ -39,18 +39,21 @@ class AttackCommand(override val source: Unit, val target: Unit) : Command
 
     private fun _tryWalk(): Pair<Activity, Direction>?
     {
-        if (source.isActivityReady(Activity.WALKING))
+        if (target.exists())
         {
-            var next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
-            if (next == null)
+            if (source.isActivityReady(Activity.WALKING))
             {
-                path = Pathfinder.findPath(source, target)
-                next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
-            }
-            if (next != null)
-            {
-                val direction = Direction.between(next, source.getCoordinates())
-                return Pair(Activity.WALKING, direction)
+                var next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
+                if (next == null)
+                {
+                    path = Pathfinder.findPath(source, target)
+                    next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
+                }
+                if (next != null)
+                {
+                    val direction = Direction.between(next, source.getCoordinates())
+                    return Pair(Activity.WALKING, direction)
+                }
             }
         }
         return null

@@ -5,6 +5,9 @@ import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 
+/**
+ * This is just a bunch of delegations to AWT's [BufferedImage], but with an eye toward portability
+ */
 data class Image
 (
     private val delegate: BufferedImage
@@ -26,6 +29,13 @@ data class Image
     fun clearRect(x: Int, y: Int, width: Int, height: Int)
     {
         delegate.getGraphics().clearRect(x, y, width, height)
+    }
+
+    fun drawRect(left: Int, top: Int, width: Int, height: Int, color: Color)
+    {
+        val graphics = delegate.getGraphics()
+        graphics.setColor(color)
+        graphics.drawRect(left, top, width, height)
     }
 
     fun fillRect(left: Int, top: Int, width: Int, height: Int, color: Color)

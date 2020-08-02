@@ -5,7 +5,7 @@ import com.jwbutler.krpg.entities.units.Unit
 
 interface Player
 {
-    fun getUnits(): Collection<Unit>
+    fun getUnits(): Set<Unit>
     fun addUnit(unit: Unit)
     fun removeUnit(unit: Unit)
     fun chooseCommand(unit: Unit): Command

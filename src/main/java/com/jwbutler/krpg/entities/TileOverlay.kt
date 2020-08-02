@@ -12,7 +12,7 @@ import java.awt.Color
 private val INNER_COLOR = Colors.BLACK
 private val OUTER_COLOR = Colors.RED
 
-class Overlay(
+class TileOverlay(
     private val coordinates: Coordinates,
     private val outerColor: Color,
     private val innerColor: Color

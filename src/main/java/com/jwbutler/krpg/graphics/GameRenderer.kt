@@ -2,7 +2,7 @@ package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.core.SingletonHolder
-import com.jwbutler.krpg.entities.Entity
+import com.jwbutler.krpg.graphics.sprites.Sprite
 import com.jwbutler.krpg.players.HumanPlayer
 
 class GameRenderer
@@ -12,33 +12,34 @@ class GameRenderer
     {
         window.clearBuffer()
 
-        val renderables = _getRenderables()
-        renderables.forEach { (_, renderable) ->
-            val (image, pixel) = renderable
+        for ((image, pixel) in _getRenderables())
+        {
             window.render(image, pixel)
         }
 
-        run {
-            val (image, pixel) = HUDRenderer.render()
-            window.render(image, pixel)
-        }
+        val (image, pixel) = HUDRenderer.render()
+        window.render(image, pixel)
 
         window.redraw()
     }
 
-    private fun _getRenderables(): List<Pair<Entity, Renderable>>
+    private fun _getRenderables(): List<Renderable>
     {
         val state = GameState.getInstance()
         val entities = state.getEntities()
         val players = state.getPlayers()
-        val overlays = players.filterIsInstance<HumanPlayer>()
-            .flatMap { it.getOverlays().values }
+        val tileOverlays = players.filterIsInstance<HumanPlayer>()
+            .flatMap { it.getTileOverlays().values }
+        val uiOverlays = players.filterIsInstance<HumanPlayer>()
+            .flatMap { it.getUIOverlays() }
 
-        val renderables = entities.plus(overlays).map { it to it.render() }
+        val renderables = entities.plus(tileOverlays).map { it to it.render() }
 
         return renderables
             .sortedBy { it.second.layer }
             .sortedBy { it.first.getCoordinates().y }
+            .map { it.second }
+            .plus(uiOverlays) // TODO: Get these into the sort somehow
     }
 
     companion object : SingletonHolder<GameRenderer>(::GameRenderer)
