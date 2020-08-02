@@ -1,14 +1,11 @@
 package com.jwbutler.krpg.graphics
 
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
-import com.jwbutler.krpg.players.HumanPlayer
-import com.jwbutler.krpg.players.Player
 import com.jwbutler.krpg.utils.getPlayerUnits
 import kotlin.math.round
+import kotlin.math.roundToInt
 
 private const val WIDTH = GameWindow.WIDTH
 private const val HEIGHT = 40 // If HEIGHT = 180, then this is ~22%
@@ -23,10 +20,10 @@ object HUDRenderer
         val graphics = image.getGraphics()
 
         graphics.color = Colors.BLACK
-        graphics.fillRect(0, 0, WIDTH, HEIGHT)
+        graphics.fillRect(0, 0, WIDTH - 1, HEIGHT - 1)
 
         graphics.color = Colors.WHITE
-        graphics.drawRect(0, 0, WIDTH, HEIGHT)
+        graphics.drawRect(0, 0, WIDTH - 1, HEIGHT - 1)
         graphics.drawString("Chigz Jupsiz", 6, 12)
         val healthBar = _drawHealthBar(64, 8)
         healthBar.draw(graphics, 6, 18)
@@ -45,7 +42,7 @@ object HUDRenderer
         val playerUnit = getPlayerUnits().first()
 
         val fullPercentage = 100.0 * playerUnit.getCurrentHP() / playerUnit.getMaxHP()
-        val healthWidth = round((width - 2) * fullPercentage / 100.0).toInt()
+        val healthWidth = round((width - 2) * fullPercentage / 100.0).roundToInt()
         val healthHeight = height - 2
 
         graphics.color = Colors.WHITE

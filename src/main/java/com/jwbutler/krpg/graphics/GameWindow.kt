@@ -12,12 +12,14 @@ import javax.swing.JPanel
 import javax.swing.WindowConstants
 import kotlin.math.min
 import kotlin.math.roundToInt
+import java.awt.GraphicsEnvironment
 
 class GameWindow private constructor()
 {
     private val buffer: Image = Image(WIDTH, HEIGHT)
     private val frame: JFrame = JFrame()
     private val panel: JPanel = JPanel()
+    private var maximized = false
 
     init
     {
@@ -31,7 +33,6 @@ class GameWindow private constructor()
         frame.setSize(outerWidth, outerHeight)
         frame.add(panel)
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH)
     }
 
     fun clearBuffer()
@@ -79,6 +80,28 @@ class GameWindow private constructor()
             (bufferX / scaleFactor).roundToInt(),
             (bufferY / scaleFactor).roundToInt()
         )
+    }
+
+    fun maximize()
+    {
+        // https://stackoverflow.com/a/35108575
+        GraphicsEnvironment.getLocalGraphicsEnvironment()
+            .getDefaultScreenDevice()
+            .setFullScreenWindow(frame)
+    }
+
+    fun restore()
+    {
+        // https://stackoverflow.com/a/35108575
+        GraphicsEnvironment.getLocalGraphicsEnvironment()
+            .getDefaultScreenDevice()
+            .setFullScreenWindow(null)
+    }
+
+    fun toggleMaximized()
+    {
+        if (maximized) restore() else maximize()
+        maximized = !maximized
     }
 
     fun addKeyListener(keyListener: KeyListener) = frame.addKeyListener(keyListener)

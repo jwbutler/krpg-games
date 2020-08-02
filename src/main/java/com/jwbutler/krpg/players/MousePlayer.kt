@@ -12,6 +12,7 @@ import com.jwbutler.krpg.entities.OverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.pixelToCoordinates
 import java.awt.event.KeyAdapter
@@ -82,9 +83,16 @@ class MousePlayer : HumanPlayer()
         {
             override fun keyReleased(e: KeyEvent)
             {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE)
+                when (e.getKeyCode())
                 {
-                    GameEngine.getInstance().togglePause()
+                    KeyEvent.VK_SPACE -> GameEngine.getInstance().togglePause()
+                    KeyEvent.VK_ENTER ->
+                    {
+                        if (e.isAltDown())
+                        {
+                            GameWindow.getInstance().toggleMaximized()
+                        }
+                    }
                 }
             }
         }
@@ -141,5 +149,4 @@ class MousePlayer : HumanPlayer()
 
         private fun _stay(u: Unit, coordinates: Coordinates) = StayCommand(u)
     }
-
 }
