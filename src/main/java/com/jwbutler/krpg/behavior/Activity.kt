@@ -5,7 +5,7 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.sounds.SoundPlayer
-import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
+import com.jwbutler.krpg.geometry.getAdjacentUnblockedCoordinates
 
 enum class Activity
 {

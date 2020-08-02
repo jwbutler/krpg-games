@@ -2,7 +2,6 @@ package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.utils.hypotenuse
 import java.util.PriorityQueue
 
 class Pathfinder
@@ -68,7 +67,10 @@ private enum class Impl
 
                 for (neighbor in _getNeighbors(current, allCoordinates.intersect(queue)))
                 {
-                    val distance = bestKnownDistances[current]!! + hypotenuse(current, neighbor)
+                    val distance = bestKnownDistances[current]!! + hypotenuse(
+                        current,
+                        neighbor
+                    )
                     if (distance < bestKnownDistances[neighbor]!!)
                     {
                         bestKnownDistances[neighbor] = distance

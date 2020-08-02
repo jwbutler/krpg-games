@@ -13,6 +13,7 @@ import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
+import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer
@@ -24,8 +25,9 @@ fun main()
 
     val state = GameState.initialize()
     state.setTiles(_tileBox(15, 15))
-    val renderer = GameRenderer.initialize()
-    val engine = GameEngine.initialize()
+    val window = GameWindow.initialize()
+    val renderer = GameRenderer(window)
+    val engine = GameEngine.initialize(renderer)
 
     val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
         .put(Colors.GREEN, Colors.RED)

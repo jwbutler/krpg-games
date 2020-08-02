@@ -2,7 +2,6 @@ package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.utils.coordinatesToPixel
 
 data class Coordinates(override val x: Int, override val y: Int) : IntPair
 {

@@ -1,9 +1,11 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.graphics.GameRenderer
+import com.jwbutler.krpg.graphics.Renderer
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.IllegalStateException
 
 private const val FRAME_INTERVAL = 83 // ~12 FPS
 
@@ -20,10 +22,21 @@ interface GameEngine
     fun isPaused(): Boolean
     fun doLoop()
 
-    companion object : SingletonHolder<GameEngine>(::GameEngineImpl)
+    companion object
+    {
+        private var instance: GameEngine? = null
+
+        fun initialize(vararg renderers: GameRenderer): GameEngine
+        {
+            instance = GameEngineImpl(*renderers)
+            return instance ?: throw IllegalStateException()
+        }
+
+        fun getInstance() = instance ?: throw IllegalStateException()
+    }
 }
 
-private class GameEngineImpl : GameEngine
+private class GameEngineImpl(private vararg val renderers: Renderer) : GameEngine
 {
     private var isPaused = false
     private var initialized = false
@@ -82,7 +95,10 @@ private class GameEngineImpl : GameEngine
 
     private fun _render()
     {
-        GameRenderer.getInstance().render()
+        for (renderer in renderers)
+        {
+            renderer.render()
+        }
     }
 
     private fun _afterRender()

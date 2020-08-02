@@ -18,8 +18,8 @@ import com.jwbutler.krpg.graphics.ui.UIOverlays
 import com.jwbutler.krpg.utils.getEnemyUnits
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.getUnitsInPixelRect
-import com.jwbutler.krpg.utils.pixelToCoordinates
-import com.jwbutler.krpg.utils.rectFromPixels
+import com.jwbutler.krpg.geometry.pixelToCoordinates
+import com.jwbutler.krpg.geometry.rectFromPixels
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener

@@ -4,7 +4,7 @@ import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.images.Image
-import com.jwbutler.krpg.utils.rectFromPixels
+import com.jwbutler.krpg.geometry.rectFromPixels
 import java.awt.Color
 
 object UIOverlays

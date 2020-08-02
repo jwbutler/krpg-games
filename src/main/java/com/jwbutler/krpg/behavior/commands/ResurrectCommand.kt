@@ -4,7 +4,7 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
+import com.jwbutler.krpg.geometry.getAdjacentUnblockedCoordinates
 
 class ResurrectCommand(override val source: Unit, private val target: Corpse) : Command
 {
@@ -55,7 +55,8 @@ class ResurrectCommand(override val source: Unit, private val target: Corpse) : 
     {
         if (source.isActivityReady(Activity.WALKING))
         {
-            val adjacentCoordinates = getAdjacentUnblockedCoordinates(source.getCoordinates())
+            val adjacentCoordinates =
+                getAdjacentUnblockedCoordinates(source.getCoordinates())
             if (adjacentCoordinates.isNotEmpty())
             {
                 val coordinates = adjacentCoordinates.random()

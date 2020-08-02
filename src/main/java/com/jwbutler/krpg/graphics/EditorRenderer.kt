@@ -1,11 +1,14 @@
 package com.jwbutler.krpg.graphics
 
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.graphics.ui.HUDRenderer
 import com.jwbutler.krpg.players.HumanPlayer
 
-class GameRenderer(window: GameWindow) : AbstractRenderer(window)
+class EditorRenderer(window: GameWindow) : AbstractRenderer(window)
 {
+    /**
+     * Very similar to [GameRenderer._getRenderables]
+     * but without the HUD
+     */
     override fun _getRenderables(): List<Renderable>
     {
         val state = GameState.getInstance()
@@ -23,12 +26,5 @@ class GameRenderer(window: GameWindow) : AbstractRenderer(window)
             .sortedBy { it.first.getCoordinates().y }
             .map { it.second }
             .plus(uiOverlays) // TODO: Get these into the sort somehow
-            .plus(_renderHUD())
-    }
-
-    private fun _renderHUD(): Renderable
-    {
-        val (image, pixel) = HUDRenderer.render()
-        return Renderable(image, pixel, RenderLayer.UI_OVERLAY) // TODO
     }
 }

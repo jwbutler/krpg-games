@@ -1,14 +1,7 @@
-package com.jwbutler.krpg.utils
+package com.jwbutler.krpg.geometry
 
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GAME_WIDTH
-import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.geometry.Rectangle
-import com.jwbutler.krpg.geometry.TILE_HEIGHT
-import com.jwbutler.krpg.geometry.TILE_WIDTH
 import java.awt.Point
 import kotlin.math.abs
 import kotlin.math.sqrt

@@ -11,7 +11,7 @@ import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.utils.getPlayerUnits
-import com.jwbutler.krpg.utils.manhattanDistance
+import com.jwbutler.krpg.geometry.manhattanDistance
 import kotlin.random.Random
 
 enum class UnitAI
