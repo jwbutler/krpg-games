@@ -2,6 +2,7 @@ package com.jwbutler.krpg.players
 
 import com.jwbutler.krpg.behavior.commands.AttackCommand
 import com.jwbutler.krpg.behavior.commands.Command
+import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameEngine
@@ -12,7 +13,6 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.utils.getPlayerUnits
-import com.jwbutler.krpg.utils.getTargetedEnemies
 import com.jwbutler.krpg.utils.pixelToCoordinates
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -34,6 +34,11 @@ class MousePlayer : HumanPlayer()
             ?: StayCommand(unit)
     }
 
+    override fun getQueuedCommand(unit: Unit): Command?
+    {
+        return queuedCommands[unit]?.invoke(unit)
+    }
+
     override fun getOverlays(): Map<Coordinates, Overlay>
     {
         val overlays = mutableMapOf<Coordinates, Overlay>()
@@ -41,19 +46,31 @@ class MousePlayer : HumanPlayer()
         val playerUnits = getPlayerUnits()
         for (unit in playerUnits)
         {
-            overlays[unit.getCoordinates()] = OverlayFactory.createPlayerOverlay(unit.getCoordinates(), true)
-        }
+            overlays[unit.getCoordinates()] = OverlayFactory.playerOverlay(unit.getCoordinates(), true)
 
-        val targetUnits = getTargetedEnemies(playerUnits)
-        for (unit in targetUnits)
-        {
-            overlays[unit.getCoordinates()] = OverlayFactory.createEnemyoverlay(unit.getCoordinates(), true)
-        }
-
-        val targetCoordinates = _getTargetedCoordinates(playerUnits)
-        for (coordinates in targetCoordinates)
-        {
-            overlays[coordinates] = OverlayFactory.createPositionOverlay(coordinates, true)
+            val command = getQueuedCommand(unit) ?: unit.getCommand()
+            when (command)
+            {
+                is AttackCommand ->
+                {
+                    val target = command.target
+                    if (target.exists())
+                    {
+                        val coordinates = command.target.getCoordinates()
+                        overlays[coordinates] = OverlayFactory.enemyOverlay(coordinates, true)
+                    }
+                }
+                is DirectionalAttackCommand ->
+                {
+                    val coordinates = command.target
+                    overlays[coordinates] = OverlayFactory.enemyOverlay(coordinates, true)
+                }
+                is MoveCommand ->
+                {
+                    val coordinates = command.target
+                    overlays[coordinates] = OverlayFactory.positionOverlay(coordinates, true)
+                }
+            }
         }
 
         return overlays
@@ -120,19 +137,6 @@ class MousePlayer : HumanPlayer()
         }
 
         private fun _stay(u: Unit, coordinates: Coordinates) = StayCommand(u)
-
-        private fun _getTargetedCoordinates(units: Collection<Unit>): Collection<Coordinates>
-        {
-            val coordinates = mutableListOf<Coordinates>()
-            for (unit in units)
-            {
-                when (val command = unit.getCommand())
-                {
-                    is MoveCommand -> coordinates += command.target
-                }
-            }
-            return coordinates
-        }
     }
 
 }

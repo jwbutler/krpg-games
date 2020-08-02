@@ -137,7 +137,6 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
         }
         else
         {
-            // Take player input
             if (sprite.isAnimationComplete(this))
             {
                 _onActivityComplete(activity)

@@ -20,6 +20,16 @@ class KeyboardPlayer : HumanPlayer()
 
     override fun chooseCommand(unit: Unit): Command
     {
+        return _getCommand(unit)
+    }
+
+    override fun getQueuedCommand(unit: Unit): Command?
+    {
+        return _getCommand(unit)
+    }
+
+    private fun _getCommand(unit: Unit): Command
+    {
         var (dx, dy) = Pair(0, 0)
 
         for (directionKey in queuedDirections)

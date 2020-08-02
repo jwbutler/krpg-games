@@ -10,6 +10,7 @@ import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.Sprite
+import kotlin.math.min
 
 abstract class UnitSprite
 (
@@ -36,7 +37,8 @@ abstract class UnitSprite
 
     private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey
     {
-        return _getFrames(activity, direction)[frameNumber]
+        val frames = _getFrames(activity, direction)
+        return frames[frameNumber]
     }
 
     private fun _formatFilename(frameKey: FrameKey): String

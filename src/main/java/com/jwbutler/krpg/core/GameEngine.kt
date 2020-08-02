@@ -1,6 +1,5 @@
 package com.jwbutler.krpg.core
 
-import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.graphics.GameRenderer
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -18,6 +17,7 @@ interface GameEngine
     fun pause()
     fun unpause()
     fun togglePause()
+    fun isPaused(): Boolean
     fun doLoop()
 
     companion object : SingletonHolder<GameEngine>(::GameEngineImpl)
@@ -25,8 +25,8 @@ interface GameEngine
 
 private class GameEngineImpl : GameEngine
 {
-    var isPaused = false
-    var initialized = false
+    private var isPaused = false
+    private var initialized = false
 
     override fun start()
     {
@@ -34,10 +34,7 @@ private class GameEngineImpl : GameEngine
         GlobalScope.launch {
             while (true)
             {
-                if (!isPaused)
-                {
-                    doLoop()
-                }
+                doLoop()
                 delay(FRAME_INTERVAL.toLong())
             }
         }
@@ -59,6 +56,8 @@ private class GameEngineImpl : GameEngine
         if (isPaused) unpause() else pause()
     }
 
+    override fun isPaused() = isPaused
+
     override fun doLoop()
     {
         _update()
@@ -69,18 +68,14 @@ private class GameEngineImpl : GameEngine
     private fun _update()
     {
         val state = GameState.getInstance()
-        if (!isPaused)
+        val entities = state.getEntities()
+        for (entity in entities)
         {
-            // Update
-            val entities = state.getEntities()
-            for (entity in entities)
+            // Unfortunately we have to do this superfluous-looking check here
+            // because they could die (or kill each other) during update() methods
+            if (entity.exists())
             {
-                // Unfortunately we have to do this superfluous-looking check here
-                // because they could die (or kill each other) during update() methods
-                if (entity.exists())
-                {
-                    entity.update()
-                }
+                entity.update()
             }
         }
     }
@@ -92,11 +87,12 @@ private class GameEngineImpl : GameEngine
 
     private fun _afterRender()
     {
-        if (!isPaused)
+        if (isPaused)
         {
-            val state = GameState.getInstance()
-            state.ticks++
-            state.getEntities().forEach(Entity::afterRender)
+            return
         }
+
+        val state = GameState.getInstance()
+        state.getEntities().forEach { it.afterRender() }
     }
 }

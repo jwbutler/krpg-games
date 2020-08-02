@@ -1,6 +1,8 @@
 package com.jwbutler.krpg.players
 
+import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.entities.Overlay
+import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.GameWindow
 import java.awt.event.KeyAdapter
@@ -16,6 +18,8 @@ abstract class HumanPlayer : AbstractPlayer()
         GameWindow.getInstance().addKeyListener(getKeyListener())
         GameWindow.getInstance().addMouseListener(getMouseListener())
     }
+
+    abstract fun getQueuedCommand(unit: Unit): Command?
 
     abstract fun getOverlays(): Map<Coordinates, Overlay>
     open fun getKeyListener(): KeyListener = object : KeyAdapter() {}

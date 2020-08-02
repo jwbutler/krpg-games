@@ -2,6 +2,7 @@ package com.jwbutler.krpg.graphics.sprites
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
+import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.geometry.Offsets
@@ -12,6 +13,7 @@ import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
+import kotlin.math.min
 import kotlin.test.fail
 
 private const val BEHIND_PREFIX = "_B"
@@ -51,7 +53,8 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
 
     private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey
     {
-        return _getFrames(activity, direction)[frameNumber]
+        val frames = _getFrames(activity, direction)
+        return frames[frameNumber]
     }
 
     private fun _tryLoadBehindFirst(filename: String, paletteSwaps: PaletteSwaps): Pair<Image, RenderLayer>
