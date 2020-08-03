@@ -8,6 +8,9 @@ import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.StaticSprite
 
+/**
+ * TODO: Unlike other entity types, this does not automatically add itself to the board in its initializer
+ */
 class Tile(private val coordinates: Coordinates) : Entity
 {
     /**

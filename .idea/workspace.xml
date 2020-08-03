@@ -8,19 +8,13 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/EditorMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/EditorMain.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/Activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/Activity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/ResurrectCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/ResurrectCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/WanderCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/commands/WanderCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Coordinates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Coordinates.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pathfinder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pathfinder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UIOverlays.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UIOverlays.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/ai/UnitAI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/ai/UnitAI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/GeometryUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/GeometryUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/SingletonHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/SingletonHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pixel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pixel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/EditorPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/EditorPlayer.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +201,7 @@
       <workItem from="1595289312831" duration="17345000" />
       <workItem from="1595392731527" duration="63608000" />
       <workItem from="1595916663554" duration="27380000" />
-      <workItem from="1596332754185" duration="16584000" />
+      <workItem from="1596332754185" duration="19105000" />
     </task>
     <servers />
   </component>

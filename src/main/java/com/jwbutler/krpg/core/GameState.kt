@@ -31,7 +31,11 @@ interface GameState
 
     // Tiles
 
-    fun setTiles(tiles: Map<Coordinates, Tile?>)
+    fun setTiles(tiles: Map<Coordinates, Tile>)
+    /**
+     * If there's already a tile at [coordinates], just replace it
+     */
+    fun setTile(coordinates: Coordinates, tile: Tile)
 
     // Players
 
@@ -81,8 +85,8 @@ private class GameStateImpl : GameState
 
     private val players: MutableSet<Player> = mutableSetOf()
     private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
-    private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
-    private val coordinatesToTile: MutableMap<Coordinates, Tile?> = mutableMapOf()
+    private val coordinatesToUnit: MutableMap<Coordinates, Unit> = mutableMapOf()
+    private val coordinatesToTile: MutableMap<Coordinates, Tile> = mutableMapOf()
     private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
     private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
 
@@ -100,16 +104,19 @@ private class GameStateImpl : GameState
             ?: false
     }
 
-    override fun setTiles(tiles: Map<Coordinates, Tile?>)
+    override fun setTiles(tiles: Map<Coordinates, Tile>)
     {
         coordinatesToTile.clear()
         coordinatesToTile.putAll(tiles)
         coordinatesToTile.forEach { (coordinates, tile) ->
-            if (tile != null)
-            {
-                entityToCoordinates[tile] = coordinates
-            }
+            entityToCoordinates[tile] = coordinates
         }
+    }
+
+    override fun setTile(coordinates: Coordinates, tile: Tile)
+    {
+        coordinatesToTile[coordinates] = tile
+        entityToCoordinates[tile] = coordinates
     }
 
     override fun getPlayers() = players.toList()
