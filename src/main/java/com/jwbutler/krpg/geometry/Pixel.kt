@@ -1,6 +1,6 @@
 package com.jwbutler.krpg.geometry
 
-import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.ui.GameWindow
 import java.awt.Point
 
 data class Pixel(override val x: Int, override val y: Int) : IntPair

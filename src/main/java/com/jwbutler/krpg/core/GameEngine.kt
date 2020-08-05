@@ -1,6 +1,6 @@
 package com.jwbutler.krpg.core
 
-import com.jwbutler.krpg.graphics.GameRenderer
+import com.jwbutler.krpg.graphics.ui.GameRenderer
 import com.jwbutler.krpg.graphics.Renderer
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -26,9 +26,9 @@ interface GameEngine
     {
         private var instance: GameEngine? = null
 
-        fun initialize(vararg renderers: GameRenderer): GameEngine
+        fun initialize(renderer: GameRenderer): GameEngine
         {
-            instance = GameEngineImpl(*renderers)
+            instance = GameEngineImpl(renderer)
             return instance ?: throw IllegalStateException()
         }
 
@@ -36,7 +36,7 @@ interface GameEngine
     }
 }
 
-private class GameEngineImpl(private vararg val renderers: Renderer) : GameEngine
+private class GameEngineImpl(private val renderer: Renderer) : GameEngine
 {
     private var isPaused = false
     private var initialized = false
@@ -95,10 +95,7 @@ private class GameEngineImpl(private vararg val renderers: Renderer) : GameEngin
 
     private fun _render()
     {
-        for (renderer in renderers)
-        {
-            renderer.render()
-        }
+        renderer.render()
     }
 
     private fun _afterRender()

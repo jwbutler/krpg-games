@@ -4,8 +4,8 @@ import com.jwbutler.krpg.core.EditorEngine
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Tile
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.EditorRenderer
-import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.ui.EditorRenderer
+import com.jwbutler.krpg.graphics.ui.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.players.EditorPlayer
 
@@ -13,13 +13,13 @@ fun main()
 {
     ImageLoader.initialize()
 
+    val mainWindow = GameWindow.initialize()
     val state = GameState.initialize()
     state.setTiles(_tileBox(5, 5))
-    val mainWindow = GameWindow.initialize()
+    EditorPlayer()
+
     val mainRenderer = EditorRenderer(mainWindow)
     val engine = EditorEngine(mainRenderer)
-
-    val humanPlayer = EditorPlayer()
 
     engine.start()
 }

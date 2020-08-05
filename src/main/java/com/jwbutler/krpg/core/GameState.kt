@@ -90,7 +90,7 @@ private class GameStateImpl : GameState
     private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
     private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
 
-    override fun getCameraCoordinates() = Coordinates(5, 5) // TODO // _getPlayerUnit().getCoordinates()
+    override fun getCameraCoordinates() = Coordinates(5, 2) // TODO // _getPlayerUnit().getCoordinates()
 
     override fun getAllCoordinates(): Collection<Coordinates> = coordinatesToTile.keys
 

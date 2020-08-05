@@ -9,8 +9,8 @@ import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.graphics.sprites.Sprite
-import kotlin.math.min
 
 abstract class UnitSprite
 (
@@ -22,11 +22,16 @@ abstract class UnitSprite
     {
         val unit = entity as Unit
         val coordinates = unit.getCoordinates()
-        val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
-        val filename = _formatFilename(frame)
-        val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
+        val image = getImage(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         val pixel = coordinates.toPixel() + offsets
         return Renderable(image, pixel, RenderLayer.UNIT)
+    }
+
+    fun getImage(activity: Activity, direction: Direction, frameNumber: Int): Image
+    {
+        val frame = _getFrame(activity, direction, frameNumber)
+        val filename = _formatFilename(frame)
+        return ImageLoader.getInstance().loadImage(filename, paletteSwaps)
     }
 
     fun isAnimationComplete(unit: Unit): Boolean

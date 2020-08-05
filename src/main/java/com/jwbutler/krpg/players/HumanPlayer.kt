@@ -4,7 +4,7 @@ import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.entities.TileOverlay
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.ui.GameWindow
 import com.jwbutler.krpg.graphics.Renderable
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyListener

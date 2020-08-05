@@ -12,7 +12,7 @@ import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.ui.GameWindow
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.ui.UIOverlays
 import com.jwbutler.krpg.utils.getEnemyUnits

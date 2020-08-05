@@ -12,8 +12,8 @@ import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.images.Colors
-import com.jwbutler.krpg.graphics.GameRenderer
-import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.ui.GameRenderer
+import com.jwbutler.krpg.graphics.ui.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer

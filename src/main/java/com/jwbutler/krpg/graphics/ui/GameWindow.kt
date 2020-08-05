@@ -1,11 +1,10 @@
-package com.jwbutler.krpg.graphics
+package com.jwbutler.krpg.graphics.ui
 
 import com.jwbutler.krpg.core.SingletonHolder
 import com.jwbutler.krpg.geometry.GAME_HEIGHT
 import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_HEIGHT
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_WIDTH
-import com.jwbutler.krpg.graphics.ui.Window
 import javax.swing.WindowConstants
 
 class GameWindow : Window(GAME_WIDTH, GAME_HEIGHT, INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT)
