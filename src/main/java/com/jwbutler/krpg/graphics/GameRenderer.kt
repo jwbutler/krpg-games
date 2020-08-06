@@ -7,9 +7,9 @@ import com.jwbutler.krpg.players.HumanPlayer
 
 class GameRenderer
 {
-    private val window = GameWindow.initialize()
     fun render()
     {
+        val window = GameWindow.getInstance()
         window.clearBuffer()
 
         for ((image, pixel) in _getRenderables())

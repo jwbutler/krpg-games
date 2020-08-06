@@ -10,7 +10,6 @@ import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
 import java.awt.event.KeyListener
-import java.awt.event.MouseListener
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.WindowConstants
@@ -116,7 +115,7 @@ class GameWindow private constructor()
         frame.addMouseMotionListener(mouseListener)
     }
 
-    fun _getScaledDimensions(): Dimensions
+    private fun _getScaledDimensions(): Dimensions
     {
         val scaleFactor = min(
             1.0 * panel.getWidth() / GAME_WIDTH,
@@ -128,6 +127,4 @@ class GameWindow private constructor()
     }
 
     companion object : SingletonHolder<GameWindow>(::GameWindow)
-    {
-    }
 }

@@ -31,7 +31,7 @@ interface GameState
 
     // Tiles
 
-    fun setTiles(tiles: Map<Coordinates, Tile?>)
+    fun addTile(tile: Tile, coordinates: Coordinates)
 
     // Players
 
@@ -100,16 +100,12 @@ private class GameStateImpl : GameState
             ?: false
     }
 
-    override fun setTiles(tiles: Map<Coordinates, Tile?>)
+    override fun addTile(tile: Tile, coordinates: Coordinates)
     {
-        coordinatesToTile.clear()
-        coordinatesToTile.putAll(tiles)
-        coordinatesToTile.forEach { (coordinates, tile) ->
-            if (tile != null)
-            {
-                entityToCoordinates[tile] = coordinates
-            }
-        }
+        check(coordinatesToTile[coordinates] == null)
+        check(entityToCoordinates[tile] == null)
+        coordinatesToTile[coordinates] = tile
+        entityToCoordinates[tile] = coordinates
     }
 
     override fun getPlayers() = players.toList()

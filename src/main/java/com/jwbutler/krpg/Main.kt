@@ -13,6 +13,7 @@ import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
+import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.players.EnemyPlayer
@@ -20,12 +21,13 @@ import com.jwbutler.krpg.players.MousePlayer
 
 fun main()
 {
-    ImageLoader.initialize()
-
+    val imageLoader = ImageLoader.initialize()
     val state = GameState.initialize()
-    state.setTiles(_tileBox(15, 15))
+    val window = GameWindow.initialize()
     val renderer = GameRenderer.initialize()
     val engine = GameEngine.initialize()
+
+    _tileBox(15, 15)
 
     val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
         .put(Colors.GREEN, Colors.RED)
@@ -57,15 +59,15 @@ fun main()
     engine.start()
 }
 
-private fun _tileBox(width: Int, height: Int): Map<Coordinates, Tile?>
+private fun _tileBox(width: Int, height: Int): Map<Coordinates, Tile>
 {
-    val tiles: MutableMap<Coordinates, Tile?> = mutableMapOf()
+    val tiles: MutableMap<Coordinates, Tile> = mutableMapOf()
     for (y in (0 until height))
     {
         for (x in (0 until width))
         {
             val coordinates = Coordinates(x, y)
-            tiles.put(coordinates, Tile(coordinates))
+            tiles[coordinates] = Tile(coordinates)
         }
     }
     return tiles.toMap()

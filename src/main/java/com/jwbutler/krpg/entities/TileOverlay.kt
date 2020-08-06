@@ -19,9 +19,6 @@ class TileOverlay(
 ): Entity
 {
     override fun getCoordinates() = coordinates
-    /**
-     * TODO - tile types, palette swaps, caching, etc.
-     */
     override val sprite = _getSprite()
 
     private fun _getSprite(): Sprite
