@@ -5,7 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.Pathfinder
-import java.lang.Math.abs
+import kotlin.math.abs
 
 class AttackCommand(override val source: Unit, val target: Unit) : Command
 {

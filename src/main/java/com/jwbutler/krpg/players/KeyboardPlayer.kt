@@ -11,7 +11,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.Renderable
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
-import java.lang.Math.abs
+import kotlin.math.abs
 
 class KeyboardPlayer : HumanPlayer()
 {
