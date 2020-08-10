@@ -27,47 +27,57 @@ fun main()
     val renderer = GameRenderer.initialize()
     val engine = GameEngine.initialize()
 
-    _tileBox(15, 15)
+    _createTileBox(15, 15)
 
     val paletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
         .put(Colors.GREEN, Colors.RED)
         .put(Colors.DARK_GREEN, Colors.DARK_RED)
 
     val humanPlayer = MousePlayer()
+    state.addPlayer(humanPlayer)
     //val humanPlayer = KeyboardPlayer()
-    val playerUnit = PlayerUnit(humanPlayer, Coordinates(4, 4), 200, paletteSwaps)
+    val playerUnit = PlayerUnit(200, paletteSwaps)
+    state.addUnit(playerUnit, Coordinates(4, 4), humanPlayer)
     playerUnit.addEquipment(Sword())
     playerUnit.addEquipment(Shield())
     playerUnit.addEquipment(MailArmor())
-    val playerUnit2 = PlayerUnit(humanPlayer, Coordinates(4, 6), 200, paletteSwaps)
+    val playerUnit2 = PlayerUnit(200, paletteSwaps)
+    state.addUnit(playerUnit2, Coordinates(4, 6), humanPlayer)
     playerUnit2.addEquipment(Sword())
     playerUnit2.addEquipment(Shield())
     playerUnit2.addEquipment(MailArmor())
 
-    Wall(Coordinates(8, 3))
-    Wall(Coordinates(8, 4))
-    Wall(Coordinates(8, 5))
-    Wall(Coordinates(8, 6))
-    Wall(Coordinates(8, 7))
+    for (coordinates in listOf(8 to 3, 8 to 4, 8 to 5, 8 to 6, 8 to 7).map { (x, y) -> Coordinates(x, y) })
+    {
+        val wall = Wall()
+        state.addObject(wall, coordinates)
+    }
 
     val enemyPlayer = EnemyPlayer()
-    val enemyUnit = PlayerUnit(enemyPlayer, Coordinates(12, 5), 50)
+    state.addPlayer(enemyPlayer)
+    val enemyUnit = PlayerUnit(50)
+    state.addUnit(enemyUnit, Coordinates(12, 5), enemyPlayer)
     enemyUnit.addEquipment(Sword())
-    val enemyZombie = ZombieUnit(enemyPlayer, Coordinates(12, 7), 50)
-    val enemyWizard = WizardUnit(enemyPlayer, Coordinates(8, 9), 50)
+    val enemyZombie = ZombieUnit(50)
+    state.addUnit(enemyZombie, Coordinates(12, 7), enemyPlayer)
+    val enemyWizard = WizardUnit(50)
+    state.addUnit(enemyWizard, Coordinates(8, 9), enemyPlayer)
 
     engine.start()
 }
 
-private fun _tileBox(width: Int, height: Int): Map<Coordinates, Tile>
+private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
 {
+    val state = GameState.getInstance()
     val tiles: MutableMap<Coordinates, Tile> = mutableMapOf()
     for (y in (0 until height))
     {
         for (x in (0 until width))
         {
             val coordinates = Coordinates(x, y)
-            tiles[coordinates] = Tile(coordinates)
+            val tile = Tile(coordinates)
+            tiles[coordinates] = tile
+            state.addTile(tile, coordinates)
         }
     }
     return tiles.toMap()

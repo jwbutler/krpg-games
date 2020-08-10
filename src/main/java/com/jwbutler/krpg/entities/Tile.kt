@@ -17,12 +17,9 @@ class Tile(private val coordinates: Coordinates) : Entity
         ImageLoader.getInstance().loadImage("tiles/grass_24x12", PaletteSwaps()),
         RenderLayer.FLOOR_TILE
     )
-    init
-    {
-        GameState.getInstance().addTile(this, coordinates)
-    }
 
     override fun isBlocking() = false
+    // TODO: create GameState#getCoordinates(Tile)?
     override fun getCoordinates() = coordinates
     override fun exists() = GameState.getInstance().containsEntity(this)
     override fun update() {}

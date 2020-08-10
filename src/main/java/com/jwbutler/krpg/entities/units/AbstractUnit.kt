@@ -11,10 +11,9 @@ import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
-import com.jwbutler.krpg.players.Player
 import kotlin.math.max
 
-abstract class AbstractUnit(private var player: Player, coordinates: Coordinates, hp: Int, activities: Set<Activity>) : Unit
+abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 {
     abstract override val sprite: UnitSprite
     private var command: Command
@@ -33,11 +32,6 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
 
     init
     {
-        // Lots of `this` escaping.  I don't see a problem, though.
-        // The idea is that this constructor handles all the necessary state updates
-        // so the caller doesn't have to handle them individually.
-        GameState.getInstance().addUnit(this, coordinates)
-        player.addUnit(this)
         command = StayCommand(this)
         activity = Activity.STANDING
         direction = Direction.SE
@@ -48,7 +42,7 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
     }
 
     override fun isBlocking() = true
-    override fun getPlayer() = player
+    override fun getPlayer() = GameState.getInstance().getPlayer(this)
     override fun getCoordinates() = GameState.getInstance().getCoordinates(this)
     override fun exists() = GameState.getInstance().containsEntity(this)
     override fun getCommand() = command
@@ -113,9 +107,9 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
     final override fun die()
     {
         val state = GameState.getInstance()
-        val coordinates = getCoordinates()
-        val corpse = Corpse(this)
+
         val equipmentList = getEquipment().values.toMutableList()
+        val coordinates = getCoordinates()
         while (equipmentList.isNotEmpty())
         {
             val equipment = equipmentList.removeAt(0)
@@ -124,9 +118,10 @@ abstract class AbstractUnit(private var player: Player, coordinates: Coordinates
             state.addEquipment(equipment, coordinates)
             equipment.direction = this.direction
         }
-        state.removeUnit(this)
-        player.removeUnit(this)
+
+        val corpse = Corpse(this)
         state.addObject(corpse, coordinates)
+        state.removeUnit(this)
     }
 
     final override fun update()

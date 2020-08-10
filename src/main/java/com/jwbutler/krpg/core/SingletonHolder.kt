@@ -2,9 +2,7 @@ package com.jwbutler.krpg.core
 
 import java.lang.IllegalStateException
 
-abstract class SingletonHolder<T>(
-    private val supplier: () -> T
-)
+abstract class SingletonHolder<T>(private val supplier: () -> T)
 {
     private var instance: T? = null
 

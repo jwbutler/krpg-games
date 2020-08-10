@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter
 
 abstract class HumanPlayer : AbstractPlayer()
 {
+    final override val isHuman = true
+
     init
     {
         // IntelliJ doesn't like this but it seems ok

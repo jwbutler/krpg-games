@@ -5,8 +5,7 @@ import com.jwbutler.krpg.entities.units.Unit
 
 interface Player
 {
+    val isHuman: Boolean
     fun getUnits(): List<Unit>
-    fun addUnit(unit: Unit)
-    fun removeUnit(unit: Unit)
     fun chooseCommand(unit: Unit): Command
 }

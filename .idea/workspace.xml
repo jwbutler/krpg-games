@@ -9,11 +9,21 @@
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/Activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/behavior/Activity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/SingletonHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/SingletonHolder.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/TileOverlay.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/TileOverlay.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/AbstractObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/AbstractObject.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Corpse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Wall.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Wall.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/PlayerUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/PlayerUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/WizardUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/WizardUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/ZombieUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/ZombieUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/AbstractPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/AbstractPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/EnemyPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/EnemyPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/HumanPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/HumanPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/Player.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +40,8 @@
         <option value="Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin File" />
-        <option value="Kotlin Object" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
       </list>
     </option>
   </component>

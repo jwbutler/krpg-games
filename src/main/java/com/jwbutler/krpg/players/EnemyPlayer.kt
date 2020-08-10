@@ -9,6 +9,8 @@ import com.jwbutler.krpg.players.ai.UnitAI
 
 class EnemyPlayer : AbstractPlayer()
 {
+    override val isHuman = false
+
     override fun chooseCommand(unit: Unit): Command
     {
         val unitAI = when (unit)

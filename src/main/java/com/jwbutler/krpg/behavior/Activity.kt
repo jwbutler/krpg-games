@@ -65,7 +65,8 @@ enum class Activity
                 if (candidates.isNotEmpty())
                 {
                     state.removeObject(corpse)
-                    val reanimated = ZombieUnit(unit.getPlayer(), candidates.random(), 20)
+                    val reanimated = ZombieUnit(20)
+                    state.addUnit(reanimated, candidates.random(), unit.getPlayer())
                 }
             }
         }

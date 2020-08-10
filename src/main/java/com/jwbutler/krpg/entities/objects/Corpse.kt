@@ -5,7 +5,7 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.sprites.Sprite
 import com.jwbutler.krpg.graphics.sprites.StaticSprite
 
-class Corpse(unit: Unit) : AbstractObject(unit.getCoordinates())
+class Corpse(unit: Unit) : AbstractObject()
 {
     override val sprite = _getSprite(unit)
 
