@@ -7,14 +7,12 @@ import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.units.PlayerUnit
-import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
-import com.jwbutler.krpg.levels.Level
-import com.jwbutler.krpg.levels.LevelFactory
+import com.jwbutler.krpg.levels.LEVEL_ONE
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.MousePlayer
 
@@ -32,10 +30,10 @@ fun main()
     val enemyPlayer = EnemyPlayer()
     state.addPlayer(enemyPlayer)
 
-    engine.startGame(LevelFactory.FIRST_LEVEL, _getInitialUnits())
+    engine.startGame(LEVEL_ONE, _getInitialUnits())
 }
 
-private fun _getInitialUnits(): Collection<Level.UnitData>
+private fun _getInitialUnits(): List<GameEngine.UnitData>
 {
     val state = GameState.getInstance()
     val humanPlayer = state.getHumanPlayer()
@@ -45,21 +43,16 @@ private fun _getInitialUnits(): Collection<Level.UnitData>
         .put(Colors.DARK_GREEN, Colors.DARK_RED)
 
     return listOf(
-        Level.UnitData(
+        GameEngine.UnitData(
             PlayerUnit(200, paletteSwaps),
-            Coordinates(4, 6),
-            humanPlayer,
             mapOf(
                 EquipmentSlot.MAIN_HAND to Sword(),
                 EquipmentSlot.OFF_HAND to Shield(),
                 EquipmentSlot.CHEST to MailArmor()
             )
         ),
-
-        Level.UnitData(
+        GameEngine.UnitData(
             PlayerUnit(200, paletteSwaps),
-            Coordinates(4, 10),
-            humanPlayer,
             mapOf(
                 EquipmentSlot.MAIN_HAND to Sword(),
                 EquipmentSlot.OFF_HAND to Shield(),

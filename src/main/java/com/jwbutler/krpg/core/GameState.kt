@@ -60,6 +60,7 @@ interface GameState
     fun addUnit(unit: Unit, coordinates: Coordinates, player: Player)
     fun removeUnit(unit: Unit)
     fun moveUnit(unit: Unit, coordinates: Coordinates)
+    fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipment: Map<EquipmentSlot, Equipment>)
 
     // Objects
 
@@ -248,6 +249,9 @@ private class GameStateImpl : GameState
     override fun loadLevel(level: Level)
     {
         val playerUnits = coordinatesToUnit.values.filter { it.getPlayer().isHuman }
+        val playerUnitEquipment = unitToEquipment.entries
+            .filter { (unit, _) -> playerUnits.contains(unit) }
+
         entityToCoordinates.clear()
         coordinatesToTile.clear()
         coordinatesToObjects.clear()
@@ -276,19 +280,25 @@ private class GameStateImpl : GameState
             }
         }
 
-        _addPlayerUnits(getHumanPlayer(), playerUnits, level.startPosition)
+        for (unit in playerUnits)
+        {
+            addPlayerUnit(
+                unit,
+                getHumanPlayer(),
+                level.startPosition,
+                unitToEquipment.getOrDefault(unit, mapOf())
+            )
+        }
     }
 
-    private fun _addPlayerUnits(player: Player, units: List<Unit>, coordinates: Coordinates)
+    override fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipment: Map<EquipmentSlot, Equipment>)
     {
         val candidateCoordinates = GameState.getInstance()
             .getAllCoordinates()
             .filter { !it.isBlocked() }
             .sortedBy { hypotenuse(it, coordinates) }
-        for (i in units.indices)
-        {
-            val targetCoordinates = candidateCoordinates.getOrNull(i) ?: throw IllegalStateException("Couldn't place units")
-            addUnit(units[i], targetCoordinates, player)
-        }
+
+        val targetCoordinates = candidateCoordinates.getOrNull(0) ?: throw IllegalStateException("Couldn't place units")
+        addUnit(unit, targetCoordinates, player)
     }
 }

@@ -11,8 +11,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LevelFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LevelFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LevelFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -1,5 +1,9 @@
 package com.jwbutler.krpg.core
 
+import com.jwbutler.krpg.core.GameEngine.UnitData
+import com.jwbutler.krpg.entities.equipment.Equipment
+import com.jwbutler.krpg.entities.equipment.EquipmentSlot
+import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.levels.Level
 import kotlinx.coroutines.GlobalScope
@@ -14,7 +18,7 @@ private const val FRAME_INTERVAL = 83 // ~12 FPS
  */
 interface GameEngine
 {
-    fun startGame(initialLevel: Level, units: Collection<Level.UnitData>)
+    fun startGame(initialLevel: Level, units: List<UnitData>)
     fun pause()
     fun unpause()
     fun togglePause()
@@ -22,6 +26,12 @@ interface GameEngine
     fun doLoop()
 
     companion object : SingletonHolder<GameEngine>(::GameEngineImpl)
+
+    data class UnitData
+    (
+        val unit: Unit,
+        val equipment: Map<EquipmentSlot, Equipment>
+    )
 }
 
 private class GameEngineImpl : GameEngine
@@ -29,7 +39,7 @@ private class GameEngineImpl : GameEngine
     private var isPaused = false
     private var initialized = false
 
-    override fun startGame(initialLevel: Level, units: Collection<Level.UnitData>)
+    override fun startGame(initialLevel: Level, units: List<UnitData>)
     {
         check(!initialized)
         val state = GameState.getInstance()
@@ -37,12 +47,8 @@ private class GameEngineImpl : GameEngine
 
         for (unitData in units)
         {
-            val (unit, coordinates, player, equipmentMap) = unitData
-            state.addUnit(unit, coordinates, player)
-            for ((slot, equipment) in equipmentMap)
-            {
-                state.addEquipment(equipment, unit)
-            }
+            val (unit, equipmentMap) = unitData
+            state.addPlayerUnit(unit, state.getHumanPlayer(), initialLevel.startPosition, equipmentMap)
         }
 
         GlobalScope.launch {
