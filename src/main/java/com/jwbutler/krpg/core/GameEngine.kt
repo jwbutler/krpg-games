@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.graphics.GameRenderer
+import com.jwbutler.krpg.levels.Level
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ private const val FRAME_INTERVAL = 83 // ~12 FPS
  */
 interface GameEngine
 {
-    fun start()
+    fun startGame(initialLevel: Level, units: Collection<Level.UnitData>)
     fun pause()
     fun unpause()
     fun togglePause()
@@ -28,9 +29,22 @@ private class GameEngineImpl : GameEngine
     private var isPaused = false
     private var initialized = false
 
-    override fun start()
+    override fun startGame(initialLevel: Level, units: Collection<Level.UnitData>)
     {
         check(!initialized)
+        val state = GameState.getInstance()
+        state.loadLevel(initialLevel)
+
+        for (unitData in units)
+        {
+            val (unit, coordinates, player, equipmentMap) = unitData
+            state.addUnit(unit, coordinates, player)
+            for ((slot, equipment) in equipmentMap)
+            {
+                state.addEquipment(equipment, unit)
+            }
+        }
+
         GlobalScope.launch {
             while (true)
             {

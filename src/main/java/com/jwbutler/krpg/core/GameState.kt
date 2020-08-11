@@ -258,11 +258,13 @@ private class GameStateImpl : GameState
             addTile(tile, coordinates)
         }
 
-        for ((player, coordinatesToUnit) in level.units)
+        for (unitData in level.units)
         {
-            for ((coordinates, unit) in coordinatesToUnit)
+            val (unit, coordinates, player, equipmentMap) = unitData
+            addUnit(unit, coordinates, player)
+            for ((slot, equipment) in equipmentMap)
             {
-                addUnit(unit, coordinates, player)
+                addEquipment(equipment, unit)
             }
         }
 
