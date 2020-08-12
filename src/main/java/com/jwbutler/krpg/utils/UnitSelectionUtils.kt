@@ -9,7 +9,7 @@ import com.jwbutler.krpg.geometry.TILE_WIDTH
 import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
 
-fun getPlayerUnits(): Collection<Unit>
+fun getPlayerUnits(): List<Unit>
 {
     val humanPlayer = GameState.getInstance()
         .getPlayers()
