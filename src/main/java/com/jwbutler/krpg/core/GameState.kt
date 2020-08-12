@@ -286,7 +286,7 @@ private class GameStateImpl : GameState
         }
     }
 
-    override fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipment: Map<EquipmentSlot, Equipment>)
+    override fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipmentMap: Map<EquipmentSlot, Equipment>)
     {
         val candidateCoordinates = GameState.getInstance()
             .getAllCoordinates()
@@ -295,5 +295,10 @@ private class GameStateImpl : GameState
 
         val targetCoordinates = candidateCoordinates.getOrNull(0) ?: throw IllegalStateException("Couldn't place units")
         addUnit(unit, targetCoordinates, player)
+
+        for ((slot, equipment) in equipmentMap)
+        {
+            addEquipment(equipment, unit)
+        }
     }
 }
