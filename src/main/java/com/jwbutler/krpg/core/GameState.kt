@@ -23,9 +23,6 @@ interface GameState
     // Global stuff
     var ticks: Int
 
-    // UI stuff
-    fun getCameraCoordinates(): Coordinates
-
     // Coordinates
 
     fun getAllCoordinates(): Collection<Coordinates>
@@ -95,8 +92,6 @@ private class GameStateImpl : GameState
     private val coordinatesToTile = mutableMapOf<Coordinates, Tile>()
     private val coordinatesToObjects = mutableMapOf<Coordinates, MutableCollection<GameObject>>()
     private val unitToEquipment = mutableMapOf<Unit, MutableMap<EquipmentSlot, Equipment>>()
-
-    override fun getCameraCoordinates() = Coordinates(5, 5) // TODO // _getPlayerUnit().getCoordinates()
 
     override fun getAllCoordinates(): Collection<Coordinates> = coordinatesToTile.keys
 
