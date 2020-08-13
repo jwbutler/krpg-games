@@ -7,21 +7,21 @@ import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.levels.Level
+import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
+import com.jwbutler.krpg.utils.hypotenuse
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
 /**
- * Note: In general it's better not to call these methods directly.
- * For example, [Unit] has methods that wrap around [addUnit] / [removeUnit]
+ * Note that `addX()` methods will add the entity to all corresponding maps - both internally and externally.
+ * For example, `addUnit()` also links the unit to the corresponding player.
  */
 interface GameState
 {
     // Global stuff
     var ticks: Int
-
-    // UI stuff
-    fun getCameraCoordinates(): Coordinates
 
     // Coordinates
 
@@ -36,7 +36,9 @@ interface GameState
     // Players
 
     fun getPlayers(): Collection<Player>
+    fun getHumanPlayer(): HumanPlayer
     fun addPlayer(player: Player)
+    fun getPlayer(unit: Unit): Player
 
     // Entities
 
@@ -50,10 +52,12 @@ interface GameState
     // Units
 
     fun getUnits(): Collection<Unit>
+    fun getUnits(player: Player): List<Unit>
     fun getUnit(coordinates: Coordinates): Unit?
-    fun addUnit(unit: Unit, coordinates: Coordinates)
+    fun addUnit(unit: Unit, coordinates: Coordinates, player: Player)
     fun removeUnit(unit: Unit)
     fun moveUnit(unit: Unit, coordinates: Coordinates)
+    fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipment: Map<EquipmentSlot, Equipment>)
 
     // Objects
 
@@ -72,6 +76,9 @@ interface GameState
     fun addEquipment(equipment: Equipment, coordinates: Coordinates)
     fun removeEquipment(equipment: Equipment)
 
+    // Levels
+    fun loadLevel(level: Level)
+
     companion object : SingletonHolder<GameState>(::GameStateImpl)
 }
 
@@ -79,14 +86,12 @@ private class GameStateImpl : GameState
 {
     override var ticks = 0
 
-    private val players: MutableSet<Player> = mutableSetOf()
-    private val entityToCoordinates: MutableMap<Entity, Coordinates> = mutableMapOf()
-    private val coordinatesToUnit: MutableMap<Coordinates, Unit?> = mutableMapOf()
-    private val coordinatesToTile: MutableMap<Coordinates, Tile?> = mutableMapOf()
-    private val coordinatesToObjects: MutableMap<Coordinates, MutableCollection<GameObject>> = mutableMapOf()
-    private val unitToEquipment: MutableMap<Unit, MutableMap<EquipmentSlot, Equipment>> = mutableMapOf()
-
-    override fun getCameraCoordinates() = Coordinates(5, 5) // TODO // _getPlayerUnit().getCoordinates()
+    private val playerToUnits = mutableMapOf<Player, MutableList<Unit>>()
+    private val entityToCoordinates = mutableMapOf<Entity, Coordinates>()
+    private val coordinatesToUnit = mutableMapOf<Coordinates, Unit>()
+    private val coordinatesToTile = mutableMapOf<Coordinates, Tile>()
+    private val coordinatesToObjects = mutableMapOf<Coordinates, MutableCollection<GameObject>>()
+    private val unitToEquipment = mutableMapOf<Unit, MutableMap<EquipmentSlot, Equipment>>()
 
     override fun getAllCoordinates(): Collection<Coordinates> = coordinatesToTile.keys
 
@@ -108,11 +113,30 @@ private class GameStateImpl : GameState
         entityToCoordinates[tile] = coordinates
     }
 
-    override fun getPlayers() = players.toList()
+    override fun getPlayers() = playerToUnits.keys.toList()
+    override fun getHumanPlayer(): HumanPlayer
+    {
+        return playerToUnits.keys
+            .filterIsInstance<HumanPlayer>()
+            .first()
+    }
+
     override fun addPlayer(player: Player)
     {
-        check(!players.contains(player))
-        players.add(player)
+        check(!playerToUnits.containsKey(player))
+        playerToUnits[player] = mutableListOf()
+    }
+
+    override fun getPlayer(unit: Unit): Player
+    {
+        for ((player, units) in playerToUnits)
+        {
+            if (units.contains(unit))
+            {
+                return player
+            }
+        }
+        throw IllegalStateException()
     }
 
     override fun getCoordinates(entity: Entity) = entityToCoordinates[entity] ?: throw IllegalStateException()
@@ -127,23 +151,29 @@ private class GameStateImpl : GameState
     override fun containsEntity(entity: Entity) = entityToCoordinates.containsKey(entity)
 
     override fun getUnits() = entityToCoordinates.keys.filterIsInstance<Unit>()
+    override fun getUnits(player: Player) = playerToUnits[player]!!
+
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
 
-    override fun addUnit(unit: Unit, coordinates: Coordinates)
+    override fun addUnit(unit: Unit, coordinates: Coordinates, player: Player)
     {
         check(coordinatesToTile[coordinates] != null) { "Can't add unit, no tile at ${coordinates}" }
         check(!isBlocked(coordinates))
         check(coordinatesToUnit[coordinates] == null) { "Can't add another unit at ${coordinates}" }
+        check(!playerToUnits[player]!!.contains(unit))
         entityToCoordinates[unit] = coordinates
         coordinatesToUnit[coordinates] = unit
+        playerToUnits[player]!! += unit
     }
 
     override fun removeUnit(unit: Unit)
     {
         val coordinates = entityToCoordinates[unit] ?: throw IllegalArgumentException()
+        val player = getPlayer(unit)
         check(coordinatesToUnit[coordinates] == unit)
         entityToCoordinates.remove(unit)
         coordinatesToUnit.remove(coordinates)
+        playerToUnits[player]!!.remove(unit)
     }
 
     override fun moveUnit(unit: Unit, coordinates: Coordinates)
@@ -195,9 +225,10 @@ private class GameStateImpl : GameState
     {
         check(equipment.getUnit() == null)
         check(entityToCoordinates[equipment] == null)
-        check(!(coordinatesToObjects[coordinates]?.contains(equipment) ?: true))
+        check(!(coordinatesToObjects[coordinates]?.contains(equipment) ?: false))
         entityToCoordinates[equipment] = coordinates
-        coordinatesToObjects[coordinates]!!.add(equipment)
+        coordinatesToObjects.computeIfAbsent(coordinates) { mutableListOf() }
+            .add(equipment)
     }
 
     override fun removeEquipment(equipment: Equipment)
@@ -208,5 +239,66 @@ private class GameStateImpl : GameState
         check(coordinatesToObjects[coordinates]?.contains(equipment) ?: true)
         entityToCoordinates.remove(equipment)
         coordinatesToObjects[coordinates]!!.remove(equipment)
+    }
+
+    override fun loadLevel(level: Level)
+    {
+        val playerUnits = coordinatesToUnit.values.filter { it.getPlayer().isHuman }
+        val playerUnitEquipment = unitToEquipment.entries
+            .filter { (unit, _) -> playerUnits.contains(unit) }
+
+        entityToCoordinates.clear()
+        coordinatesToTile.clear()
+        coordinatesToObjects.clear()
+        coordinatesToUnit.clear()
+
+        for ((coordinates, tile) in level.tiles)
+        {
+            addTile(tile, coordinates)
+        }
+
+        for (unitData in level.units)
+        {
+            val (unit, coordinates, player, equipmentMap) = unitData
+            addUnit(unit, coordinates, player)
+            for ((slot, equipment) in equipmentMap)
+            {
+                addEquipment(equipment, unit)
+            }
+        }
+
+        for ((coordinates, objects) in level.objects)
+        {
+            for (`object` in objects)
+            {
+                addObject(`object`, coordinates)
+            }
+        }
+
+        for (unit in playerUnits)
+        {
+            addPlayerUnit(
+                unit,
+                getHumanPlayer(),
+                level.startPosition,
+                unitToEquipment.getOrDefault(unit, mapOf())
+            )
+        }
+    }
+
+    override fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipmentMap: Map<EquipmentSlot, Equipment>)
+    {
+        val candidateCoordinates = GameState.getInstance()
+            .getAllCoordinates()
+            .filter { !it.isBlocked() }
+            .sortedBy { hypotenuse(it, coordinates) }
+
+        val targetCoordinates = candidateCoordinates.getOrNull(0) ?: throw IllegalStateException("Couldn't place units")
+        addUnit(unit, targetCoordinates, player)
+
+        for ((slot, equipment) in equipmentMap)
+        {
+            addEquipment(equipment, unit)
+        }
     }
 }

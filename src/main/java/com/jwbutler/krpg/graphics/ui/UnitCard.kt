@@ -1,8 +1,10 @@
 package com.jwbutler.krpg.graphics.ui
 
+import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
+import com.jwbutler.krpg.players.HumanPlayer
 import java.awt.Font
 import kotlin.math.round
 import kotlin.math.roundToInt
@@ -21,7 +23,7 @@ class UnitCard(val unit: Unit)
     {
         val graphics = image.getGraphics()
 
-        graphics.color = Colors.BLACK
+        graphics.color = if (_isSelected(unit)) Colors.DARK_GREEN else Colors.DARK_GRAY
         graphics.fillRect(0, 0, WIDTH - 1, HEIGHT - 1)
 
         graphics.color = Colors.WHITE
@@ -31,6 +33,12 @@ class UnitCard(val unit: Unit)
         val healthBar = _drawHealthBar(WIDTH - 6, 5)
         healthBar.draw(graphics, 3, 18)
         return image
+    }
+
+    private fun _isSelected(unit: Unit): Boolean
+    {
+        check(unit.getPlayer() is HumanPlayer)
+        return (unit.getPlayer() as HumanPlayer).getSelectedUnits().contains(unit)
     }
 
     private fun _drawHealthBar(width: Int, height: Int): Image

@@ -105,6 +105,7 @@ class MousePlayer : HumanPlayer()
 
     override fun getKeyListener(): KeyListener
     {
+        val _this = this
         return object : KeyAdapter()
         {
             override fun keyReleased(e: KeyEvent)
@@ -127,6 +128,64 @@ class MousePlayer : HumanPlayer()
                             selectedUnits.addAll(getPlayerUnits())
                         }
                     }
+                    KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5 ->
+                    {
+                        _handleNumberKey(e)
+                    }
+                    KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT ->
+                    {
+                        _handleMoveCamera(e)
+                    }
+                }
+            }
+
+            private fun _handleNumberKey(e: KeyEvent)
+            {
+                val keyCode = e.getKeyCode()
+                val i = keyCode - KeyEvent.VK_1
+                val playerUnits = getPlayerUnits()
+                if (playerUnits.lastIndex >= i)
+                {
+                    if (e.isControlDown())
+                    {
+                        val unit = playerUnits[i]
+                        if (selectedUnits.contains(unit))
+                        {
+                            selectedUnits.remove(unit)
+                        }
+                        else
+                        {
+                            selectedUnits.add(unit)
+                        }
+                    }
+                    else
+                    {
+                        selectedUnits.clear()
+                        selectedUnits.add(playerUnits[i])
+                    }
+                }
+            }
+
+            private fun _handleMoveCamera(e: KeyEvent)
+            {
+                val cameraCoordinates = _this.cameraCoordinates
+                val (x, y) = cameraCoordinates
+
+                var (dx, dy) = Pair(0, 0)
+
+                when (e.getKeyCode())
+                {
+                    KeyEvent.VK_UP    -> dy--
+                    KeyEvent.VK_DOWN  -> dy++
+                    KeyEvent.VK_LEFT  -> dx--
+                    KeyEvent.VK_RIGHT -> dx++
+                    else -> {}
+                }
+
+                val newCoordinates = Coordinates(x + dx, y + dy)
+                if (GameState.getInstance().containsCoordinates(newCoordinates))
+                {
+                    _this.cameraCoordinates = newCoordinates
                 }
             }
         }

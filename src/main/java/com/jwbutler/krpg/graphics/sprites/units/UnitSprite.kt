@@ -10,7 +10,6 @@ import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.Sprite
-import kotlin.math.min
 
 abstract class UnitSprite
 (

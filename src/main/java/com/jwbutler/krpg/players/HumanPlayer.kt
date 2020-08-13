@@ -12,6 +12,9 @@ import java.awt.event.MouseAdapter
 
 abstract class HumanPlayer : AbstractPlayer()
 {
+    final override val isHuman = true
+    var cameraCoordinates = Coordinates(0, 0)
+
     init
     {
         // IntelliJ doesn't like this but it seems ok
