@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KRPG.iml" filepath="$PROJECT_DIR$/KRPG.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KRPG.main.iml" filepath="$PROJECT_DIR$/.idea/modules/KRPG.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KRPG.test.iml" filepath="$PROJECT_DIR$/.idea/modules/KRPG.test.iml" />
     </modules>
   </component>
 </project>
