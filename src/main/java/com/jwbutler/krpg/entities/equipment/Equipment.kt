@@ -13,7 +13,6 @@ interface Equipment : GameObject
 {
     val slot: EquipmentSlot
     fun getUnit(): Unit?
-    fun setUnit(unit: Unit?)
     var direction: Direction?
 
     override fun isBlocking() = false

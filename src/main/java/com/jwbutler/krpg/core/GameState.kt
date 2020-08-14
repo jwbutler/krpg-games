@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.core
 
+import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.Tile
 import com.jwbutler.krpg.entities.equipment.Equipment
@@ -54,6 +55,7 @@ interface GameState
     fun getUnits(): Collection<Unit>
     fun getUnits(player: Player): List<Unit>
     fun getUnit(coordinates: Coordinates): Unit?
+    fun getUnit(equipment: Equipment): Unit?
     fun addUnit(unit: Unit, coordinates: Coordinates, player: Player)
     fun removeUnit(unit: Unit)
     fun moveUnit(unit: Unit, coordinates: Coordinates)
@@ -78,6 +80,7 @@ interface GameState
 
     // Levels
     fun loadLevel(level: Level)
+    fun getLevel(): Level
 
     companion object : SingletonHolder<GameState>(::GameStateImpl)
 }
@@ -85,6 +88,7 @@ interface GameState
 private class GameStateImpl : GameState
 {
     override var ticks = 0
+    private var level: Level? = null
 
     private val playerToUnits = mutableMapOf<Player, MutableList<Unit>>()
     private val entityToCoordinates = mutableMapOf<Entity, Coordinates>()
@@ -154,16 +158,21 @@ private class GameStateImpl : GameState
     override fun getUnits(player: Player) = playerToUnits[player]!!
 
     override fun getUnit(coordinates: Coordinates): Unit? = coordinatesToUnit[coordinates]
+    override fun getUnit(equipment: Equipment): Unit? = unitToEquipment.entries
+        .find { (unit, slotToEquipment) -> slotToEquipment.values.contains(equipment) }
+        ?.key
 
     override fun addUnit(unit: Unit, coordinates: Coordinates, player: Player)
     {
         check(coordinatesToTile[coordinates] != null) { "Can't add unit, no tile at ${coordinates}" }
         check(!isBlocked(coordinates))
         check(coordinatesToUnit[coordinates] == null) { "Can't add another unit at ${coordinates}" }
-        check(!playerToUnits[player]!!.contains(unit))
         entityToCoordinates[unit] = coordinates
         coordinatesToUnit[coordinates] = unit
-        playerToUnits[player]!! += unit
+        if (!(playerToUnits.getOrDefault(player, listOf<Unit>()).contains(unit)))
+        {
+            playerToUnits[player]!! += unit
+        }
     }
 
     override fun removeUnit(unit: Unit)
@@ -206,10 +215,9 @@ private class GameStateImpl : GameState
 
     override fun addEquipment(equipment: Equipment, unit: Unit)
     {
-        unitToEquipment.getOrPut(unit) { mutableMapOf() }
-        check(unitToEquipment[unit]!![equipment.slot] == null)
-        unitToEquipment[unit]!![equipment.slot] = equipment
-        equipment.setUnit(unit)
+        val slotToEquipment = unitToEquipment.computeIfAbsent(unit) { mutableMapOf() }
+        check(slotToEquipment[equipment.slot] == null)
+        slotToEquipment[equipment.slot] = equipment
     }
 
     override fun removeEquipment(equipment: Equipment, unit: Unit)
@@ -246,11 +254,14 @@ private class GameStateImpl : GameState
         val playerUnits = coordinatesToUnit.values.filter { it.getPlayer().isHuman }
         val playerUnitEquipment = unitToEquipment.entries
             .filter { (unit, _) -> playerUnits.contains(unit) }
+            .map { it.key to it.value }
+            .toMap()
 
         entityToCoordinates.clear()
         coordinatesToTile.clear()
         coordinatesToObjects.clear()
         coordinatesToUnit.clear()
+        unitToEquipment.clear()
 
         for ((coordinates, tile) in level.tiles)
         {
@@ -263,7 +274,7 @@ private class GameStateImpl : GameState
             addUnit(unit, coordinates, player)
             for ((slot, equipment) in equipmentMap)
             {
-                addEquipment(equipment, unit)
+                unit.addEquipment(equipment)
             }
         }
 
@@ -281,10 +292,19 @@ private class GameStateImpl : GameState
                 unit,
                 getHumanPlayer(),
                 level.startPosition,
-                unitToEquipment.getOrDefault(unit, mapOf())
+                playerUnitEquipment.getOrDefault(unit, emptyMap())
             )
         }
+
+        for (unit in this.coordinatesToUnit.values)
+        {
+            unit.setCommand(StayCommand(unit))
+        }
+
+        this.level = level
     }
+
+    override fun getLevel(): Level = level!!
 
     override fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipmentMap: Map<EquipmentSlot, Equipment>)
     {
@@ -298,7 +318,7 @@ private class GameStateImpl : GameState
 
         for ((slot, equipment) in equipmentMap)
         {
-            addEquipment(equipment, unit)
+            unit.addEquipment(equipment)
         }
     }
 }

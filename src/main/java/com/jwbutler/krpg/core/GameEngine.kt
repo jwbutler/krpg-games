@@ -114,5 +114,17 @@ private class GameEngineImpl : GameEngine
 
         val state = GameState.getInstance()
         state.getEntities().forEach { it.afterRender() }
+
+        _checkVictory()
+    }
+
+    private fun _checkVictory()
+    {
+        val state = GameState.getInstance()
+        val level = state.getLevel()
+        if (level.isComplete())
+        {
+            level.onComplete()
+        }
     }
 }
