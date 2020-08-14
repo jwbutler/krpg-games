@@ -8,7 +8,13 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/AbstractEquipment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/AbstractEquipment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/Equipment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/equipment/Equipment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +31,8 @@
         <option value="Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin File" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -43,7 +49,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../warpath" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -61,8 +67,12 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateKotlinClassDialog.RecentsKey">
-      <recent name="com.jwbutler.krpg.players.ai" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\ui" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\images" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites\units" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.jwbutler.krpg.graphics.ui" />
@@ -72,6 +82,7 @@
       <recent name="com.jwbutler.krpg.graphics.sprites.units.classes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\levels" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\equipment" />
@@ -84,12 +95,8 @@
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
       <recent name="com.jwbutler.krpg.graphics.sprites" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\ui" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\images" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites\units" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="com.jwbutler.krpg.players.ai" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -179,6 +186,7 @@
       <workItem from="1595392731527" duration="63608000" />
       <workItem from="1595916663554" duration="27380000" />
       <workItem from="1596332754185" duration="11280000" />
+      <workItem from="1597288980635" duration="7909000" />
     </task>
     <servers />
   </component>
@@ -208,20 +216,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt</url>
-          <line>279</line>
-          <option name="timeStamp" value="18" />
+          <line>290</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt</url>
-          <line>290</line>
-          <option name="timeStamp" value="19" />
+          <line>265</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt</url>
-          <line>50</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt</url>
+          <line>288</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang">
             <option name="class-filters-enabled" value="true" />
             <class-filters>

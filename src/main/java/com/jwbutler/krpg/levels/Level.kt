@@ -8,13 +8,16 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.players.Player
 
+/**
+ * Levels are mutable - they save their state when you exit them.
+ */
 data class Level
 (
     val tiles: Map<Coordinates, Tile>,
     val units: Collection<UnitData>,
     val objects: Map<Coordinates, Collection<GameObject>>,
     val startPosition: Coordinates,
-    val victoryCondition: () -> Boolean
+    private val victoryCondition: VictoryCondition
 )
 {
     data class UnitData
@@ -24,4 +27,7 @@ data class Level
         val player: Player,
         val equipment: Map<EquipmentSlot, Equipment>
     )
+
+    fun isComplete() = victoryCondition.predicate()
+    fun onComplete() = victoryCondition.onComplete()
 }

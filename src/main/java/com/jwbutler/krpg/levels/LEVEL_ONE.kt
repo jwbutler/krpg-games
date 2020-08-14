@@ -11,17 +11,21 @@ import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.geometry.Coordinates
 
+private val VICTORY_CONDITION = VictoryCondition(
+    ::_checkVictory,
+    { GameState.getInstance().loadLevel(LEVEL_TWO) }
+)
+
 val LEVEL_ONE = Level(
     _createTileBox(15, 15),
     _getUnits(),
     _getWalls(),
     Coordinates(0, 0),
-    ::_checkVictory
+    VICTORY_CONDITION
 )
 
 private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
 {
-    val state = GameState.getInstance()
     val tiles: MutableMap<Coordinates, Tile> = mutableMapOf()
     for (y in (0 until height))
     {
@@ -30,7 +34,6 @@ private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
             val coordinates = Coordinates(x, y)
             val tile = Tile(coordinates)
             tiles[coordinates] = tile
-            state.addTile(tile, coordinates)
         }
     }
     return tiles.toMap()

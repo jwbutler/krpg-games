@@ -113,8 +113,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
         while (equipmentList.isNotEmpty())
         {
             val equipment = equipmentList.removeAt(0)
-            equipment.setUnit(null)
-            state.removeEquipment(equipment, this)
+            removeEquipment(equipment)
             state.addEquipment(equipment, coordinates)
             equipment.direction = this.direction
         }
