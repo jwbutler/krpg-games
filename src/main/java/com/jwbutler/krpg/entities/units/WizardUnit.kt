@@ -3,7 +3,6 @@ package com.jwbutler.krpg.entities.units
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
-import kotlin.random.Random
 
 private val ACTIVITIES = setOf(
     Activity.APPEARING,
@@ -23,7 +22,7 @@ class WizardUnit(hp: Int) : AbstractUnit(hp, ACTIVITIES)
         {
             Activity.RESURRECTING -> 50
             Activity.VANISHING    -> 100
-            Activity.WALKING      -> Random.nextInt(1, 6)
+            Activity.WALKING      -> 2
             else                  -> 0
         }
     }

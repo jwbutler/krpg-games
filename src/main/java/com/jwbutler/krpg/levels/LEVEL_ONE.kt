@@ -1,11 +1,12 @@
 package com.jwbutler.krpg.levels
 
 import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.Tile
+import com.jwbutler.krpg.entities.tiles.Tile
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Wall
+import com.jwbutler.krpg.entities.tiles.TileType
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
@@ -13,7 +14,8 @@ import com.jwbutler.krpg.geometry.Coordinates
 
 private val VICTORY_CONDITION = VictoryCondition(
     ::_checkVictory,
-    { GameState.getInstance().loadLevel(LEVEL_TWO) }
+    //{ GameState.getInstance().loadLevel(LEVEL_TWO) }
+    { GameState.getInstance().loadLevel(BitmapLevelCreator.loadLevel("level0")) }
 )
 
 val LEVEL_ONE = Level(
@@ -32,7 +34,7 @@ private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
         for (x in (0 until width))
         {
             val coordinates = Coordinates(x, y)
-            val tile = Tile(coordinates)
+            val tile = Tile(TileType.GRASS, coordinates)
             tiles[coordinates] = tile
         }
     }

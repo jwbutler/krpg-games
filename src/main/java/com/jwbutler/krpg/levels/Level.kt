@@ -1,6 +1,6 @@
 package com.jwbutler.krpg.levels
 
-import com.jwbutler.krpg.entities.Tile
+import com.jwbutler.krpg.entities.tiles.Tile
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
@@ -20,6 +20,8 @@ data class Level
     private val victoryCondition: VictoryCondition
 )
 {
+    var forceComplete = false // hack for skip level cheat
+
     data class UnitData
     (
         val unit: Unit,
@@ -28,6 +30,6 @@ data class Level
         val equipment: Map<EquipmentSlot, Equipment>
     )
 
-    fun isComplete() = victoryCondition.predicate()
+    fun isComplete() = forceComplete || victoryCondition.predicate()
     fun onComplete() = victoryCondition.onComplete()
 }

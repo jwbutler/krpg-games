@@ -36,9 +36,9 @@ class GameRenderer
         val renderables = entities.plus(tileOverlays).map { it to it.render() }
 
         return renderables
-            .sortedBy { it.second.layer }
-            .sortedBy { it.first.getCoordinates().y }
-            .map { it.second }
+            .sortedBy { (_, renderable) -> renderable.layer }
+            .sortedBy { (entity, _) -> entity.getCoordinates().y }
+            .map { (_, renderable) -> renderable }
             .plus(uiOverlays) // TODO: Get these into the sort somehow
     }
 

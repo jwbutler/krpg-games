@@ -6,16 +6,16 @@ import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.graphics.sprites.StaticSprite
 
-class Wall : AbstractObject()
+class Tree : AbstractObject()
 {
-    override val sprite = StaticSprite(_getImage(), RenderLayer.OBJECT, Offsets(0, -36))
+    override val sprite = StaticSprite(_getImage(), RenderLayer.OBJECT, Offsets(0, -28))
     override fun isBlocking() = true
 
     companion object
     {
         private fun _getImage(): Image
         {
-            return ImageLoader.getInstance().loadImage("objects/wall_24x48")
+            return ImageLoader.getInstance().loadImage("objects/tree3")
         }
     }
 }

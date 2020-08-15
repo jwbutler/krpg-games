@@ -7,22 +7,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_60.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_60.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_60.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_3_60.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/KRPG.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/KRPG.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/KRPG_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KRPG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/KRPG.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/Tile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/tiles/Tile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Wall.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Wall.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/WizardUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/WizardUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pathfinder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pathfinder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Colors.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Colors.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageLoader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/PaletteSwaps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/PaletteSwaps.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_TWO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_TWO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/VictoryCondition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/VictoryCondition.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/overlay_48x23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_dirt_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_dirt_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_dirt_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_dirt_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_fire_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_fire_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_fire_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_fire_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grass_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grass_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grass_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grass_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grassdirt_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grassdirt_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grassdirt_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_grassdirt_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_stone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_water_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_water_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_water_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/48x23/tile_48x23_water_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/png/tiles/wall_24x12.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,13 +103,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Kotlin Enum" />
         <option value="Interface" />
         <option value="Class" />
         <option value="Kotlin Interface" />
-        <option value="Kotlin File" />
-        <option value="Kotlin Object" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Enum" />
+        <option value="Kotlin Object" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -102,6 +126,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -112,7 +137,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/lib/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -124,11 +149,11 @@
       <recent name="com.jwbutler.krpg.players.ai" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.jwbutler.krpg.entities.tiles" />
       <recent name="com.jwbutler.krpg.graphics.ui" />
       <recent name="com.jwbutler.krpg.graphics.images" />
       <recent name="com.jwbutler.krpg.utils" />
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
-      <recent name="com.jwbutler.krpg.graphics.sprites.units.classes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\levels" />
@@ -138,8 +163,8 @@
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\resources\png\units\player" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="com.jwbutler.krpg.players" />
       <recent name="com.jwbutler.krpg.entities.objects" />
+      <recent name="com.jwbutler.krpg.players" />
       <recent name="com.jwbutler.krpg.behavior.commands" />
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
       <recent name="com.jwbutler.krpg.graphics.sprites" />
@@ -170,7 +195,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.KRPG [jar]">
+  <component name="RunManager" selected="Kotlin.com.jwbutler.krpg.MainKt">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -266,11 +291,14 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.KRPG [jar]" />
         <item itemvalue="Kotlin.com.jwbutler.krpg.MainKt" />
+        <item itemvalue="Gradle.KRPG [jar]" />
         <item itemvalue="Gradle.KRPG [ass]" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -327,6 +355,15 @@
           </properties>
           <option name="timeStamp" value="11" />
         </breakpoint>
+        <line-breakpoint type="kotlin-function">
+          <condition expression="entityToCoordinates[entity] == null" language="kotlin" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt</url>
+          <line>145</line>
+          <properties class="com.jwbutler.krpg.core.GameStateImpl" method="getCoordinates">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="java-exception">

@@ -2,7 +2,7 @@ package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.entities.Tile
+import com.jwbutler.krpg.entities.tiles.Tile
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.objects.GameObject
@@ -249,6 +249,9 @@ private class GameStateImpl : GameState
         coordinatesToObjects[coordinates]!!.remove(equipment)
     }
 
+    /**
+     * TODO: Migrate some of this to GameEngine
+     */
     override fun loadLevel(level: Level)
     {
         val playerUnits = coordinatesToUnit.values.filter { it.getPlayer().isHuman }
@@ -262,6 +265,7 @@ private class GameStateImpl : GameState
         coordinatesToObjects.clear()
         coordinatesToUnit.clear()
         unitToEquipment.clear()
+        playerToUnits.values.forEach { it.clear() }
 
         for ((coordinates, tile) in level.tiles)
         {

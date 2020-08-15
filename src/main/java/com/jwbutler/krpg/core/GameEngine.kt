@@ -88,11 +88,10 @@ private class GameEngineImpl : GameEngine
     private fun _update()
     {
         val state = GameState.getInstance()
-        val entities = state.getEntities()
-        for (entity in entities)
+        for (entity in state.getEntities())
         {
             // Unfortunately we have to do this superfluous-looking check here
-            // because they could die (or kill each other) during update() methods
+            // because the entity could have been killed during a previous update() method
             if (entity.exists())
             {
                 entity.update()

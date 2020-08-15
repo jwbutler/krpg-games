@@ -16,12 +16,10 @@ import kotlin.math.max
 abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 {
     abstract override val sprite: UnitSprite
+
     private var command: Command
     private var activity: Activity
     private var direction: Direction
-    /**
-     * This isn't "1", "2", "2b"... this is 0, 1, 2
-     */
     private var frameNumber: Int
 
     private var currentHP: Int
@@ -53,7 +51,10 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
     override fun getCurrentHP() = currentHP
     override fun getMaxHP() = maxHP
 
-    final override fun getRemainingCooldown(activity: Activity) = remainingCooldowns.getOrDefault(activity, 0)
+    final override fun getRemainingCooldown(activity: Activity): Int
+    {
+        return remainingCooldowns.getOrDefault(activity, 0)
+    }
 
     final override fun triggerCooldown(activity: Activity)
     {
@@ -125,6 +126,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 
     final override fun update()
     {
+        // TODO: Replace reference to hardcoded command type
         if (currentHP <= 0 && command.type != CommandType.DIE)
         {
             setCommand(DieCommand(this))
@@ -147,6 +149,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
                 {
                     setCommand(nextCommand)
                 }
+                // TODO: Replace reference to hardcoded command type
                 else if (command.isPreemptible() && nextCommand.type != CommandType.STAY)
                 {
                     setCommand(nextCommand)
@@ -180,7 +183,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 
     final override fun getEquipment() = GameState.getInstance().getEquipment(this)
 
-    override fun toString() = this::class.simpleName!!
+    override fun toString() = this::class.java.getSimpleName()
 
     private fun _onActivityComplete(activity: Activity)
     {

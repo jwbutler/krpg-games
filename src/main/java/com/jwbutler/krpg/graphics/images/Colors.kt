@@ -7,6 +7,7 @@ object Colors
     val RED           = Color(255, 0, 0)
     val DARK_RED      = Color(128, 0, 0)
     val ORANGE        = Color(255, 128, 64)
+    val BROWN         = Color(128, 64, 0)
     val YELLOW        = Color(255, 255, 0)
     val GREEN         = Color(0, 255, 0)
     val DARK_GREEN    = Color(0, 128, 0)

@@ -5,34 +5,31 @@ import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.utils.hypotenuse
 import java.util.PriorityQueue
 
-class Pathfinder
+object Pathfinder
 {
-    companion object
+    fun findPath(first: Coordinates, second: Coordinates): List<Coordinates>?
     {
-        fun findPath(first: Coordinates, second: Coordinates): List<Coordinates>?
-        {
-            return Impl.DIJKSTRA.findPath(first, second)
-        }
+        return Impl.DIJKSTRA.findPath(first, second)
+    }
 
-        fun findPath(first: Entity, second: Entity): List<Coordinates>?
-        {
-            return findPath(first.getCoordinates(), second.getCoordinates())
-        }
+    fun findPath(first: Entity, second: Entity): List<Coordinates>?
+    {
+        return findPath(first.getCoordinates(), second.getCoordinates())
+    }
 
-        fun findNextCoordinates(path: List<Coordinates>?, current: Coordinates): Coordinates?
+    fun findNextCoordinates(path: List<Coordinates>?, current: Coordinates): Coordinates?
+    {
+        if (path != null)
         {
-            if (path != null)
+            val index = path.indexOf(current)
+            check(index < path.lastIndex)
+            val next = path[index + 1]
+            if (!next.isBlocked())
             {
-                val index = path.indexOf(current)
-                check(index < path.lastIndex)
-                val next = path[index + 1]
-                if (!next.isBlocked())
-                {
-                    return next
-                }
+                return next
             }
-            return null
         }
+        return null
     }
 }
 
@@ -40,7 +37,7 @@ private enum class Impl
 {
     DIJKSTRA
     {
-        private val INFINITY = Integer.MAX_VALUE
+        private val MAX_DISTANCE = Integer.MAX_VALUE.toDouble()
 
         override fun findPath(source: Coordinates, target: Coordinates): List<Coordinates>?
         {
@@ -55,7 +52,7 @@ private enum class Impl
 
             for (coordinates in allCoordinates.minus(source))
             {
-                bestKnownDistances[coordinates] = INFINITY.toDouble()
+                bestKnownDistances[coordinates] = MAX_DISTANCE
                 queue.offer(coordinates)
             }
 
@@ -65,8 +62,7 @@ private enum class Impl
             while (queue.isNotEmpty())
             {
                 val current = queue.poll()
-
-                for (neighbor in _getNeighbors(current, allCoordinates.intersect(queue)))
+                for (neighbor in _getNeighbors(current, allCoordinates))
                 {
                     val distance = bestKnownDistances[current]!! + hypotenuse(current, neighbor)
                     if (distance < bestKnownDistances[neighbor]!!)
@@ -79,7 +75,7 @@ private enum class Impl
                 }
             }
 
-            val path = traverseParents(target, previous)
+            val path = _traverseParents(target, previous)
             if (path.first() == source)
             {
                 return path
@@ -87,7 +83,7 @@ private enum class Impl
             return null
         }
 
-        private fun traverseParents(end: Coordinates, previous: MutableMap<Coordinates, Coordinates>): List<Coordinates>
+        private fun _traverseParents(end: Coordinates, previous: MutableMap<Coordinates, Coordinates>): List<Coordinates>
         {
             val nodes = mutableListOf<Coordinates>()
             var current: Coordinates? = end
@@ -107,7 +103,7 @@ private enum class Impl
 
     companion object
     {
-        fun _getNeighbors(coordinates: Coordinates, all: Set<Coordinates>): MutableSet<Coordinates>
+        private fun _getNeighbors(coordinates: Coordinates, all: Set<Coordinates>): MutableSet<Coordinates>
         {
             val neighbors = mutableSetOf<Coordinates>()
             for (dy in (-1..1))

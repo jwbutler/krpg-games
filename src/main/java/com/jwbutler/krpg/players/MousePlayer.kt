@@ -39,9 +39,15 @@ class MousePlayer : HumanPlayer()
 
     override fun chooseCommand(unit: Unit): Command
     {
-        return queuedCommands.remove(unit)
-            ?.invoke(unit)
-            ?: StayCommand(unit)
+        val queuedCommand = queuedCommands.remove(unit)
+        if (queuedCommand != null)
+        {
+            return queuedCommand(unit)
+        }
+        else
+        {
+            return StayCommand(unit)
+        }
     }
 
     override fun getQueuedCommand(unit: Unit): Command?
@@ -136,6 +142,13 @@ class MousePlayer : HumanPlayer()
                     {
                         _handleMoveCamera(e)
                     }
+                    KeyEvent.VK_W ->
+                    {
+                        if (e.isControlDown())
+                        {
+                            GameState.getInstance().getLevel().forceComplete = true
+                        }
+                    }
                 }
             }
 
@@ -210,13 +223,13 @@ class MousePlayer : HumanPlayer()
                     {
                         for (unit in selectedUnits)
                         {
-                            val command: CommandSupplier = { u ->
+                            val queuedCommand: CommandSupplier = { u ->
                                 _tryAttack(u, coordinates)
                                     ?: _tryMove(u, coordinates)
                                     ?: _stay(u, coordinates)
                             }
 
-                            queuedCommands[unit] = command
+                            queuedCommands[unit] = queuedCommand
                         }
                     }
                 }
