@@ -10,7 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val FRAME_INTERVAL = 83 // ~12 FPS
+private const val FRAME_INTERVAL = 100 // 10 FPS
 
 /**
  * This class is responsible for executing the main loop,

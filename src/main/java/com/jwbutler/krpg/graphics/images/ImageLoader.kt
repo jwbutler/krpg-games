@@ -8,7 +8,9 @@ interface ImageLoader
 {
     fun loadImage(filename: String, paletteSwaps: PaletteSwaps? = null): Image
     fun loadOptional(filename: String, paletteSwaps: PaletteSwaps? = null): Image?
-    companion object : SingletonHolder<ImageLoader>({
+
+    companion object : SingletonHolder<ImageLoader>(
+    {
         if (USE_CACHED_IMPL)
         {
             CachedImpl()

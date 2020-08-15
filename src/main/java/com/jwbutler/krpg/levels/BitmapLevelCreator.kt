@@ -35,7 +35,7 @@ object BitmapLevelCreator
 
         val tiles = mutableMapOf<Coordinates, Tile>()
         val objects = mutableMapOf<Coordinates, Collection<GameObject>>()
-        val units = mutableMapOf<Player, MutableMap<Coordinates, Unit>>()
+        val units = mutableListOf<Level.UnitData>()
 
         for (y in 0 until image.height)
         {
@@ -59,15 +59,15 @@ object BitmapLevelCreator
                 if (playerUnitPair != null)
                 {
                     val (player, unit) = playerUnitPair
-                    units.computeIfAbsent(player) { mutableMapOf() }[coordinates] = unit
+                    units += Level.UnitData(unit, coordinates, player, mutableMapOf()) // TODO Equipment
                 }
             }
         }
 
         return Level(
             tiles = tiles,
-            units = listOf(),
-            objects = mapOf(),
+            units = units,
+            objects = objects,
             startPosition = Coordinates(0, 0),
             victoryCondition = VictoryCondition.NONE
         )
