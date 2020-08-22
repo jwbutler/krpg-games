@@ -40,6 +40,30 @@ enum class Activity
             }
         }
     },
+    BASHING
+    {
+        override fun onComplete(unit: Unit)
+        {
+            val x = unit.getCoordinates().x + unit.getDirection().dx
+            val y = unit.getCoordinates().y + unit.getDirection().dy
+            val coordinates = Coordinates(x, y)
+            val targetUnit = GameState.getInstance().getUnit(coordinates)
+            if (targetUnit != null)
+            {
+                val damage = unit.getDamage(this)
+                targetUnit.takeDamage(damage)
+                // TODO: Should this be a unit-specific sound?
+                SoundPlayer.playSoundAsync("hit1.wav")
+
+                val state = GameState.getInstance()
+                val targetCoordinates = coordinates + unit.getDirection()
+                if (state.containsCoordinates(targetCoordinates) && !targetCoordinates.isBlocked())
+                {
+                    targetUnit.moveTo(targetCoordinates)
+                }
+            }
+        }
+    },
     FALLING
     {
         override fun onComplete(unit: Unit)

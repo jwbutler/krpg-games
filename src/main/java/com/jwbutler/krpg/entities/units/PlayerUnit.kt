@@ -6,6 +6,7 @@ import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 
 private val ACTIVITIES = setOf(
     Activity.ATTACKING,
+    Activity.BASHING,
     Activity.FALLING,
     Activity.STANDING,
     Activity.WALKING
@@ -23,6 +24,7 @@ class PlayerUnit
         return when(activity)
         {
             Activity.ATTACKING -> 2
+            Activity.BASHING -> 20
             else -> 0
         }
     }
