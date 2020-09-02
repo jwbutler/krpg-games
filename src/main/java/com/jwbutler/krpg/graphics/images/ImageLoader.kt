@@ -42,7 +42,11 @@ private class BasicImpl : ImageLoader
 }
 
 /**
- * TODO: Switch these to LRU caches?
+ * This implementation uses two caches to optimize performance:
+ * [cacheWithoutSwaps] stores the base images based on their filenames,
+ * and [cacheWithSwaps] stores each palette-swapped version of the base image.
+ *
+ * TODO: Convert maps to LRU caches
  */
 private class CachedImpl : ImageLoader
 {

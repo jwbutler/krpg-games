@@ -5,6 +5,7 @@ enum class CommandType
     STAY,
     MOVE,
     ATTACK,
+    BASH,
     DIE,
     TELEPORT,
     RESURRECT,
