@@ -10,6 +10,7 @@ import com.jwbutler.krpg.behavior.commands.WanderCommand
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.Unit
+import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.manhattanDistance
 import kotlin.random.Random
@@ -38,7 +39,7 @@ enum class UnitAI
         {
             val state = GameState.getInstance()
             val allCoordinates = state.getAllCoordinates()
-            val target = allCoordinates.filter { !it.isBlocked() }.random()
+            val target = allCoordinates.filterNot(Coordinates::isBlocked).random()
             return MoveCommand(unit, target)
         }
     },

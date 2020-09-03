@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.core.GameEngine.UnitData
+import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.units.Unit
@@ -9,8 +10,13 @@ import com.jwbutler.krpg.levels.Level
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.Duration
+import java.time.temporal.ChronoUnit
+import java.util.concurrent.TimeUnit
+import kotlin.math.round
 
-private const val FRAME_INTERVAL = 100 // 10 FPS
+private const val FRAME_INTERVAL = 100L // 10 FPS
+private const val RENDER_INTERVAL = 20L // 50 FPS
 
 /**
  * This class is responsible for executing the main loop,
@@ -54,8 +60,30 @@ private class GameEngineImpl : GameEngine
         GlobalScope.launch {
             while (true)
             {
-                doLoop()
-                delay(FRAME_INTERVAL.toLong())
+                synchronized(GameState.getInstance())
+                {
+                    val t1 = System.nanoTime()
+                    doLoop()
+                    val t2 = System.nanoTime()
+                    val delta = (t2 - t1).toDouble() / 1_000_000
+                    println("Update time: ${delta} (${1000 / delta} FPS")
+                }
+                delay(FRAME_INTERVAL)
+            }
+        }
+
+        GlobalScope.launch {
+            while (true)
+            {
+                synchronized(GameState.getInstance())
+                {
+                    val t1 = System.nanoTime()
+                    _render()
+                    val t2 = System.nanoTime()
+                    val delta = (t2 - t1).toDouble() / 1_000_000
+                    println("Render time: ${delta} (${1000 / delta} FPS)")
+                }
+                delay(RENDER_INTERVAL)
             }
         }
         initialized = true
@@ -80,14 +108,14 @@ private class GameEngineImpl : GameEngine
 
     override fun doLoop()
     {
-        _update()
-        _render()
-        _afterRender()
-    }
-
-    private fun _update()
-    {
         val state = GameState.getInstance()
+
+        if (!isPaused)
+        {
+            state.getEntities().forEach(Entity::afterRender)
+            _checkVictory()
+        }
+
         for (entity in state.getEntities())
         {
             // Unfortunately we have to do this superfluous-looking check here
@@ -102,19 +130,6 @@ private class GameEngineImpl : GameEngine
     private fun _render()
     {
         GameRenderer.getInstance().render()
-    }
-
-    private fun _afterRender()
-    {
-        if (isPaused)
-        {
-            return
-        }
-
-        val state = GameState.getInstance()
-        state.getEntities().forEach { it.afterRender() }
-
-        _checkVictory()
     }
 
     private fun _checkVictory()

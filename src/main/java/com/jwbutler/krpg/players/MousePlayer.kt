@@ -111,7 +111,7 @@ class MousePlayer : HumanPlayer()
 
     override fun getKeyListener(): KeyListener
     {
-        val _this = this
+        val player = this
         return object : KeyAdapter()
         {
             override fun keyReleased(e: KeyEvent)
@@ -181,7 +181,7 @@ class MousePlayer : HumanPlayer()
 
             private fun _handleMoveCamera(e: KeyEvent)
             {
-                val cameraCoordinates = _this.cameraCoordinates
+                val cameraCoordinates = player.cameraCoordinates
                 val (x, y) = cameraCoordinates
 
                 var (dx, dy) = Pair(0, 0)
@@ -198,7 +198,7 @@ class MousePlayer : HumanPlayer()
                 val newCoordinates = Coordinates(x + dx, y + dy)
                 if (GameState.getInstance().containsCoordinates(newCoordinates))
                 {
-                    _this.cameraCoordinates = newCoordinates
+                    player.cameraCoordinates = newCoordinates
                 }
             }
         }

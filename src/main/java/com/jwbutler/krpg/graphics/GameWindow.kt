@@ -52,14 +52,9 @@ class GameWindow private constructor()
     fun redraw()
     {
         val (width, height) = _getScaledDimensions()
-        val scaled = buffer.scaleTo(width, height)
         val left = (panel.getWidth() - width) / 2
         val top = (panel.getHeight() - height) / 2
-
-        val graphics = panel.getGraphics()
-        graphics.setColor(Colors.BLACK)
-        graphics.fillRect(0, 0, panel.getWidth(), panel.getHeight())
-        scaled.draw(graphics, left, top)
+        buffer.draw(panel.getGraphics(), left, top, width, height)
     }
 
     /**
