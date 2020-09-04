@@ -10,10 +10,6 @@ import com.jwbutler.krpg.levels.Level
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.Duration
-import java.time.temporal.ChronoUnit
-import java.util.concurrent.TimeUnit
-import kotlin.math.round
 
 private const val FRAME_INTERVAL = 100L // 10 FPS
 private const val RENDER_INTERVAL = 20L // 50 FPS
@@ -62,11 +58,7 @@ private class GameEngineImpl : GameEngine
             {
                 synchronized(GameState.getInstance())
                 {
-                    val t1 = System.nanoTime()
                     doLoop()
-                    val t2 = System.nanoTime()
-                    val delta = (t2 - t1).toDouble() / 1_000_000
-                    println("Update time: ${delta} (${1000 / delta} FPS")
                 }
                 delay(FRAME_INTERVAL)
             }
@@ -77,11 +69,7 @@ private class GameEngineImpl : GameEngine
             {
                 synchronized(GameState.getInstance())
                 {
-                    val t1 = System.nanoTime()
-                    _render()
-                    val t2 = System.nanoTime()
-                    val delta = (t2 - t1).toDouble() / 1_000_000
-                    println("Render time: ${delta} (${1000 / delta} FPS)")
+                    GameRenderer.getInstance().render()
                 }
                 delay(RENDER_INTERVAL)
             }
@@ -127,18 +115,13 @@ private class GameEngineImpl : GameEngine
         }
     }
 
-    private fun _render()
-    {
-        GameRenderer.getInstance().render()
-    }
-
     private fun _checkVictory()
     {
         val state = GameState.getInstance()
         val level = state.getLevel()
-        if (level.isComplete())
+        if (level.checkVictory())
         {
-            level.onComplete()
+            level.doVictory()
         }
     }
 }

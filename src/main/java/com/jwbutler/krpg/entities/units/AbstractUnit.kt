@@ -17,27 +17,16 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 {
     abstract override val sprite: UnitSprite
 
-    private var command: Command
-    private var activity: Activity
-    private var direction: Direction
-    private var frameNumber: Int
+    private var command: Command = StayCommand(this)
+    private var activity: Activity = Activity.STANDING
+    private var direction: Direction = Direction.SE
+    private var frameNumber: Int = 0
 
-    private var currentHP: Int
-    private var maxHP: Int
+    private var currentHP: Int = hp
+    private var maxHP: Int = hp
 
     private val remainingCooldowns = mutableMapOf<Activity, Int>()
     private val activities = activities.toMutableSet()
-
-    init
-    {
-        command = StayCommand(this)
-        activity = Activity.STANDING
-        direction = Direction.SE
-        frameNumber = 0
-
-        currentHP = hp
-        maxHP = hp
-    }
 
     override fun isBlocking() = true
     override fun getPlayer() = GameState.getInstance().getPlayer(this)

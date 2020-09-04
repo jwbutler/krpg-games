@@ -44,7 +44,7 @@ private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
 private fun _getUnits(): Collection<Level.UnitData>
 {
     val state = GameState.getInstance()
-    val enemyPlayer = state.getPlayers().filter { !it.isHuman }.first()
+    val enemyPlayer = state.getPlayers().first { !it.isHuman }
 
     return listOf(
         Level.UnitData(
@@ -73,12 +73,12 @@ private fun _getUnits(): Collection<Level.UnitData>
 private fun _getWalls(): Map<Coordinates, Collection<GameObject>>
 {
     return listOf(8 to 3, 8 to 4, 8 to 5, 8 to 6, 8 to 7)
-        .map { (x, y) -> Coordinates(x, y) to listOf(Wall()) }
+        .map { (x, y) -> Pair(Coordinates(x, y), listOf(Wall())) }
         .toMap()
 }
 
 private fun _checkVictory(): Boolean
 {
     val units = GameState.getInstance().getUnits()
-    return units.none { !it.getPlayer().isHuman }
+    return units.all { it.getPlayer().isHuman }
 }

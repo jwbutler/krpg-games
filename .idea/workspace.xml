@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SPLITTER_PROPORTION" value="0.46011132" />
+  </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="KRPG:jar" />
@@ -8,11 +11,24 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/Direction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/Direction.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/PlayerUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/PlayerUnit.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Image.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/MailArmorSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/MailArmorSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/ShieldSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/ShieldSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/SwordSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/SwordSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/PlayerSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/PlayerSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/WizardSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/WizardSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/ZombieSprite.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/sprites/units/ZombieSprite.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UIOverlays.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UIOverlays.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UnitCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UnitCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_ONE.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_TWO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/LEVEL_TWO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/levels/Level.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/ai/UnitAI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/ai/UnitAI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/GeometryUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/GeometryUtils.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -279,7 +295,7 @@
       <workItem from="1595916663554" duration="27380000" />
       <workItem from="1596332754185" duration="11280000" />
       <workItem from="1597288980635" duration="7909000" />
-      <workItem from="1599085036242" duration="7438000" />
+      <workItem from="1599085036242" duration="15909000" />
     </task>
     <servers />
   </component>
@@ -302,16 +318,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/Direction.kt</url>
-          <line>24</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameRenderer.kt</url>
-          <line>14</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang">
             <option name="class-filters-enabled" value="true" />

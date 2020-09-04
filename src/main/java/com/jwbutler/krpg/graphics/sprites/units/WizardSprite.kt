@@ -4,13 +4,17 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.FrameKey
+import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
-import java.awt.Color
-import java.lang.RuntimeException
+import java.lang.IllegalArgumentException
 
 private val OFFSETS = PlayerSprite.OFFSETS + IntPair.of(0, 4)
 
-class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("robed_wizard", paletteSwaps.withTransparentColor(Color.WHITE))
+class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite
+(
+    "robed_wizard",
+    paletteSwaps.withTransparentColor(Colors.WHITE)
+)
 {
     override val offsets = OFFSETS
 
@@ -23,7 +27,7 @@ class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite("robed_wizard", pale
             Activity.FALLING      -> (1..4).flatMap { listOf(it, it) }.map { FrameKey("vanishing", Direction.SE, it) }
             Activity.DEAD         -> (1..4).flatMap { listOf(it, it) }.map { FrameKey(Activity.DEAD) }
             Activity.RESURRECTING -> (1..8).flatMap { listOf(it, it, it, it) }.map { FrameKey("casting", "SE", it) }
-            else                  -> throw RuntimeException("Unknown activity ${activity}")
+            else                  -> throw IllegalArgumentException("Unknown activity ${activity}")
         }
     }
 }

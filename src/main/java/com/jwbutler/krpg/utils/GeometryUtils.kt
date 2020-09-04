@@ -11,6 +11,7 @@ import com.jwbutler.krpg.geometry.TILE_HEIGHT
 import com.jwbutler.krpg.geometry.TILE_WIDTH
 import java.awt.Point
 import kotlin.math.abs
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 fun getAdjacentCoordinates(coordinates: Coordinates): Set<Coordinates>
@@ -90,4 +91,11 @@ fun rectFromPixels(first: Pixel, vararg rest: Pixel): Rectangle
         rect.add(pixel.x, pixel.y)
     }
     return rect
+}
+
+fun getAverageCoordinates(coordinates: Collection<Coordinates>): Coordinates
+{
+    val x = coordinates.map(Coordinates::x).average().roundToInt()
+    val y = coordinates.map(Coordinates::y).average().roundToInt()
+    return Coordinates(x, y)
 }
