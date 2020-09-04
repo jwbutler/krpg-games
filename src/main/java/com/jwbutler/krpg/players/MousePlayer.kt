@@ -1,6 +1,8 @@
 package com.jwbutler.krpg.players
 
+import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.AttackCommand
+import com.jwbutler.krpg.behavior.commands.BashCommand
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
@@ -83,6 +85,15 @@ class MousePlayer : HumanPlayer()
                         overlays[coordinates] = TileOverlayFactory.enemyOverlay(coordinates, true)
                     }
                 }
+                is BashCommand ->
+                {
+                    val target = command.target
+                    if (target.exists())
+                    {
+                        val coordinates = command.target.getCoordinates()
+                        overlays[coordinates] = TileOverlayFactory.enemyOverlay(coordinates, true)
+                    }
+                }
                 is DirectionalAttackCommand ->
                 {
                     val coordinates = command.target
@@ -115,21 +126,21 @@ class MousePlayer : HumanPlayer()
         val player = this
         return object : KeyAdapter()
         {
-            override fun keyReleased(e: KeyEvent)
+            override fun keyReleased(event: KeyEvent)
             {
-                when (e.getKeyCode())
+                when (event.getKeyCode())
                 {
                     KeyEvent.VK_SPACE -> GameEngine.getInstance().togglePause()
                     KeyEvent.VK_ENTER ->
                     {
-                        if (e.isAltDown())
+                        if (event.isAltDown())
                         {
                             GameWindow.getInstance().toggleMaximized()
                         }
                     }
                     KeyEvent.VK_A ->
                     {
-                        if (e.isControlDown())
+                        if (event.isControlDown())
                         {
                             selectedUnits.clear()
                             selectedUnits.addAll(getPlayerUnits())
@@ -137,15 +148,15 @@ class MousePlayer : HumanPlayer()
                     }
                     KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5 ->
                     {
-                        _handleNumberKey(e)
+                        _handleNumberKey(event)
                     }
                     KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT ->
                     {
-                        _handleMoveCamera(e)
+                        _handleMoveCamera(event)
                     }
                     KeyEvent.VK_W ->
                     {
-                        if (e.isControlDown())
+                        if (event.isControlDown())
                         {
                             GameState.getInstance().getLevel().forceVictory = true
                         }
@@ -162,14 +173,14 @@ class MousePlayer : HumanPlayer()
                 }
             }
 
-            private fun _handleNumberKey(e: KeyEvent)
+            private fun _handleNumberKey(event: KeyEvent)
             {
-                val keyCode = e.getKeyCode()
+                val keyCode = event.getKeyCode()
                 val i = keyCode - KeyEvent.VK_1
                 val playerUnits = getPlayerUnits()
                 if (playerUnits.lastIndex >= i)
                 {
-                    if (e.isControlDown())
+                    if (event.isControlDown())
                     {
                         val unit = playerUnits[i]
                         if (selectedUnits.contains(unit))
@@ -189,14 +200,14 @@ class MousePlayer : HumanPlayer()
                 }
             }
 
-            private fun _handleMoveCamera(e: KeyEvent)
+            private fun _handleMoveCamera(event: KeyEvent)
             {
                 val cameraCoordinates = player.cameraCoordinates
                 val (x, y) = cameraCoordinates
 
                 var (dx, dy) = Pair(0, 0)
 
-                when (e.getKeyCode())
+                when (event.getKeyCode())
                 {
                     KeyEvent.VK_UP    -> dy--
                     KeyEvent.VK_DOWN  -> dy++
@@ -218,25 +229,39 @@ class MousePlayer : HumanPlayer()
     {
         return object : MouseAdapter()
         {
-            override fun mousePressed(e: MouseEvent)
+            override fun mousePressed(event: MouseEvent)
             {
-                if (isLeftMouseButton(e))
+                if (isLeftMouseButton(event))
                 {
-                    selectionStart = Pixel.fromPoint(e.getPoint())
+                    selectionStart = Pixel.fromPoint(event.getPoint())
                 }
 
-                if (isRightMouseButton(e))
+                if (isRightMouseButton(event))
                 {
-                    val pixel = Pixel.fromPoint(e.getPoint())
+                    val pixel = Pixel.fromPoint(event.getPoint())
                     val coordinates = pixelToCoordinates(pixel)
                     if (GameState.getInstance().containsCoordinates(coordinates))
                     {
                         for (unit in selectedUnits)
                         {
-                            val queuedCommand: CommandSupplier = { u ->
-                                _tryAttack(u, coordinates)
-                                    ?: _tryMove(u, coordinates)
-                                    ?: _stay(u, coordinates)
+                            val queuedCommand: CommandSupplier
+
+                            if (event.isControlDown())
+                            {
+                                queuedCommand = { u ->
+                                    _tryBash(u, coordinates)
+                                        ?: _tryAttack(u, coordinates)
+                                        ?: _tryMove(u, coordinates)
+                                        ?: _stay(u, coordinates)
+                                }
+                            }
+                            else
+                            {
+                                queuedCommand = { u ->
+                                    _tryAttack(u, coordinates)
+                                        ?: _tryMove(u, coordinates)
+                                        ?: _stay(u, coordinates)
+                                }
                             }
 
                             queuedCommands[unit] = queuedCommand
@@ -245,17 +270,17 @@ class MousePlayer : HumanPlayer()
                 }
             }
 
-            override fun mouseDragged(e: MouseEvent)
+            override fun mouseDragged(event: MouseEvent)
             {
-                if (isLeftMouseButton(e))
+                if (isLeftMouseButton(event))
                 {
-                    selectionEnd = Pixel.fromPoint(e.getPoint())
+                    selectionEnd = Pixel.fromPoint(event.getPoint())
                 }
             }
 
-            override fun mouseReleased(e: MouseEvent)
+            override fun mouseReleased(event: MouseEvent)
             {
-                if (isLeftMouseButton(e))
+                if (isLeftMouseButton(event))
                 {
                     if (selectionStart != null && selectionEnd != null)
                     {
@@ -270,9 +295,9 @@ class MousePlayer : HumanPlayer()
                 }
             }
 
-            override fun mouseClicked(e: MouseEvent)
+            override fun mouseClicked(event: MouseEvent)
             {
-                if (isLeftMouseButton(e))
+                if (isLeftMouseButton(event))
                 {
                     selectionStart = null
                     selectionEnd = null
@@ -284,28 +309,47 @@ class MousePlayer : HumanPlayer()
 
     companion object
     {
-        private fun _tryAttack(u: Unit, coordinates: Coordinates): Command?
+        private fun _tryAttack(unit: Unit, coordinates: Coordinates): Command?
         {
-            if (coordinates != u.getCoordinates())
+            if (coordinates != unit.getCoordinates())
             {
-                val targetUnit = GameState.getInstance().getUnit(coordinates)
-                if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
+                if (unit.isActivityReady(Activity.ATTACKING))
                 {
-                    return AttackCommand(u, targetUnit)
+                    val targetUnit = GameState.getInstance().getUnit(coordinates)
+                    if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
+                    {
+                        return AttackCommand(unit, targetUnit)
+                    }
                 }
             }
             return null
         }
 
-        private fun _tryMove(u: Unit, coordinates: Coordinates): Command?
+        private fun _tryBash(unit: Unit, coordinates: Coordinates): Command?
         {
-            if (coordinates != u.getCoordinates())
+            if (coordinates != unit.getCoordinates())
             {
-                return MoveCommand(u, coordinates)
+                if (unit.isActivityReady(Activity.BASHING))
+                {
+                    val targetUnit = GameState.getInstance().getUnit(coordinates)
+                    if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
+                    {
+                        return BashCommand(unit, targetUnit)
+                    }
+                }
             }
             return null
         }
 
-        private fun _stay(u: Unit, coordinates: Coordinates) = StayCommand(u)
+        private fun _tryMove(unit: Unit, coordinates: Coordinates): Command?
+        {
+            if (coordinates != unit.getCoordinates())
+            {
+                return MoveCommand(unit, coordinates)
+            }
+            return null
+        }
+
+        private fun _stay(unit: Unit, coordinates: Coordinates) = StayCommand(unit)
     }
 }

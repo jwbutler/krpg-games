@@ -3,7 +3,6 @@ package com.jwbutler.krpg.graphics
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.core.SingletonHolder
 import com.jwbutler.krpg.graphics.ui.HUDRenderer
-import com.jwbutler.krpg.players.HumanPlayer
 
 class GameRenderer
 {
@@ -27,11 +26,9 @@ class GameRenderer
     {
         val state = GameState.getInstance()
         val entities = state.getEntities()
-        val players = state.getPlayers()
-        val tileOverlays = players.filterIsInstance<HumanPlayer>()
-            .flatMap { it.getTileOverlays().values }
-        val uiOverlays = players.filterIsInstance<HumanPlayer>()
-            .flatMap { it.getUIOverlays() }
+        val humanPlayer = state.getHumanPlayer()
+        val tileOverlays = humanPlayer.getTileOverlays().values
+        val uiOverlays = humanPlayer.getUIOverlays()
 
         val renderables = entities.plus(tileOverlays).map { it to it.render() }
 

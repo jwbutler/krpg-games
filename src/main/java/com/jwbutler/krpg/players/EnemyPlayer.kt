@@ -16,7 +16,7 @@ class EnemyPlayer : AbstractPlayer()
         val unitAI = when (unit)
         {
             is PlayerUnit -> UnitAI.SIMPLE_ATTACK
-            is ZombieUnit -> UnitAI.SIMPLE_ATTACK
+            is ZombieUnit -> UnitAI.NO_OP // TODO
             is WizardUnit -> UnitAI.WIZARD
             else -> error("Unsupported unit type ${unit::class}")
         }
