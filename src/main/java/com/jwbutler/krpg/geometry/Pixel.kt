@@ -1,6 +1,5 @@
 package com.jwbutler.krpg.geometry
 
-import com.jwbutler.krpg.graphics.GameWindow
 import java.awt.Point
 
 data class Pixel(override val x: Int, override val y: Int) : IntPair
@@ -17,7 +16,7 @@ data class Pixel(override val x: Int, override val y: Int) : IntPair
     {
         fun fromPoint(p: Point): Pixel
         {
-            return GameWindow.getInstance().mapPixel(Pixel(p.x, p.y))
+            return Pixel(p.x, p.y)
         }
     }
 }

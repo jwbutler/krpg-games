@@ -8,6 +8,7 @@ import com.jwbutler.krpg.geometry.INITIAL_WINDOW_HEIGHT
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.images.Image
+import com.jwbutler.krpg.input.DelegatingMouseListener
 import java.awt.event.KeyListener
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -57,10 +58,11 @@ class GameWindow private constructor()
     }
 
     /**
-     * @param p Coordinates relative to [frame]
+     * @param x X coordinate relative to [frame]
+     * @param y Y coordinate relative to [frame]
      * @return coordinates relative to [buffer]
      */
-    fun mapPixel(p: Pixel): Pixel
+    private fun _mapPixel(x: Int, y: Int): Pixel
     {
         val (width, height) = _getScaledDimensions()
         val scaleFactor = 1.0 * width / GAME_WIDTH // should get the same result with height / HEIGHT
@@ -71,8 +73,8 @@ class GameWindow private constructor()
 
         // coordinates of the pixel relative to the scaled buffer
         val insets = frame.getInsets()
-        val bufferX = p.x - panelLeft - insets.left
-        val bufferY = p.y - panelTop - insets.top
+        val bufferX = x - panelLeft - insets.left
+        val bufferY = y - panelTop - insets.top
 
         return Pixel(
             (bufferX / scaleFactor).roundToInt(),
@@ -105,8 +107,13 @@ class GameWindow private constructor()
     fun addKeyListener(keyListener: KeyListener) = frame.addKeyListener(keyListener)
     fun addMouseListener(mouseListener: MouseAdapter)
     {
-        frame.addMouseListener(mouseListener)
-        frame.addMouseMotionListener(mouseListener)
+        val wrapper = DelegatingMouseListener(mouseListener) { event ->
+            val mappedPixel = _mapPixel(event.x, event.y)
+            event.translatePoint(mappedPixel.x - event.x, mappedPixel.y - event.y)
+            event
+        }
+        frame.addMouseListener(wrapper)
+        frame.addMouseMotionListener(wrapper)
     }
 
     private fun _getScaledDimensions(): Dimensions
