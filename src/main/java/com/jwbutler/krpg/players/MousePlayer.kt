@@ -1,11 +1,12 @@
 package com.jwbutler.krpg.players
 
 import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.AttackCommand
+import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
 import com.jwbutler.krpg.behavior.commands.BashCommand
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
+import com.jwbutler.krpg.behavior.commands.RepeatingAttackCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
@@ -25,7 +26,6 @@ import com.jwbutler.krpg.utils.pixelToCoordinates
 import com.jwbutler.krpg.utils.rectFromPixels
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.SwingUtilities.isLeftMouseButton
@@ -76,7 +76,16 @@ class MousePlayer : HumanPlayer()
             val command = getQueuedCommand(unit) ?: unit.getCommand()
             when (command)
             {
-                is AttackCommand ->
+                is SingleAttackCommand ->
+                {
+                    val target = command.target
+                    if (target.exists())
+                    {
+                        val coordinates = command.target.getCoordinates()
+                        overlays[coordinates] = TileOverlayFactory.enemyOverlay(coordinates, true)
+                    }
+                }
+                is RepeatingAttackCommand ->
                 {
                     val target = command.target
                     if (target.exists())
@@ -121,188 +130,182 @@ class MousePlayer : HumanPlayer()
         return listOf()
     }
 
-    override fun getKeyListener(): KeyListener
+    override fun getKeyListener() = object : KeyAdapter()
     {
-        val player = this
-        return object : KeyAdapter()
+        private val player = this@MousePlayer
+        override fun keyReleased(event: KeyEvent)
         {
-            override fun keyReleased(event: KeyEvent)
+            when (event.getKeyCode())
             {
-                when (event.getKeyCode())
+                KeyEvent.VK_SPACE -> GameEngine.getInstance().togglePause()
+                KeyEvent.VK_ENTER ->
                 {
-                    KeyEvent.VK_SPACE -> GameEngine.getInstance().togglePause()
-                    KeyEvent.VK_ENTER ->
+                    if (event.isAltDown())
                     {
-                        if (event.isAltDown())
-                        {
-                            GameWindow.getInstance().toggleMaximized()
-                        }
-                    }
-                    KeyEvent.VK_A ->
-                    {
-                        if (event.isControlDown())
-                        {
-                            selectedUnits.clear()
-                            selectedUnits.addAll(getPlayerUnits())
-                        }
-                    }
-                    KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5 ->
-                    {
-                        _handleNumberKey(event)
-                    }
-                    KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT ->
-                    {
-                        _handleMoveCamera(event)
-                    }
-                    KeyEvent.VK_W ->
-                    {
-                        if (event.isControlDown())
-                        {
-                            GameState.getInstance().getLevel().forceVictory = true
-                        }
-                    }
-                    KeyEvent.VK_C ->
-                    {
-                        if (selectedUnits.isNotEmpty())
-                        {
-                            player.cameraCoordinates = getAverageCoordinates(
-                                selectedUnits.map(Unit::getCoordinates)
-                            )
-                        }
+                        GameWindow.getInstance().toggleMaximized()
                     }
                 }
-            }
-
-            private fun _handleNumberKey(event: KeyEvent)
-            {
-                val keyCode = event.getKeyCode()
-                val i = keyCode - KeyEvent.VK_1
-                val playerUnits = getPlayerUnits()
-                if (playerUnits.lastIndex >= i)
+                KeyEvent.VK_A ->
                 {
                     if (event.isControlDown())
                     {
-                        val unit = playerUnits[i]
-                        if (selectedUnits.contains(unit))
-                        {
-                            selectedUnits.remove(unit)
-                        }
-                        else
-                        {
-                            selectedUnits.add(unit)
-                        }
-                    }
-                    else
-                    {
                         selectedUnits.clear()
-                        selectedUnits.add(playerUnits[i])
+                        selectedUnits.addAll(getPlayerUnits())
+                    }
+                }
+                KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5 ->
+                {
+                    _handleNumberKey(event)
+                }
+                KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT ->
+                {
+                    _handleMoveCamera(event)
+                }
+                KeyEvent.VK_W ->
+                {
+                    if (event.isControlDown())
+                    {
+                        GameState.getInstance().getLevel().forceVictory = true
+                    }
+                }
+                KeyEvent.VK_C ->
+                {
+                    if (selectedUnits.isNotEmpty())
+                    {
+                        player.cameraCoordinates = getAverageCoordinates(
+                            selectedUnits.map(Unit::getCoordinates)
+                        )
                     }
                 }
             }
+        }
 
-            private fun _handleMoveCamera(event: KeyEvent)
+        private fun _handleNumberKey(event: KeyEvent)
+        {
+            val keyCode = event.getKeyCode()
+            val i = keyCode - KeyEvent.VK_1
+            val playerUnits = getPlayerUnits()
+            if (playerUnits.lastIndex >= i)
             {
-                val cameraCoordinates = player.cameraCoordinates
-                val (x, y) = cameraCoordinates
-
-                var (dx, dy) = Pair(0, 0)
-
-                when (event.getKeyCode())
+                if (event.isControlDown())
                 {
-                    KeyEvent.VK_UP    -> dy--
-                    KeyEvent.VK_DOWN  -> dy++
-                    KeyEvent.VK_LEFT  -> dx--
-                    KeyEvent.VK_RIGHT -> dx++
-                    else -> {}
+                    val unit = playerUnits[i]
+                    if (selectedUnits.contains(unit))
+                    {
+                        selectedUnits.remove(unit)
+                    }
+                    else
+                    {
+                        selectedUnits.add(unit)
+                    }
                 }
-
-                val newCoordinates = Coordinates(x + dx, y + dy)
-                if (GameState.getInstance().containsCoordinates(newCoordinates))
+                else
                 {
-                    player.cameraCoordinates = newCoordinates
+                    selectedUnits.clear()
+                    selectedUnits.add(playerUnits[i])
                 }
+            }
+        }
+
+        private fun _handleMoveCamera(event: KeyEvent)
+        {
+            val cameraCoordinates = player.cameraCoordinates
+            val (x, y) = cameraCoordinates
+
+            var (dx, dy) = Pair(0, 0)
+
+            when (event.getKeyCode())
+            {
+                KeyEvent.VK_UP    -> dy--
+                KeyEvent.VK_DOWN  -> dy++
+                KeyEvent.VK_LEFT  -> dx--
+                KeyEvent.VK_RIGHT -> dx++
+                else -> {}
+            }
+
+            val newCoordinates = Coordinates(x + dx, y + dy)
+            if (GameState.getInstance().containsCoordinates(newCoordinates))
+            {
+                player.cameraCoordinates = newCoordinates
             }
         }
     }
 
-    override fun getMouseListener(): MouseAdapter
+    override fun getMouseListener() = object : MouseAdapter()
     {
-        return object : MouseAdapter()
+        override fun mousePressed(event: MouseEvent)
         {
-            override fun mousePressed(event: MouseEvent)
+            if (isLeftMouseButton(event))
             {
-                if (isLeftMouseButton(event))
-                {
-                    selectionStart = Pixel.fromPoint(event.getPoint())
-                }
+                selectionStart = Pixel.fromPoint(event.getPoint())
+            }
 
-                if (isRightMouseButton(event))
+            if (isRightMouseButton(event))
+            {
+                val pixel = Pixel.fromPoint(event.getPoint())
+                val coordinates = pixelToCoordinates(pixel)
+                if (GameState.getInstance().containsCoordinates(coordinates))
                 {
-                    val pixel = Pixel.fromPoint(event.getPoint())
-                    val coordinates = pixelToCoordinates(pixel)
-                    if (GameState.getInstance().containsCoordinates(coordinates))
+                    for (unit in selectedUnits)
                     {
-                        for (unit in selectedUnits)
+                        val queuedCommand: CommandSupplier
+
+                        if (event.isControlDown())
                         {
-                            val queuedCommand: CommandSupplier
-
-                            if (event.isControlDown())
-                            {
-                                queuedCommand = { u ->
-                                    _tryBash(u, coordinates)
-                                        ?: _tryAttack(u, coordinates)
-                                        ?: _tryMove(u, coordinates)
-                                        ?: _stay(u, coordinates)
-                                }
+                            queuedCommand = { u ->
+                                _tryBash(u, coordinates)
+                                    ?: _tryAttack(u, coordinates)
+                                    ?: _tryMove(u, coordinates)
+                                    ?: _stay(u, coordinates)
                             }
-                            else
-                            {
-                                queuedCommand = { u ->
-                                    _tryAttack(u, coordinates)
-                                        ?: _tryMove(u, coordinates)
-                                        ?: _stay(u, coordinates)
-                                }
-                            }
-
-                            queuedCommands[unit] = queuedCommand
                         }
+                        else
+                        {
+                            queuedCommand = { u ->
+                                _tryAttack(u, coordinates)
+                                    ?: _tryMove(u, coordinates)
+                                    ?: _stay(u, coordinates)
+                            }
+                        }
+
+                        queuedCommands[unit] = queuedCommand
                     }
                 }
             }
+        }
 
-            override fun mouseDragged(event: MouseEvent)
+        override fun mouseDragged(event: MouseEvent)
+        {
+            if (isLeftMouseButton(event))
             {
-                if (isLeftMouseButton(event))
-                {
-                    selectionEnd = Pixel.fromPoint(event.getPoint())
-                }
+                selectionEnd = Pixel.fromPoint(event.getPoint())
             }
+        }
 
-            override fun mouseReleased(event: MouseEvent)
+        override fun mouseReleased(event: MouseEvent)
+        {
+            if (isLeftMouseButton(event))
             {
-                if (isLeftMouseButton(event))
+                if (selectionStart != null && selectionEnd != null)
                 {
-                    if (selectionStart != null && selectionEnd != null)
-                    {
-                        val selectionRect = rectFromPixels(selectionStart!!, selectionEnd!!)
-                        selectedUnits.clear()
-                        selectedUnits.addAll(
-                            getUnitsInPixelRect(selectionRect).filter { u -> u.getPlayer().isHuman }
-                        )
-                    }
-                    selectionStart = null
-                    selectionEnd = null
-                }
-            }
-
-            override fun mouseClicked(event: MouseEvent)
-            {
-                if (isLeftMouseButton(event))
-                {
-                    selectionStart = null
-                    selectionEnd = null
+                    val selectionRect = rectFromPixels(selectionStart!!, selectionEnd!!)
                     selectedUnits.clear()
+                    selectedUnits.addAll(
+                        getUnitsInPixelRect(selectionRect).filter { u -> u.getPlayer().isHuman }
+                    )
                 }
+                selectionStart = null
+                selectionEnd = null
+            }
+        }
+
+        override fun mouseClicked(event: MouseEvent)
+        {
+            if (isLeftMouseButton(event))
+            {
+                selectionStart = null
+                selectionEnd = null
+                selectedUnits.clear()
             }
         }
     }
@@ -318,7 +321,7 @@ class MousePlayer : HumanPlayer()
                     val targetUnit = GameState.getInstance().getUnit(coordinates)
                     if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
                     {
-                        return AttackCommand(unit, targetUnit)
+                        return RepeatingAttackCommand(unit, targetUnit)
                     }
                 }
             }

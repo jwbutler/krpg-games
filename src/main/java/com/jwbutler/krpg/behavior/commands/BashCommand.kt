@@ -7,9 +7,5 @@ class BashCommand(source: Unit, target: Unit) : AbstractAttackCommand(source, ta
 {
     override val activity = Activity.BASHING
     override val type = CommandType.BASH
-
-    override fun toString(): String
-    {
-        return "BashCommand{target=$target}"
-    }
+    override val isRepeating = false
 }

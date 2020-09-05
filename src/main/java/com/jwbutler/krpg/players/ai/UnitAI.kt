@@ -1,7 +1,7 @@
 package com.jwbutler.krpg.players.ai
 
 import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.AttackCommand
+import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.ResurrectCommand
@@ -30,7 +30,7 @@ enum class UnitAI
         {
             val targetUnit = getPlayerUnits()
                 .minBy { manhattanDistance(it, unit) }!! // assume player units exist
-            return AttackCommand(unit, targetUnit)
+            return SingleAttackCommand(unit, targetUnit)
         }
     },
     WANDER

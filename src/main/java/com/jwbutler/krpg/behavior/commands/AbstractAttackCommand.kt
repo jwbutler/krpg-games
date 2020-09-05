@@ -13,6 +13,7 @@ import kotlin.math.abs
 abstract class AbstractAttackCommand(final override val source: Unit, val target: Unit) : Command
 {
     protected abstract val activity: Activity
+    protected abstract val isRepeating: Boolean
     private var hasAttacked = false
     private var path = Pathfinder.findPath(source, target)
 
@@ -68,12 +69,17 @@ abstract class AbstractAttackCommand(final override val source: Unit, val target
     }
 
     override fun isPreemptible() = true
-    override fun isComplete() = hasAttacked
+    override fun isComplete() = hasAttacked && !isRepeating
 
     private fun _isInRange(first: Coordinates, second: Coordinates): Boolean
     {
         val dx = second.x - first.x
         val dy = second.y - first.y
         return (abs(dx) <= 1 && abs(dy) <= 1)
+    }
+
+    override fun toString(): String
+    {
+        return "${javaClass.getSimpleName()}{target=$target}"
     }
 }

@@ -22,11 +22,13 @@ object Pathfinder
         if (path != null)
         {
             val index = path.indexOf(current)
-            check(index < path.lastIndex)
-            val next = path[index + 1]
-            if (!next.isBlocked())
+            if (index < path.lastIndex)
             {
-                return next
+                val next = path[index + 1]
+                if (!next.isBlocked())
+                {
+                    return next
+                }
             }
         }
         return null
@@ -37,7 +39,7 @@ private enum class Impl
 {
     DIJKSTRA
     {
-        private val MAX_DISTANCE = Integer.MAX_VALUE.toDouble()
+        private val MAX_DISTANCE = 1_000_000.0
 
         override fun findPath(source: Coordinates, target: Coordinates): List<Coordinates>?
         {

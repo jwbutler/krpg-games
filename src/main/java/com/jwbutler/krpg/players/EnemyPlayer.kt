@@ -6,6 +6,7 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.players.ai.UnitAI
+import java.lang.IllegalArgumentException
 
 class EnemyPlayer : AbstractPlayer()
 {
@@ -18,7 +19,7 @@ class EnemyPlayer : AbstractPlayer()
             is PlayerUnit -> UnitAI.SIMPLE_ATTACK
             is ZombieUnit -> UnitAI.NO_OP // TODO
             is WizardUnit -> UnitAI.WIZARD
-            else -> error("Unsupported unit type ${unit::class}")
+            else -> throw IllegalArgumentException("Unsupported unit type ${unit::class.java.getSimpleName()}")
         }
 
         return unitAI.chooseCommand(unit)
