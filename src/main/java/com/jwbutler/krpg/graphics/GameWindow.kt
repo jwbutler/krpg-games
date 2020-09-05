@@ -7,7 +7,6 @@ import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_HEIGHT
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
 import java.awt.event.KeyListener
 import javax.swing.JFrame
@@ -52,14 +51,9 @@ class GameWindow private constructor()
     fun redraw()
     {
         val (width, height) = _getScaledDimensions()
-        val scaled = buffer.scaleTo(width, height)
         val left = (panel.getWidth() - width) / 2
         val top = (panel.getHeight() - height) / 2
-
-        val graphics = panel.getGraphics()
-        graphics.setColor(Colors.BLACK)
-        graphics.fillRect(0, 0, panel.getWidth(), panel.getHeight())
-        scaled.draw(graphics, left, top)
+        buffer.draw(panel.getGraphics(), left, top, width, height)
     }
 
     /**
@@ -121,8 +115,14 @@ class GameWindow private constructor()
             1.0 * panel.getWidth() / GAME_WIDTH,
             1.0 * panel.getHeight() / GAME_HEIGHT
         )
-        val width = min((1.0 * GAME_WIDTH * scaleFactor).roundToInt(), panel.getWidth())
-        val height = min((1.0 * GAME_HEIGHT * scaleFactor).roundToInt(), panel.getHeight())
+        val width = min(
+            (1.0 * GAME_WIDTH * scaleFactor).roundToInt(),
+            panel.getWidth()
+        )
+        val height = min(
+            (1.0 * GAME_HEIGHT * scaleFactor).roundToInt(),
+            panel.getHeight()
+        )
         return Dimensions(width, height)
     }
 

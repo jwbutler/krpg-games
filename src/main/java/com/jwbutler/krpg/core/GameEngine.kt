@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.core.GameEngine.UnitData
+import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.units.Unit
@@ -10,7 +11,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val FRAME_INTERVAL = 100 // 10 FPS
+private const val FRAME_INTERVAL = 100L // 10 FPS
+private const val RENDER_INTERVAL = 20L // 50 FPS
 
 /**
  * This class is responsible for executing the main loop,
@@ -54,8 +56,22 @@ private class GameEngineImpl : GameEngine
         GlobalScope.launch {
             while (true)
             {
-                doLoop()
-                delay(FRAME_INTERVAL.toLong())
+                synchronized(GameState.getInstance())
+                {
+                    doLoop()
+                }
+                delay(FRAME_INTERVAL)
+            }
+        }
+
+        GlobalScope.launch {
+            while (true)
+            {
+                synchronized(GameState.getInstance())
+                {
+                    GameRenderer.getInstance().render()
+                }
+                delay(RENDER_INTERVAL)
             }
         }
         initialized = true
@@ -80,14 +96,14 @@ private class GameEngineImpl : GameEngine
 
     override fun doLoop()
     {
-        _update()
-        _render()
-        _afterRender()
-    }
-
-    private fun _update()
-    {
         val state = GameState.getInstance()
+
+        if (!isPaused)
+        {
+            state.getEntities().forEach(Entity::afterRender)
+            _checkVictory()
+        }
+
         for (entity in state.getEntities())
         {
             // Unfortunately we have to do this superfluous-looking check here
@@ -99,31 +115,13 @@ private class GameEngineImpl : GameEngine
         }
     }
 
-    private fun _render()
-    {
-        GameRenderer.getInstance().render()
-    }
-
-    private fun _afterRender()
-    {
-        if (isPaused)
-        {
-            return
-        }
-
-        val state = GameState.getInstance()
-        state.getEntities().forEach { it.afterRender() }
-
-        _checkVictory()
-    }
-
     private fun _checkVictory()
     {
         val state = GameState.getInstance()
         val level = state.getLevel()
-        if (level.isComplete())
+        if (level.checkVictory())
         {
-            level.onComplete()
+            level.doVictory()
         }
     }
 }

@@ -26,6 +26,11 @@ data class Image
         graphics.drawImage(delegate, x, y, null)
     }
 
+    fun draw(graphics: Graphics, x: Int, y: Int, width: Int, height: Int)
+    {
+        graphics.drawImage(delegate, x, y, width, height, null)
+    }
+
     fun clearRect(x: Int, y: Int, width: Int, height: Int)
     {
         delegate.getGraphics().clearRect(x, y, width, height)

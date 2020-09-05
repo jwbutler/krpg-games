@@ -17,6 +17,7 @@ import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.ui.UIOverlays
+import com.jwbutler.krpg.utils.getAverageCoordinates
 import com.jwbutler.krpg.utils.getEnemyUnits
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.getUnitsInPixelRect
@@ -122,7 +123,7 @@ class MousePlayer : HumanPlayer()
 
     override fun getKeyListener(): KeyListener
     {
-        val _this = this
+        val player = this
         return object : KeyAdapter()
         {
             override fun keyReleased(event: KeyEvent)
@@ -157,7 +158,16 @@ class MousePlayer : HumanPlayer()
                     {
                         if (event.isControlDown())
                         {
-                            GameState.getInstance().getLevel().forceComplete = true
+                            GameState.getInstance().getLevel().forceVictory = true
+                        }
+                    }
+                    KeyEvent.VK_C ->
+                    {
+                        if (selectedUnits.isNotEmpty())
+                        {
+                            player.cameraCoordinates = getAverageCoordinates(
+                                selectedUnits.map(Unit::getCoordinates)
+                            )
                         }
                     }
                 }
@@ -192,7 +202,7 @@ class MousePlayer : HumanPlayer()
 
             private fun _handleMoveCamera(event: KeyEvent)
             {
-                val cameraCoordinates = _this.cameraCoordinates
+                val cameraCoordinates = player.cameraCoordinates
                 val (x, y) = cameraCoordinates
 
                 var (dx, dy) = Pair(0, 0)
@@ -209,7 +219,7 @@ class MousePlayer : HumanPlayer()
                 val newCoordinates = Coordinates(x + dx, y + dy)
                 if (GameState.getInstance().containsCoordinates(newCoordinates))
                 {
-                    _this.cameraCoordinates = newCoordinates
+                    player.cameraCoordinates = newCoordinates
                 }
             }
         }
@@ -276,7 +286,9 @@ class MousePlayer : HumanPlayer()
                     {
                         val selectionRect = rectFromPixels(selectionStart!!, selectionEnd!!)
                         selectedUnits.clear()
-                        selectedUnits.addAll(getUnitsInPixelRect(selectionRect))
+                        selectedUnits.addAll(
+                            getUnitsInPixelRect(selectionRect).filter { u -> u.getPlayer().isHuman }
+                        )
                     }
                     selectionStart = null
                     selectionEnd = null

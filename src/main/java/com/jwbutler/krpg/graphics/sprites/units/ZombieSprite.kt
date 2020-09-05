@@ -3,20 +3,21 @@ package com.jwbutler.krpg.graphics.sprites.units
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.graphics.FrameKey
+import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
-import java.awt.Color
+import com.jwbutler.krpg.utils.SpriteUtils
 
 private val OFFSETS = PlayerSprite.OFFSETS
 
 class ZombieSprite(paletteSwaps: PaletteSwaps) : UnitSprite
 (
     "zombie",
-    paletteSwaps.withTransparentColor(Color.WHITE)
+    paletteSwaps.withTransparentColor(Colors.WHITE)
 )
 {
     override val offsets = OFFSETS
     /**
-     * Tons of copy-paste from [PlayerSprite.getFrames], but the falling animation is different
+     * Tons of copy-paste from [SpriteUtils.getPlayerFrames], but the falling animation is different
      * and it seems cleaner to just rewrite the whole function
      */
     override fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>

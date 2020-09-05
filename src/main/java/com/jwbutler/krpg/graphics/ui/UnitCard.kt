@@ -1,6 +1,5 @@
 package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
@@ -19,6 +18,7 @@ class UnitCard(val unit: Unit)
     }
 
     val image = Image(WIDTH, HEIGHT)
+
     fun render(): Image
     {
         val graphics = image.getGraphics()
@@ -28,7 +28,7 @@ class UnitCard(val unit: Unit)
 
         graphics.color = Colors.WHITE
         graphics.drawRect(0, 0, WIDTH - 1, HEIGHT - 1)
-        graphics.font = FONT
+        graphics.setFont(FONT)
         graphics.drawString("Chigz Jupsiz", 3, 12)
         val healthBar = _drawHealthBar(WIDTH - 6, 5)
         healthBar.draw(graphics, 3, 18)

@@ -12,11 +12,11 @@ private val ACTIVITIES = setOf(
     Activity.WALKING
 )
 
-class PlayerUnit
+class PlayerUnit(hp: Int, paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT) : AbstractUnit
 (
-    hp: Int,
-    paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
-) : AbstractUnit(hp, ACTIVITIES)
+    hp,
+    ACTIVITIES
+)
 {
     override val sprite = PlayerSprite(paletteSwaps)
     override fun getCooldown(activity: Activity): Int

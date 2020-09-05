@@ -9,7 +9,7 @@ import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.players.Player
 
 /**
- * Levels are mutable - they save their state when you exit them.
+ * Levels *WILL BE* mutable - they'll save their state when you exit them.
  */
 data class Level
 (
@@ -20,7 +20,7 @@ data class Level
     private val victoryCondition: VictoryCondition
 )
 {
-    var forceComplete = false // hack for skip level cheat
+    var forceVictory = false // hack for skip level cheat
 
     data class UnitData
     (
@@ -30,6 +30,6 @@ data class Level
         val equipment: Map<EquipmentSlot, Equipment>
     )
 
-    fun isComplete() = forceComplete || victoryCondition.predicate()
-    fun onComplete() = victoryCondition.onComplete()
+    fun checkVictory() = forceVictory || victoryCondition.predicate()
+    fun doVictory() = victoryCondition.onComplete()
 }

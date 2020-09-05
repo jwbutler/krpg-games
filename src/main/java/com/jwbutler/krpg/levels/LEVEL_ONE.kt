@@ -44,7 +44,7 @@ private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
 private fun _getUnits(): Collection<Level.UnitData>
 {
     val state = GameState.getInstance()
-    val enemyPlayer = state.getPlayers().filter { !it.isHuman }.first()
+    val enemyPlayer = state.getPlayers().first { !it.isHuman }
 
     return listOf(
         Level.UnitData(
