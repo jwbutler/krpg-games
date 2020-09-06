@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="SPLITTER_PROPORTION" value="0.46011132" />
-  </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="KRPG:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abb550e1-310f-4ca4-bcd8-4fefbea9d917" name="Default Changelist" comment="">
+    <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/krpg.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_60.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_60.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_60.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_60.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_60.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_60.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_3_60.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_3_60.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/KRPG.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/krpg.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/KRPG.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/krpg.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pixel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/geometry/Pixel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KRPG.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/Image.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/HUDRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/HUDRenderer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UnitCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/ui/UnitCard.kt" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,22 +52,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KRPG" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KRPG" type="f1a62948:ProjectNode" />
-                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KRPG" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -66,10 +66,10 @@
         <option value="Interface" />
         <option value="Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
         <option value="Kotlin Enum" />
         <option value="Kotlin Object" />
         <option value="Kotlin File" />
-        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -78,6 +78,10 @@
   </component>
   <component name="ProjectId" id="1beY63OoHjmJgWboQcHgzQy1KGo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
@@ -87,7 +91,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -97,12 +101,12 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/lib/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.44444445" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CreateKotlinClassDialog.RecentsKey">
@@ -116,11 +120,11 @@
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\levels" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites" />
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\equipment" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\resources\png\units\player" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.jwbutler.krpg.behavior.commands" />
@@ -139,20 +143,8 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="gradle ass" />
       <command value="gradle jar" />
-    </option>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
+      <command value="gradle ass" />
     </option>
   </component>
   <component name="RunManager" selected="Kotlin.com.jwbutler.krpg.MainKt">
@@ -167,6 +159,27 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <setting name="replType" value="NREPL" />
+      <setting name="execution" value="LEININGEN" />
+      <setting name="jvmArgs" value="" />
+      <setting name="parameters" value="" />
+      <setting name="workingDir" value="" />
+      <setting name="profiles" value="" />
+      <setting name="aliases" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
+      <setting name="host" value="" />
+      <setting name="port" value="0" />
+      <setting name="replType" value="SOCKET" />
+      <setting name="configType" value="SPECIFY" />
+      <setting name="replPortFileType" value="STANDARD" />
+      <setting name="customPortFile" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <method v="2" />
     </configuration>
     <configuration name="KRPG [ass]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -213,8 +226,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.jwbutler.krpg.MainKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
-      <module name="KRPG.main" />
+    <configuration name="com.jwbutler.krpg.MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="krpg.main" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -252,8 +265,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.com.jwbutler.krpg.MainKt" />
-        <item itemvalue="Gradle.KRPG [jar]" />
         <item itemvalue="Gradle.KRPG [ass]" />
+        <item itemvalue="Gradle.KRPG [jar]" />
       </list>
     </recent_temporary>
   </component>
@@ -279,29 +292,83 @@
       <workItem from="1595916663554" duration="27380000" />
       <workItem from="1596332754185" duration="11280000" />
       <workItem from="1597288980635" duration="7909000" />
-      <workItem from="1599085036242" duration="15909000" />
+      <workItem from="1598218956500" duration="1820000" />
+      <workItem from="1598580492190" duration="4383000" />
+      <workItem from="1599369103967" duration="297000" />
+      <workItem from="1599369407867" duration="2263000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="881" height="466" key="DebuggerActiveHint" timestamp="1599371679389">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state width="881" height="466" key="DebuggerActiveHint/0.23.1920.1107@0.23.1920.1107" timestamp="1599371679389" />
+    <state width="1878" height="306" key="GridCell.Tab.0.bottom" timestamp="1599371443756">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state width="1878" height="306" key="GridCell.Tab.0.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1599371443756" />
+    <state width="1878" height="306" key="GridCell.Tab.0.center" timestamp="1599371443755">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state width="1878" height="306" key="GridCell.Tab.0.center/0.23.1920.1107@0.23.1920.1107" timestamp="1599371443755" />
+    <state width="1878" height="306" key="GridCell.Tab.0.left" timestamp="1599371443754">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state width="1878" height="306" key="GridCell.Tab.0.left/0.23.1920.1107@0.23.1920.1107" timestamp="1599371443754" />
+    <state width="1878" height="306" key="GridCell.Tab.0.right" timestamp="1599371443755">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state width="1878" height="306" key="GridCell.Tab.0.right/0.23.1920.1107@0.23.1920.1107" timestamp="1599371443755" />
+    <state x="421" y="293" width="1166" height="837" key="SettingsEditor" timestamp="1599370045821">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="421" y="293" width="1166" height="837" key="SettingsEditor/0.23.1920.1107@0.23.1920.1107" timestamp="1599370045821" />
+    <state width="753" height="553" key="XDebugger.FullValuePopup" timestamp="1599371644319">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state width="753" height="553" key="XDebugger.FullValuePopup/0.23.1920.1107@0.23.1920.1107" timestamp="1599371644319" />
+    <state x="661" y="331" width="598" height="490" key="find.popup" timestamp="1599370892638">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="661" y="331" width="598" height="490" key="find.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599370892638" />
+    <state x="523" y="272" width="670" height="675" key="run.anything.popup" timestamp="1599369147331">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="523" y="272" width="670" height="675" key="run.anything.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599369147331" />
+    <state x="624" y="270" width="672" height="676" key="search.everywhere.popup" timestamp="1599370063477">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="624" y="270" width="672" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599370063477" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/Direction.kt</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt</url>
+          <line>56</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang">
             <option name="class-filters-enabled" value="true" />
@@ -319,11 +386,6 @@
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt</url>
-          <line>280</line>
-          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

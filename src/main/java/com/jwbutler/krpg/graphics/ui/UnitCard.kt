@@ -5,7 +5,6 @@ import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.players.HumanPlayer
 import java.awt.Font
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 class UnitCard(val unit: Unit)
@@ -14,24 +13,19 @@ class UnitCard(val unit: Unit)
     {
         const val WIDTH = 60
         private const val HEIGHT = HUDRenderer.HEIGHT - 10
-        private val FONT = Font("Dialog", Font.PLAIN, 10)
+        private val FONT = Font(Font.DIALOG, Font.PLAIN, 10)
     }
 
     val image = Image(WIDTH, HEIGHT)
 
     fun render(): Image
     {
-        val graphics = image.getGraphics()
-
-        graphics.color = if (_isSelected(unit)) Colors.DARK_GREEN else Colors.DARK_GRAY
-        graphics.fillRect(0, 0, WIDTH - 1, HEIGHT - 1)
-
-        graphics.color = Colors.WHITE
-        graphics.drawRect(0, 0, WIDTH - 1, HEIGHT - 1)
-        graphics.setFont(FONT)
-        graphics.drawString("Chigz Jupsiz", 3, 12)
+        val color = if (_isSelected(unit)) Colors.DARK_GREEN else Colors.DARK_GRAY
+        image.fillRect(0, 0, WIDTH - 1, HEIGHT - 1, color)
+        image.drawRect(0, 0, WIDTH - 1, HEIGHT - 1, Colors.WHITE)
+        image.drawText("Chigz Jupsiz", FONT, 3, 12)
         val healthBar = _drawHealthBar(WIDTH - 6, 5)
-        healthBar.draw(graphics, 3, 18)
+        image.drawImage(healthBar, 3, 18)
         return image
     }
 
@@ -44,19 +38,14 @@ class UnitCard(val unit: Unit)
     private fun _drawHealthBar(width: Int, height: Int): Image
     {
         val image = Image(width, height)
-        val graphics = image.getGraphics()
-
-        graphics.color = Colors.BLACK
-        graphics.fillRect(0, 0, WIDTH, HEIGHT)
+        image.fillRect(0, 0, WIDTH, HEIGHT, Colors.BLACK)
 
         val fullPercentage = 100.0 * unit.getCurrentHP() / unit.getMaxHP()
-        val healthWidth = round((width - 2) * fullPercentage / 100.0).roundToInt()
+        val healthWidth = ((width - 2) * fullPercentage / 100.0).roundToInt()
         val healthHeight = height - 2
 
-        graphics.color = Colors.WHITE
-        graphics.drawRect(0, 0, width - 1, height - 1) // TODO Why do we have to subtract here?
-        graphics.color = Colors.GREEN
-        graphics.fillRect(1, 1, healthWidth, healthHeight)
+        image.drawRect(0, 0, width - 1, height - 1, Colors.WHITE) // TODO Why do we have to subtract here?
+        image.fillRect(1, 1, healthWidth, healthHeight, Colors.GREEN)
 
         return image
     }

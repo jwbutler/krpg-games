@@ -1,6 +1,5 @@
 package com.jwbutler.krpg.graphics.images
 
-import java.awt.image.BufferedImage
 import java.io.IOException
 import java.io.UncheckedIOException
 import java.net.URL
@@ -59,9 +58,9 @@ fun imageFromFileOptional(filename: String): Image?
 
 private fun _copyImage(baseImage: Image): Image
 {
-    val copy = BufferedImage(baseImage.width, baseImage.height, BufferedImage.TYPE_INT_ARGB)
-    baseImage.draw(copy.getGraphics(), 0, 0)
-    return Image(copy)
+    val copy = Image(baseImage.width, baseImage.height)
+    copy.drawImage(baseImage, 0, 0)
+    return copy
 }
 
 private fun _getFileURL(filename: String): URL

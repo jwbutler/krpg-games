@@ -54,7 +54,7 @@ class GameWindow private constructor()
         val (width, height) = _getScaledDimensions()
         val left = (panel.getWidth() - width) / 2
         val top = (panel.getHeight() - height) / 2
-        buffer.draw(panel.getGraphics(), left, top, width, height)
+        buffer.drawOnto(panel.getGraphics(), left, top, width, height)
     }
 
     /**

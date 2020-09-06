@@ -1,8 +1,8 @@
 package com.jwbutler.krpg.graphics.images
 
 import java.awt.Color
+import java.awt.Font
 import java.awt.Graphics
-import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 
 /**
@@ -21,12 +21,10 @@ data class Image
     fun getRGB(x: Int, y: Int) = delegate.getRGB(x, y)
     fun setRGB(x: Int, y: Int, rgb: Int) = delegate.setRGB(x, y, rgb)
 
-    fun draw(graphics: Graphics, x: Int, y: Int)
-    {
-        graphics.drawImage(delegate, x, y, null)
-    }
-
-    fun draw(graphics: Graphics, x: Int, y: Int, width: Int, height: Int)
+    /**
+     * Note that this is the one external use of [Graphics] in this class
+     */
+    fun drawOnto(graphics: Graphics, x: Int, y: Int, width: Int, height: Int)
     {
         graphics.drawImage(delegate, x, y, width, height, null)
     }
@@ -50,24 +48,14 @@ data class Image
         graphics.fillRect(left, top, width, height)
     }
 
-    fun drawImage(image: java.awt.Image, x: Int, y: Int)
-    {
-        delegate.getGraphics().drawImage(image, x, y, null)
-    }
-
     fun drawImage(image: Image, x: Int, y: Int)
     {
-        drawImage(image.delegate, x, y)
+        delegate.getGraphics().drawImage(image.delegate, x, y, null)
     }
 
-    fun scaleTo(width: Int, height: Int): Image
+    fun drawText(text: String, font: Font, x: Int, y: Int)
     {
-        // TODO this does not look efficient
-        val scaledDelegate = delegate.getScaledInstance(width, height, java.awt.Image.SCALE_FAST)
-        val scaled = Image(width, height)
-        scaled.drawImage(scaledDelegate, 0, 0)
-        return scaled
+        delegate.getGraphics().setFont(font)
+        delegate.getGraphics().drawString(text, x, y)
     }
-
-    fun getGraphics(): Graphics2D = delegate.getGraphics() as Graphics2D
 }
