@@ -24,7 +24,20 @@ class GameWindow private constructor()
 {
     private val buffer: Image = Image.create(GAME_WIDTH, GAME_HEIGHT)
     private val frame: JFrame = JFrame()
-    private val panel: JPanel = JPanel()
+    private val panel: JPanel = object : JPanel()
+    {
+        override fun paintComponent(graphics: Graphics)
+        {
+            super.paintComponent(graphics)
+            _redraw(graphics)
+        }
+
+        override fun paint(graphics: Graphics)
+        {
+            super.paint(graphics)
+            _redraw(graphics)
+        }
+    }
     private var maximized = false
 
     init
@@ -53,10 +66,16 @@ class GameWindow private constructor()
 
     fun redraw()
     {
+        //_redraw(panel.getGraphics())
+        panel.repaint()
+    }
+
+    private fun _redraw(graphics: Graphics)
+    {
         val (width, height) = _getScaledDimensions()
         val left = (panel.getWidth() - width) / 2
         val top = (panel.getHeight() - height) / 2
-        (buffer as ImageAWT).drawOnto(panel.getGraphics(), left, top, width, height)
+        (buffer as ImageAWT).drawOnto(graphics, left, top, width, height)
     }
 
     /**

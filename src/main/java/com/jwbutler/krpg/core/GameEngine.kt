@@ -60,13 +60,12 @@ private class GameEngineImpl : GameEngine
                 synchronized(GameState.getInstance())
                 {
                     doLoop()
-                    GameRenderer.getInstance().render()
                 }
                 delay(FRAME_INTERVAL)
             }
         }
 
-        /*GlobalScope.launch {
+        GlobalScope.launch {
             while (true)
             {
                 synchronized(GameState.getInstance())
@@ -75,7 +74,7 @@ private class GameEngineImpl : GameEngine
                 }
                 delay(RENDER_INTERVAL)
             }
-        }*/
+        }
         initialized = true
     }
 
