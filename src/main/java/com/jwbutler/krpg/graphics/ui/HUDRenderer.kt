@@ -13,7 +13,7 @@ object HUDRenderer
     private const val WIDTH = GAME_WIDTH
     private const val TOP = GAME_HEIGHT - HEIGHT
 
-    private val image = Image(WIDTH, HEIGHT)
+    private val image = Image.create(WIDTH, HEIGHT)
 
     fun render(): Pair<Image, Pixel>
     {

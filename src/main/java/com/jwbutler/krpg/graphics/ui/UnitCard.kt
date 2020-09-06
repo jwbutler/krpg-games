@@ -16,7 +16,7 @@ class UnitCard(val unit: Unit)
         private val FONT = Font(Font.DIALOG, Font.PLAIN, 10)
     }
 
-    val image = Image(WIDTH, HEIGHT)
+    val image = Image.create(WIDTH, HEIGHT)
 
     fun render(): Image
     {
@@ -37,16 +37,16 @@ class UnitCard(val unit: Unit)
 
     private fun _drawHealthBar(width: Int, height: Int): Image
     {
-        val image = Image(width, height)
-        image.fillRect(0, 0, WIDTH, HEIGHT, Colors.BLACK)
+        val healthBarImage = Image.create(width, height)
+        healthBarImage.fillRect(0, 0, WIDTH, HEIGHT, Colors.BLACK)
 
         val fullPercentage = 100.0 * unit.getCurrentHP() / unit.getMaxHP()
         val healthWidth = ((width - 2) * fullPercentage / 100.0).roundToInt()
         val healthHeight = height - 2
 
-        image.drawRect(0, 0, width - 1, height - 1, Colors.WHITE) // TODO Why do we have to subtract here?
-        image.fillRect(1, 1, healthWidth, healthHeight, Colors.GREEN)
+        healthBarImage.drawRect(0, 0, width - 1, height - 1, Colors.WHITE) // TODO Why do we have to subtract here?
+        healthBarImage.fillRect(1, 1, healthWidth, healthHeight, Colors.GREEN)
 
-        return image
+        return healthBarImage
     }
 }

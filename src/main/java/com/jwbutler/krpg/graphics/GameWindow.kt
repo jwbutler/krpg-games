@@ -7,8 +7,10 @@ import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_HEIGHT
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.graphics.awt.ImageAWT
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.input.DelegatingMouseListener
+import java.awt.Graphics
 import java.awt.event.KeyListener
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -20,7 +22,7 @@ import java.awt.event.MouseAdapter
 
 class GameWindow private constructor()
 {
-    private val buffer: Image = Image(GAME_WIDTH, GAME_HEIGHT)
+    private val buffer: Image = Image.create(GAME_WIDTH, GAME_HEIGHT)
     private val frame: JFrame = JFrame()
     private val panel: JPanel = JPanel()
     private var maximized = false
@@ -54,7 +56,7 @@ class GameWindow private constructor()
         val (width, height) = _getScaledDimensions()
         val left = (panel.getWidth() - width) / 2
         val top = (panel.getHeight() - height) / 2
-        buffer.drawOnto(panel.getGraphics(), left, top, width, height)
+        (buffer as ImageAWT).drawOnto(panel.getGraphics(), left, top, width, height)
     }
 
     /**

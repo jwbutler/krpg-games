@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.graphics.images
 
+import com.jwbutler.krpg.graphics.awt.ImageAWT
 import java.io.IOException
 import java.io.UncheckedIOException
 import java.net.URL
@@ -28,7 +29,7 @@ fun imageFromFile(filename: String): Image
     try
     {
         val url = _getFileURL(fullFilename)
-        return Image(ImageIO.read(url.openStream()))
+        return ImageAWT(ImageIO.read(url.openStream()))
     }
     catch (e: IOException)
     {
@@ -46,7 +47,7 @@ fun imageFromFileOptional(filename: String): Image?
         val url = ImageLoader::class.java.getResource(fullFilename)
         if (url != null)
         {
-            return Image(ImageIO.read(url.openStream()))
+            return ImageAWT(ImageIO.read(url.openStream()))
         }
     }
     catch (e: IOException)
@@ -58,7 +59,7 @@ fun imageFromFileOptional(filename: String): Image?
 
 private fun _copyImage(baseImage: Image): Image
 {
-    val copy = Image(baseImage.width, baseImage.height)
+    val copy = Image.create(baseImage.width, baseImage.height)
     copy.drawImage(baseImage, 0, 0)
     return copy
 }
