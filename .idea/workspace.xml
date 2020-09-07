@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameEngine.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,8 +89,12 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateKotlinClassDialog.RecentsKey">
-      <recent name="com.jwbutler.krpg.players.ai" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\ui" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\images" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites\units" />
+      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.jwbutler.krpg.entities.tiles" />
@@ -108,18 +111,14 @@
       <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\equipment" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.jwbutler.krpg.graphics" />
       <recent name="com.jwbutler.krpg.behavior.commands" />
       <recent name="com.jwbutler.krpg.entities.objects" />
       <recent name="com.jwbutler.krpg.players" />
       <recent name="com.jwbutler.krpg.graphics.sprites.units" />
-      <recent name="com.jwbutler.krpg.graphics.sprites" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\ui" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\images" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\graphics\sprites\units" />
-      <recent name="C:\Users\Jack\IdeaProjects\KRPG\src\main\java\com\jwbutler\krpg\entities\units" />
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="com.jwbutler.krpg.players.ai" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -448,22 +447,22 @@
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state width="881" height="466" key="DebuggerActiveHint/0.23.1920.1107@0.23.1920.1107" timestamp="1599371679389" />
-    <state width="1647" height="306" key="GridCell.Tab.0.bottom" timestamp="1599433722189">
+    <state width="1647" height="306" key="GridCell.Tab.0.bottom" timestamp="1599434010786">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1599433722189" />
-    <state width="1647" height="306" key="GridCell.Tab.0.center" timestamp="1599433722188">
+    <state width="1647" height="306" key="GridCell.Tab.0.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010786" />
+    <state width="1647" height="306" key="GridCell.Tab.0.center" timestamp="1599434010785">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.center/0.23.1920.1107@0.23.1920.1107" timestamp="1599433722188" />
-    <state width="1647" height="306" key="GridCell.Tab.0.left" timestamp="1599433722187">
+    <state width="1647" height="306" key="GridCell.Tab.0.center/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010785" />
+    <state width="1647" height="306" key="GridCell.Tab.0.left" timestamp="1599434010785">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.left/0.23.1920.1107@0.23.1920.1107" timestamp="1599433722187" />
-    <state width="1647" height="306" key="GridCell.Tab.0.right" timestamp="1599433722189">
+    <state width="1647" height="306" key="GridCell.Tab.0.left/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010785" />
+    <state width="1647" height="306" key="GridCell.Tab.0.right" timestamp="1599434010786">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.right/0.23.1920.1107@0.23.1920.1107" timestamp="1599433722189" />
+    <state width="1647" height="306" key="GridCell.Tab.0.right/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010786" />
     <state x="421" y="293" width="1166" height="837" key="SettingsEditor" timestamp="1599370045821">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
