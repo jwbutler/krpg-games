@@ -245,12 +245,11 @@ class MousePlayer : HumanPlayer()
     {
         override fun mousePressed(event: MouseEvent)
         {
-            if (isLeftMouseButton(event))
+            if (_isLeftClick(event))
             {
                 selectionStart = Pixel.fromPoint(event.getPoint())
             }
-
-            if (isRightMouseButton(event))
+            else if (_isRightClick(event))
             {
                 val pixel = Pixel.fromPoint(event.getPoint())
                 val coordinates = pixelToCoordinates(pixel)
@@ -286,7 +285,7 @@ class MousePlayer : HumanPlayer()
 
         override fun mouseDragged(event: MouseEvent)
         {
-            if (isLeftMouseButton(event))
+            if (_isLeftClick(event))
             {
                 selectionEnd = Pixel.fromPoint(event.getPoint())
             }
@@ -294,7 +293,7 @@ class MousePlayer : HumanPlayer()
 
         override fun mouseReleased(event: MouseEvent)
         {
-            if (isLeftMouseButton(event))
+            if (_isLeftClick(event))
             {
                 if (selectionStart != null && selectionEnd != null)
                 {
@@ -311,12 +310,23 @@ class MousePlayer : HumanPlayer()
 
         override fun mouseClicked(event: MouseEvent)
         {
-            if (isLeftMouseButton(event))
+            if (_isLeftClick(event))
             {
                 selectionStart = null
                 selectionEnd = null
                 selectedUnits.clear()
             }
+        }
+
+        private fun _isLeftClick(event: MouseEvent): Boolean
+        {
+            return isLeftMouseButton(event) && !event.isControlDown()
+        }
+
+        private fun _isRightClick(event: MouseEvent): Boolean
+        {
+            return isRightMouseButton(event)
+                || (isLeftMouseButton(event) && event.isControlDown())
         }
     }
 

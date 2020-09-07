@@ -6,7 +6,6 @@ import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.utils.getPlayerUnits
-import java.awt.Graphics2D
 
 object HUDRenderer
 {
@@ -14,32 +13,27 @@ object HUDRenderer
     private const val WIDTH = GAME_WIDTH
     private const val TOP = GAME_HEIGHT - HEIGHT
 
-    private val image = Image(WIDTH, HEIGHT)
+    private val image = Image.create(WIDTH, HEIGHT)
 
     fun render(): Pair<Image, Pixel>
     {
-        val graphics = image.getGraphics()
-        _renderBackground(graphics)
+        _renderBackground()
 
         var x = 5
         for (unit in getPlayerUnits())
         {
             val card = UnitCard(unit)
-            val image = card.render()
-
-            image.draw(graphics, x, 5)
+            val cardImage = card.render()
+            image.drawImage(cardImage, x, 5)
             x += UnitCard.WIDTH + 5
         }
 
         return Pair(image, Pixel(0, TOP))
     }
 
-    private fun _renderBackground(graphics: Graphics2D)
+    private fun _renderBackground()
     {
-        graphics.color = Colors.BLACK
-        graphics.fillRect(0, 0, WIDTH - 1, HEIGHT - 1)
-
-        graphics.color = Colors.WHITE
-        graphics.drawRect(0, 0, WIDTH - 1, HEIGHT - 1)
+        image.fillRect(0, 0, WIDTH - 1, HEIGHT - 1, Colors.BLACK)
+        image.drawRect(0, 0, WIDTH - 1, HEIGHT - 1, Colors.WHITE)
     }
 }
