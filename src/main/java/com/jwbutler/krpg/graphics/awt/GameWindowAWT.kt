@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.graphics
+package com.jwbutler.krpg.graphics.awt
 
 import com.jwbutler.krpg.geometry.Dimensions
 import com.jwbutler.krpg.geometry.GAME_HEIGHT
@@ -6,7 +6,7 @@ import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_HEIGHT
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.awt.ImageAWT
+import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.input.DelegatingMouseListener
 import java.awt.Graphics
@@ -19,6 +19,9 @@ import kotlin.math.roundToInt
 import java.awt.GraphicsEnvironment
 import java.awt.event.MouseAdapter
 
+/**
+ * See https://stackoverflow.com/a/17865740 for the general approach here
+ */
 class GameWindowAWT : GameWindow
 {
     private val buffer: Image = Image.create(GAME_WIDTH, GAME_HEIGHT)
@@ -30,19 +33,13 @@ class GameWindowAWT : GameWindow
             super.paintComponent(graphics)
             _redraw(graphics)
         }
-
-        /*override fun paint(graphics: Graphics)
-        {
-            super.paint(graphics)
-            _redraw(graphics)
-        }*/
     }
     private var maximized = false
 
     init
     {
         panel.setSize(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT)
-        panel.setDoubleBuffered(true)
+        panel.setDoubleBuffered(false) // We're doing our own!
 
         frame.setVisible(true)
         val insets = frame.getInsets()
