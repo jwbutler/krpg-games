@@ -3,9 +3,10 @@ package com.jwbutler.krpg.graphics.awt
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
-import com.jwbutler.krpg.graphics.images.applyPaletteSwaps
-import com.jwbutler.krpg.graphics.images.imageFromFile
-import com.jwbutler.krpg.graphics.images.imageFromFileOptional
+import java.io.IOException
+import java.io.UncheckedIOException
+import java.net.URL
+import javax.imageio.ImageIO
 
 /**
  * This implementation uses two caches to optimize performance:
@@ -24,13 +25,13 @@ class ImageloaderAWT : ImageLoader
 
     override fun loadImage(filename: String, paletteSwaps: PaletteSwaps?): Image
     {
-        val baseImage = cacheWithoutSwaps.computeIfAbsent(filename) { imageFromFile(filename) }!!
+        val baseImage = cacheWithoutSwaps.computeIfAbsent(filename) { _imageFromFile(filename) }!!
         if (paletteSwaps == null)
         {
             return baseImage
         }
 
-        return cacheWithSwaps.computeIfAbsent(filename to paletteSwaps) { applyPaletteSwaps(baseImage, paletteSwaps) }
+        return cacheWithSwaps.computeIfAbsent(filename to paletteSwaps) { _applyPaletteSwaps(baseImage, paletteSwaps) }
     }
 
     override fun loadOptional(filename: String, paletteSwaps: PaletteSwaps?): Image?
@@ -44,7 +45,7 @@ class ImageloaderAWT : ImageLoader
         }
         else
         {
-            val baseImageOptional: Image? = imageFromFileOptional(filename)
+            val baseImageOptional: Image? = _imageFromFileOptional(filename)
             cacheWithoutSwaps[filename] = baseImageOptional
             baseImage = baseImageOptional ?: return null
         }
@@ -54,7 +55,7 @@ class ImageloaderAWT : ImageLoader
             return baseImage
         }
 
-        return cacheWithSwaps.computeIfAbsent(filename to paletteSwaps) { applyPaletteSwaps(baseImage, paletteSwaps) }
+        return cacheWithSwaps.computeIfAbsent(filename to paletteSwaps) { _applyPaletteSwaps(baseImage, paletteSwaps) }
     }
 }
 
@@ -65,17 +66,82 @@ private class BasicImageLoaderAWT : ImageLoader
 {
     override fun loadImage(filename: String, paletteSwaps: PaletteSwaps?): Image
     {
-        val baseImage = imageFromFile(filename)
-        return applyPaletteSwaps(baseImage, paletteSwaps)
+        val baseImage = _imageFromFile(filename)
+        return _applyPaletteSwaps(baseImage, paletteSwaps)
     }
 
     override fun loadOptional(filename: String, paletteSwaps: PaletteSwaps?): Image?
     {
-        val baseImage = imageFromFileOptional(filename)
+        val baseImage = _imageFromFileOptional(filename)
         if (baseImage != null)
         {
-            return applyPaletteSwaps(baseImage, paletteSwaps)
+            return _applyPaletteSwaps(baseImage, paletteSwaps)
         }
         return null
     }
+}
+
+private fun _applyPaletteSwaps(baseImage: Image, paletteSwaps: PaletteSwaps?): Image
+{
+    val copy = _copyImage(baseImage)
+    (0 until baseImage.height).forEach { y ->
+        (0 until baseImage.width).forEach { x ->
+            paletteSwaps?.forEach { src, dest ->
+                // TODO this probably doesn't handle alpha correctly
+                if (src.getRGB() == copy.getRGB(x, y))
+                {
+                    copy.setRGB(x, y, dest.getRGB())
+                }
+            }
+        }
+    }
+    return copy
+}
+
+private fun _imageFromFile(filename: String): Image
+{
+    val fullFilename = "/png/${filename}.png"
+    try
+    {
+        val url = _getFileURL(fullFilename)
+        return ImageAWT(ImageIO.read(url.openStream()))
+    }
+    catch (e: IOException)
+    {
+        println("Can't read input file: ${fullFilename}")
+        e.printStackTrace()
+        throw UncheckedIOException(e)
+    }
+}
+
+private fun _imageFromFileOptional(filename: String): Image?
+{
+    val fullFilename = "/png/${filename}.png"
+    try
+    {
+        val url = ImageLoader::class.java.getResource(fullFilename)
+        if (url != null)
+        {
+            return ImageAWT(ImageIO.read(url.openStream()))
+        }
+    }
+    catch (e: IOException)
+    {
+        // this is expected
+    }
+    return null
+}
+
+private fun _copyImage(baseImage: Image): Image
+{
+    val copy = Image.create(baseImage.width, baseImage.height)
+    copy.drawImage(baseImage, 0, 0)
+    return copy
+}
+
+private fun _getFileURL(filename: String): URL
+{
+    // TODO - weird to reference ImageLoader here, maybe there is a more idiomatic
+    // Kotlin way to grab the resource
+    return ImageLoader::class.java.getResource(filename) ?: error("Could not open filename ${filename}")
 }

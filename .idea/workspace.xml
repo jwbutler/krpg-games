@@ -8,9 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/GameWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/awt/GameWindowAWT.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/awt/GameWindowAWT.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageLoader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/awt/ImageLoaderAWT.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/awt/ImageLoaderAWT.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageUtils.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -477,18 +476,18 @@
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state width="753" height="553" key="XDebugger.FullValuePopup/0.23.1920.1107@0.23.1920.1107" timestamp="1599371644319" />
-    <state x="661" y="331" width="598" height="490" key="find.popup" timestamp="1599370892638">
+    <state x="661" y="331" width="598" height="490" key="find.popup" timestamp="1599443712759">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state x="661" y="331" width="598" height="490" key="find.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599370892638" />
+    <state x="661" y="331" width="598" height="490" key="find.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599443712759" />
     <state x="523" y="272" width="670" height="675" key="run.anything.popup" timestamp="1599369147331">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state x="523" y="272" width="670" height="675" key="run.anything.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599369147331" />
-    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup" timestamp="1599443035729">
+    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup" timestamp="1599443253858">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599443035729" />
+    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599443253858" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
