@@ -10,6 +10,7 @@ import com.jwbutler.krpg.levels.Level
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.swing.SwingUtilities
 
 private const val FRAME_INTERVAL = 100L // 10 FPS
 private const val RENDER_INTERVAL = 20L // 50 FPS

@@ -12,7 +12,7 @@ object UIOverlays
     fun getSelectionRect(start: Pixel, end: Pixel): Renderable
     {
         val rectangle = rectFromPixels(start, end)
-        val image = Image(rectangle.width + 1, rectangle.height + 1)
+        val image = Image.create(rectangle.width + 1, rectangle.height + 1)
         image.drawRect(0, 0, rectangle.width, rectangle.height, Colors.GREEN)
 
         return Renderable(
