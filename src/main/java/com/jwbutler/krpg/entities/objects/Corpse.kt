@@ -13,7 +13,7 @@ class Corpse(unit: Unit) : AbstractObject()
 
     private fun _getSprite(unit: Unit): Sprite
     {
-        unit.setActivity(Activity.DEAD, unit.getDirection())
+        unit.startActivity(Activity.DEAD, unit.getDirection())
         val renderable = unit.render()
         return StaticSprite(renderable.image, renderable.layer, unit.sprite.offsets)
     }

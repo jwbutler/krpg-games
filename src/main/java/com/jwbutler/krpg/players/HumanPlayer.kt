@@ -22,7 +22,6 @@ abstract class HumanPlayer : AbstractPlayer()
         GameWindow.getInstance().addMouseListener(getMouseListener())
     }
 
-    abstract fun getQueuedCommand(unit: Unit): Command?
     abstract fun getTileOverlays(): Map<Coordinates, TileOverlay>
     abstract fun getUIOverlays(): Collection<Renderable>
 

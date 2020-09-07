@@ -1,13 +1,16 @@
 package com.jwbutler.krpg.players
 
+import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
+import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.TileOverlay
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.Renderable
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -19,17 +22,7 @@ class KeyboardPlayer : HumanPlayer()
     private val heldDirections = mutableSetOf<Int>()
     private val queuedModifiers = mutableSetOf<Int>()
 
-    override fun chooseCommand(unit: Unit): Command
-    {
-        return _getCommand(unit)
-    }
-
-    override fun getQueuedCommand(unit: Unit): Command?
-    {
-        return _getCommand(unit)
-    }
-
-    private fun _getCommand(unit: Unit): Command
+    override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
     {
         var (dx, dy) = Pair(0, 0)
 
@@ -54,14 +47,14 @@ class KeyboardPlayer : HumanPlayer()
         {
             if (queuedModifiers.contains(KeyEvent.VK_SHIFT))
             {
-                return DirectionalAttackCommand(unit, coordinates)
+                return Pair(Activity.ATTACKING, Direction.from(IntPair.of(dx, dy)))
             }
             else
             {
-                return MoveCommand(unit, coordinates)
+                return Pair(Activity.WALKING, Direction.from(IntPair.of(dx, dy)))
             }
         }
-        return StayCommand(unit)
+        return Pair(Activity.STANDING, unit.getDirection())
     }
 
     override fun getTileOverlays() = mutableMapOf<Coordinates, TileOverlay>()

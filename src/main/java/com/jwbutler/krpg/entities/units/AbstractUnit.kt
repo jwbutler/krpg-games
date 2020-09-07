@@ -1,10 +1,6 @@
 package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.Command
-import com.jwbutler.krpg.behavior.commands.CommandType
-import com.jwbutler.krpg.behavior.commands.DieCommand
-import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.equipment.Equipment
@@ -17,7 +13,6 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 {
     abstract override val sprite: UnitSprite
 
-    private var command: Command = StayCommand(this)
     private var activity: Activity = Activity.STANDING
     private var direction: Direction = Direction.SE
     private var frameNumber: Int = 0
@@ -32,7 +27,6 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
     override fun getPlayer() = GameState.getInstance().getPlayer(this)
     override fun getCoordinates() = GameState.getInstance().getCoordinates(this)
     override fun exists() = GameState.getInstance().containsEntity(this)
-    override fun getCommand() = command
     override fun getActivity() = activity
     override fun getDirection() = direction
     override fun getFrameNumber() = frameNumber
@@ -61,14 +55,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
         return false
     }
 
-    final override fun setCommand(command: Command)
-    {
-        this.command = command
-        val (activity, direction) = command.chooseActivity()
-        setActivity(activity, direction)
-    }
-
-    final override fun setActivity(activity: Activity, direction: Direction)
+    final override fun startActivity(activity: Activity, direction: Direction)
     {
         check(getRemainingCooldown(activity) <= 0)
         this.activity = activity
@@ -115,10 +102,10 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 
     final override fun update()
     {
-        // TODO: Replace reference to hardcoded command type
-        if (currentHP <= 0 && command.type != CommandType.DIE)
+        // If HP reaches zero, immediately cancel the current activity and start falling
+        if (currentHP <= 0 && activity != Activity.FALLING)
         {
-            setCommand(DieCommand(this))
+            startActivity(Activity.FALLING, direction)
         }
         else
         {
@@ -133,21 +120,8 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
                     return
                 }
 
-                val nextCommand = getPlayer().chooseCommand(this)
-                if (command.isComplete())
-                {
-                    setCommand(nextCommand)
-                }
-                // TODO: Replace reference to hardcoded command type
-                else if (command.isPreemptible() && nextCommand.type != CommandType.STAY)
-                {
-                    setCommand(nextCommand)
-                }
-                else
-                {
-                    val (activity, direction) = command.chooseActivity()
-                    this.setActivity(activity, direction)
-                }
+                val (activity, direction) = getPlayer().chooseActivity(this)
+                startActivity(activity, direction)
             }
         }
     }

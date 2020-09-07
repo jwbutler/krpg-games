@@ -1,6 +1,8 @@
 package com.jwbutler.krpg.players
 
+import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.Command
+import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.entities.units.WizardUnit
@@ -12,7 +14,7 @@ class EnemyPlayer : AbstractPlayer()
 {
     override val isHuman = false
 
-    override fun chooseCommand(unit: Unit): Command
+    override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
     {
         val unitAI = when (unit)
         {
@@ -22,6 +24,6 @@ class EnemyPlayer : AbstractPlayer()
             else -> throw IllegalArgumentException("Unsupported unit type ${unit::class.java.getSimpleName()}")
         }
 
-        return unitAI.chooseCommand(unit)
+        return unitAI.chooseCommand(unit).chooseActivity()
     }
 }

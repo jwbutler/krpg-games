@@ -300,11 +300,6 @@ private class GameStateImpl : GameState
             )
         }
 
-        for (unit in this.coordinatesToUnit.values)
-        {
-            unit.setCommand(StayCommand(unit))
-        }
-
         this.level = level
     }
 
