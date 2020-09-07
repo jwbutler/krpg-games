@@ -8,8 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/awt/ImageLoaderAWT.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/awt/ImageLoaderAWT.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/graphics/images/ImageUtils.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/SpriteUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/SpriteUtils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -448,26 +448,30 @@
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state x="634" y="362" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.23.1920.1107@0.23.1920.1107" timestamp="1599442737882" />
+    <state x="622" y="291" key="#xdebugger.evaluate" timestamp="1599499199854">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="622" y="291" key="#xdebugger.evaluate/0.23.1920.1107@0.23.1920.1107" timestamp="1599499199854" />
     <state width="881" height="466" key="DebuggerActiveHint" timestamp="1599371679389">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state width="881" height="466" key="DebuggerActiveHint/0.23.1920.1107@0.23.1920.1107" timestamp="1599371679389" />
-    <state width="1647" height="306" key="GridCell.Tab.0.bottom" timestamp="1599434010786">
+    <state width="1647" height="306" key="GridCell.Tab.0.bottom" timestamp="1599499365254">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010786" />
-    <state width="1647" height="306" key="GridCell.Tab.0.center" timestamp="1599434010785">
+    <state width="1647" height="306" key="GridCell.Tab.0.bottom/0.23.1920.1107@0.23.1920.1107" timestamp="1599499365254" />
+    <state width="1647" height="306" key="GridCell.Tab.0.center" timestamp="1599499365253">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.center/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010785" />
-    <state width="1647" height="306" key="GridCell.Tab.0.left" timestamp="1599434010785">
+    <state width="1647" height="306" key="GridCell.Tab.0.center/0.23.1920.1107@0.23.1920.1107" timestamp="1599499365253" />
+    <state width="1647" height="306" key="GridCell.Tab.0.left" timestamp="1599499365253">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.left/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010785" />
-    <state width="1647" height="306" key="GridCell.Tab.0.right" timestamp="1599434010786">
+    <state width="1647" height="306" key="GridCell.Tab.0.left/0.23.1920.1107@0.23.1920.1107" timestamp="1599499365253" />
+    <state width="1647" height="306" key="GridCell.Tab.0.right" timestamp="1599499365254">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state width="1647" height="306" key="GridCell.Tab.0.right/0.23.1920.1107@0.23.1920.1107" timestamp="1599434010786" />
+    <state width="1647" height="306" key="GridCell.Tab.0.right/0.23.1920.1107@0.23.1920.1107" timestamp="1599499365254" />
     <state x="421" y="293" width="1166" height="837" key="SettingsEditor" timestamp="1599370045821">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
@@ -480,14 +484,18 @@
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state x="661" y="331" width="598" height="490" key="find.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599443712759" />
+    <state x="509" y="300" width="700" height="530" key="recent.locations.popup" timestamp="1599499170246">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="509" y="300" width="700" height="530" key="recent.locations.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599499170246" />
     <state x="523" y="272" width="670" height="675" key="run.anything.popup" timestamp="1599369147331">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state x="523" y="272" width="670" height="675" key="run.anything.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599369147331" />
-    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup" timestamp="1599443253858">
+    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup" timestamp="1599498987803">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
-    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599443253858" />
+    <state x="624" y="270" width="763" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599498987803" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -496,6 +504,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/Direction.kt</url>
           <line>24</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt</url>
+          <line>243</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang">
