@@ -6,10 +6,30 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="abb550e1-310f-4ca4-bcd8-4fefbea9d917" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/KRPG.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/KRPG.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/KRPG.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/KRPG.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/core/GameState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/objects/Corpse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/AbstractUnit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/Unit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/entities/units/Unit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/EnemyPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/EnemyPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/HumanPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/HumanPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/KeyboardPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/KeyboardPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/Player.kt" afterDir="false" />
+=======
     <list default="true" id="023a78fd-2ea0-46fa-9111-d7c207ba98cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/SpriteUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/utils/SpriteUtils.kt" afterDir="false" />
+>>>>>>> master
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +145,10 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="gradle jar" />
+<<<<<<< HEAD
+=======
       <command value="gradle ass" />
+>>>>>>> master
     </option>
   </component>
   <component name="RunManager" selected="Kotlin.com.jwbutler.krpg.MainKt">
@@ -227,6 +250,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+    <configuration name="com.jwbutler.krpg.MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="KRPG.main" />
+=======
     <configuration default="true" type="JetRunConfigurationType">
       <module name="krpg.main" />
       <option name="VM_PARAMETERS" />
@@ -242,6 +269,7 @@
     </configuration>
     <configuration name="com.jwbutler.krpg.MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <module name="krpg.main" />
+>>>>>>> master
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -444,6 +472,12 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< HEAD
+    <state x="523" y="270" width="672" height="676" key="search.everywhere.popup" timestamp="1599504655508">
+      <screen x="0" y="23" width="1920" height="1107" />
+    </state>
+    <state x="523" y="270" width="672" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599504655508" />
+=======
     <state x="634" y="362" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1599442737882">
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
@@ -496,6 +530,7 @@
       <screen x="0" y="23" width="1920" height="1107" />
     </state>
     <state x="624" y="270" width="763" height="676" key="search.everywhere.popup/0.23.1920.1107@0.23.1920.1107" timestamp="1599498987803" />
+>>>>>>> master
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -528,6 +563,14 @@
           </properties>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
+<<<<<<< HEAD
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jwbutler/krpg/players/MousePlayer.kt</url>
+          <line>290</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+=======
+>>>>>>> master
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="java-exception">

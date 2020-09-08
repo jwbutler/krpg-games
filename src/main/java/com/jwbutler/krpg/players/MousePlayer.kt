@@ -4,10 +4,12 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
 import com.jwbutler.krpg.behavior.commands.BashCommand
 import com.jwbutler.krpg.behavior.commands.Command
+import com.jwbutler.krpg.behavior.commands.CommandType
 import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.RepeatingAttackCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
+import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.TileOverlay
@@ -35,27 +37,32 @@ private typealias CommandSupplier = (Unit) -> Command
 
 class MousePlayer : HumanPlayer()
 {
+    private val currentCommands = mutableMapOf<Unit, Command>()
     private val queuedCommands = mutableMapOf<Unit, CommandSupplier>()
     private val selectedUnits = mutableSetOf<Unit>()
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
 
-    override fun chooseCommand(unit: Unit): Command
+    override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
     {
-        val queuedCommand = queuedCommands.remove(unit)
-        if (queuedCommand != null)
+        val currentCommand = currentCommands[unit] ?: StayCommand(unit)
+        val nextCommand = _chooseCommand(unit)
+        val command: Command
+        if (currentCommand.isComplete())
         {
-            return queuedCommand(unit)
+            command = nextCommand
+        }
+        // TODO: Replace reference to hardcoded command type
+        else if (currentCommand.isPreemptible() && nextCommand.type != CommandType.STAY)
+        {
+            command = nextCommand
         }
         else
         {
-            return StayCommand(unit)
+            command = currentCommand
         }
-    }
-
-    override fun getQueuedCommand(unit: Unit): Command?
-    {
-        return queuedCommands[unit]?.invoke(unit)
+        currentCommands[unit] = command
+        return command.chooseActivity()
     }
 
     override fun getSelectedUnits() = selectedUnits
@@ -73,7 +80,10 @@ class MousePlayer : HumanPlayer()
         val playerUnits = getPlayerUnits()
         for (unit in playerUnits)
         {
-            val command = getQueuedCommand(unit) ?: unit.getCommand()
+            val command = queuedCommands[unit]?.invoke(unit)
+                ?: currentCommands[unit]
+                ?: StayCommand(unit) // TODO - can we just initialize currentCommands with some of these?
+
             when (command)
             {
                 is SingleAttackCommand ->
@@ -317,6 +327,19 @@ class MousePlayer : HumanPlayer()
         {
             return isRightMouseButton(event)
                 || (isLeftMouseButton(event) && event.isControlDown())
+        }
+    }
+
+    private fun _chooseCommand(unit: Unit): Command
+    {
+        val queuedCommand = queuedCommands.remove(unit)
+        if (queuedCommand != null)
+        {
+            return queuedCommand(unit)
+        }
+        else
+        {
+            return StayCommand(unit)
         }
     }
 

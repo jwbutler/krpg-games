@@ -9,7 +9,7 @@ object Pathfinder
 {
     fun findPath(first: Coordinates, second: Coordinates): List<Coordinates>?
     {
-        return Impl.DIJKSTRA.findPath(first, second)
+        return Algorithm.DIJKSTRA.findPath(first, second)
     }
 
     fun findPath(first: Entity, second: Entity): List<Coordinates>?
@@ -35,7 +35,7 @@ object Pathfinder
     }
 }
 
-private enum class Impl
+private enum class Algorithm
 {
     DIJKSTRA
     {
@@ -44,7 +44,7 @@ private enum class Impl
         override fun findPath(source: Coordinates, target: Coordinates): List<Coordinates>?
         {
             val bestKnownDistances = mutableMapOf<Coordinates, Double>()
-            val queue = PriorityQueue(Comparator.comparing<Coordinates, Double> { bestKnownDistances[it] })
+            val queue = PriorityQueue(Comparator.comparing<Coordinates, Double> { bestKnownDistances[it] ?: MAX_DISTANCE })
             val previous = mutableMapOf<Coordinates, Coordinates>()
 
             val state : GameState = GameState.getInstance()

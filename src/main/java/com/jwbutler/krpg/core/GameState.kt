@@ -1,6 +1,5 @@
 package com.jwbutler.krpg.core
 
-import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.tiles.Tile
 import com.jwbutler.krpg.entities.equipment.Equipment
@@ -59,7 +58,7 @@ interface GameState
     fun addUnit(unit: Unit, coordinates: Coordinates, player: Player)
     fun removeUnit(unit: Unit)
     fun moveUnit(unit: Unit, coordinates: Coordinates)
-    fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipment: Map<EquipmentSlot, Equipment>)
+    fun addPlayerUnit(unit: Unit, player: Player, coordinates: Coordinates, equipmentMap: Map<EquipmentSlot, Equipment>)
 
     // Objects
 
@@ -298,11 +297,6 @@ private class GameStateImpl : GameState
                 level.startPosition,
                 playerUnitEquipment.getOrDefault(unit, emptyMap())
             )
-        }
-
-        for (unit in this.coordinatesToUnit.values)
-        {
-            unit.setCommand(StayCommand(unit))
         }
 
         this.level = level

@@ -1,7 +1,6 @@
 package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
@@ -14,7 +13,6 @@ interface Unit : Entity
 {
     override val sprite: UnitSprite
     fun getPlayer(): Player
-    fun getCommand(): Command
     fun getActivity(): Activity
     fun getDirection(): Direction
     /**
@@ -41,8 +39,7 @@ interface Unit : Entity
     fun moveTo(coordinates: Coordinates)
     fun getDamage(activity: Activity): Int
     fun takeDamage(amount: Int)
-    fun setCommand(command: Command)
-    fun setActivity(activity: Activity, direction: Direction)
+    fun startActivity(activity: Activity, direction: Direction)
     fun removeEquipment(equipment: Equipment)
     fun addEquipment(equipment: Equipment)
     fun die()
