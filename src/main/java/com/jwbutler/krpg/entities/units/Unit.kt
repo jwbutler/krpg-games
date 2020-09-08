@@ -1,7 +1,6 @@
 package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment

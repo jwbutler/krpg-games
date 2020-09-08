@@ -1,6 +1,5 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.entities.TileOverlay
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
@@ -22,10 +21,10 @@ abstract class HumanPlayer : AbstractPlayer()
         GameWindow.getInstance().addMouseListener(getMouseListener())
     }
 
+    abstract fun getSelectedUnits(): Set<Unit>
     abstract fun getTileOverlays(): Map<Coordinates, TileOverlay>
     abstract fun getUIOverlays(): Collection<Renderable>
 
     open fun getKeyListener(): KeyListener = object : KeyAdapter() {}
     open fun getMouseListener(): MouseAdapter = object : MouseAdapter() {}
-    open fun getSelectedUnits(): Set<Unit> = setOf()
 }

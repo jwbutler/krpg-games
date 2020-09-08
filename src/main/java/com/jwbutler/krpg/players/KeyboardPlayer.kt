@@ -1,10 +1,6 @@
 package com.jwbutler.krpg.players
 
 import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.Command
-import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
-import com.jwbutler.krpg.behavior.commands.MoveCommand
-import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.TileOverlay
@@ -12,6 +8,7 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.utils.getPlayerUnits
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import kotlin.math.abs
@@ -91,4 +88,6 @@ class KeyboardPlayer : HumanPlayer()
             }
         }
     }
+
+    override fun getSelectedUnits() = getPlayerUnits().toSet()
 }
