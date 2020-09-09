@@ -23,7 +23,7 @@ abstract class UnitSprite
         val coordinates = unit.getCoordinates()
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         val filename = _formatFilename(frame)
-        val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
+        val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps).scale2x()
         val pixel = coordinates.toPixel() + offsets
         return Renderable(image, pixel, RenderLayer.UNIT)
     }

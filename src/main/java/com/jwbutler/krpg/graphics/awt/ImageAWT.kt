@@ -4,6 +4,8 @@ import com.jwbutler.krpg.graphics.images.Image
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
+import java.awt.Graphics2D
+import java.awt.RenderingHints
 import java.awt.image.BufferedImage
 
 /**
@@ -45,9 +47,21 @@ class ImageAWT(private val delegate: BufferedImage) : Image
 
     override fun drawText(text: String, font: Font, x: Int, y: Int)
     {
-        delegate.getGraphics().setFont(font)
-        delegate.getGraphics().drawString(text, x, y)
+        val graphics = delegate.getGraphics() as Graphics2D
+        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF)
+        graphics.setFont(font)
+        graphics.drawString(text, x, y)
     }
+
+    override fun scale(scaledWidth: Int, scaledHeight: Int): Image
+    {
+        val scaled = ImageAWT(scaledWidth, scaledHeight)
+        val graphics = scaled.delegate.getGraphics()
+        graphics.drawImage(delegate, 0, 0, scaledWidth, scaledHeight, null)
+        return scaled
+    }
+
+    override fun scale2x(): Image = scale(width * 2, height * 2)
 
     // Methods specific to the AWT implementation below
 

@@ -60,14 +60,14 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
         var image = imageLoader.loadOptional(filename + BEHIND_PREFIX, paletteSwaps)
         if (image != null)
         {
-            return Pair(image, RenderLayer.EQUIPMENT_BEHIND)
+            return Pair(image.scale2x(), RenderLayer.EQUIPMENT_BEHIND)
         }
         else
         {
             image = imageLoader.loadOptional(filename, paletteSwaps)
             if (image != null)
             {
-                return Pair(image, RenderLayer.EQUIPMENT_ABOVE)
+                return Pair(image.scale2x(), RenderLayer.EQUIPMENT_ABOVE)
             }
         }
         error("Could not find image filename ${filename} or ${filename + BEHIND_PREFIX}")

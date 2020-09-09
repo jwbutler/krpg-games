@@ -11,9 +11,9 @@ class UnitCard(val unit: Unit)
 {
     companion object
     {
-        const val WIDTH = 60
+        const val WIDTH = 100
         private const val HEIGHT = HUDRenderer.HEIGHT - 10
-        private val FONT = Font(Font.DIALOG, Font.PLAIN, 10)
+        private val FONT = Font(Font.MONOSPACED, Font.PLAIN, 12)
     }
 
     val image = Image.create(WIDTH, HEIGHT)
@@ -24,8 +24,8 @@ class UnitCard(val unit: Unit)
         image.fillRect(0, 0, WIDTH - 1, HEIGHT - 1, color)
         image.drawRect(0, 0, WIDTH - 1, HEIGHT - 1, Colors.WHITE)
         image.drawText("Chigz Jupsiz", FONT, 3, 12)
-        val healthBar = _drawHealthBar(WIDTH - 6, 5)
-        image.drawImage(healthBar, 3, 18)
+        val healthBar = _drawHealthBar(WIDTH - 8, 5)
+        image.drawImage(healthBar, 4, 18)
         return image
     }
 

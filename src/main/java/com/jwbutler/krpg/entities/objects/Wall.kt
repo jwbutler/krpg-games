@@ -15,7 +15,7 @@ class Wall : AbstractObject()
     {
         private fun _getImage(): Image
         {
-            return ImageLoader.getInstance().loadImage("objects/wall_24x48")
+            return ImageLoader.getInstance().loadImage("objects/wall_24x48").scale2x()
         }
     }
 }

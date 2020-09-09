@@ -25,15 +25,15 @@ class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite
 
     companion object
     {
-        private const val SPRITE_WIDTH = 40
-        private const val SPRITE_HEIGHT = 40
+        private const val SPRITE_WIDTH = 80
+        private const val SPRITE_HEIGHT = 80
         /**
          * X = (24 - 40) / 2
          * Y = 12 - 40 - 1
          */
         val OFFSETS = Offsets(
             (TILE_WIDTH - SPRITE_WIDTH) / 2,
-            (TILE_HEIGHT - SPRITE_HEIGHT - 1)
+            (TILE_HEIGHT - SPRITE_HEIGHT - 2)
         )
     }
 }

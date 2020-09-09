@@ -18,6 +18,9 @@ interface Image
     fun drawImage(image: Image, x: Int, y: Int)
     fun drawText(text: String, font: Font, x: Int, y: Int)
 
+    fun scale(scaledWidth: Int, scaledHeight: Int): Image
+    fun scale2x(): Image
+
     companion object
     {
         fun create(width: Int, height: Int) = ImageAWT(width, height)

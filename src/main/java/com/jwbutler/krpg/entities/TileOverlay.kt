@@ -28,10 +28,8 @@ class TileOverlay(
             INNER_COLOR to innerColor
         )
 
-        return StaticSprite(
-            ImageLoader.getInstance().loadImage("tiles/overlay_24x12", paletteSwaps),
-            RenderLayer.FLOOR_TILE
-        )
+        val image = ImageLoader.getInstance().loadImage("tiles/overlay_24x12", paletteSwaps).scale2x()
+        return StaticSprite(image, RenderLayer.FLOOR_TILE)
     }
 
     override fun render() = sprite.render(this)

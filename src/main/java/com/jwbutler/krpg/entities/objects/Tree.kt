@@ -15,7 +15,7 @@ class Tree : AbstractObject()
     {
         private fun _getImage(): Image
         {
-            return ImageLoader.getInstance().loadImage("objects/tree3")
+            return ImageLoader.getInstance().loadImage("objects/tree3").scale2x()
         }
     }
 }

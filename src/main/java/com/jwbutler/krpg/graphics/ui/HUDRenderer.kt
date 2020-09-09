@@ -9,7 +9,7 @@ import com.jwbutler.krpg.utils.getPlayerUnits
 
 object HUDRenderer
 {
-    const val HEIGHT = 40 // If HEIGHT = 180, then this is ~22%
+    const val HEIGHT = 90 // 25% of screen height
     private const val WIDTH = GAME_WIDTH
     private const val TOP = GAME_HEIGHT - HEIGHT
 

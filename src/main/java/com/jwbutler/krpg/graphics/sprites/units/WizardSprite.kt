@@ -8,7 +8,7 @@ import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import java.lang.IllegalArgumentException
 
-private val OFFSETS = PlayerSprite.OFFSETS + IntPair.of(0, 4)
+private val OFFSETS = PlayerSprite.OFFSETS + IntPair.of(0, 8)
 
 class WizardSprite(paletteSwaps: PaletteSwaps) : UnitSprite
 (
