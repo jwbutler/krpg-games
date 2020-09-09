@@ -5,6 +5,7 @@ import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.players.HumanPlayer
 import java.awt.Font
+import java.awt.font.TextAttribute
 import kotlin.math.roundToInt
 
 class UnitCard(val unit: Unit)
@@ -13,7 +14,16 @@ class UnitCard(val unit: Unit)
     {
         const val WIDTH = 100
         private const val HEIGHT = HUDRenderer.HEIGHT - 10
-        private val FONT = Font(Font.MONOSPACED, Font.PLAIN, 12)
+        //private val FONT = Font(Font.MONOSPACED, Font.PLAIN, 12)
+        private val FONT = Font.createFont(
+            Font.TRUETYPE_FONT,
+            //UnitCard::class.java.getResourceAsStream("/fonts/Perfect DOS VGA 437.ttf")
+            UnitCard::class.java.getResourceAsStream("/fonts/Apple ][.ttf")
+        ).deriveFont(mapOf(
+            TextAttribute.SIZE to 8.0,
+            TextAttribute.TRACKING to -0.2F,
+            TextAttribute.KERNING to 0
+        ))
     }
 
     val image = Image.create(WIDTH, HEIGHT)
