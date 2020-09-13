@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.entities.objects
 
 import com.jwbutler.krpg.geometry.Offsets
+import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.images.Image
@@ -15,7 +16,8 @@ class Tree : AbstractObject()
     {
         private fun _getImage(): Image
         {
-            return ImageLoader.getInstance().loadImage("objects/tree3").scale2x()
+            val renderer = GameRenderer.getInstance()
+            return ImageLoader.getInstance().loadImage("objects/tree3")
         }
     }
 }

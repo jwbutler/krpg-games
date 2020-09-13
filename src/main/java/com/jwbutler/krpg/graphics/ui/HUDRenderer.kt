@@ -1,8 +1,7 @@
 package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.geometry.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.utils.getPlayerUnits
@@ -10,8 +9,8 @@ import com.jwbutler.krpg.utils.getPlayerUnits
 object HUDRenderer
 {
     const val HEIGHT = 90 // 25% of screen height
-    private const val WIDTH = GAME_WIDTH
-    private const val TOP = GAME_HEIGHT - HEIGHT
+    private val WIDTH = GameRenderer.getInstance().gameWidth
+    private val TOP = GameRenderer.getInstance().gameHeight - HEIGHT
 
     private val image = Image.create(WIDTH, HEIGHT)
 

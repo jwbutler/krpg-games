@@ -5,6 +5,7 @@ import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.FrameKey
+import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.RenderLayer
@@ -23,7 +24,7 @@ abstract class UnitSprite
         val coordinates = unit.getCoordinates()
         val frame = _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         val filename = _formatFilename(frame)
-        val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps).scale2x()
+        val image = ImageLoader.getInstance().loadImage(filename, paletteSwaps)
         val pixel = coordinates.toPixel() + offsets
         return Renderable(image, pixel, RenderLayer.UNIT)
     }
@@ -42,7 +43,7 @@ abstract class UnitSprite
 
     private fun _formatFilename(frameKey: FrameKey): String
     {
-        return "units/${spriteName}/${spriteName}_${frameKey.keys.joinToString("_")}"
+        return "units/${spriteName}/${spriteName}_${frameKey}"
     }
 
     protected abstract fun _getFrames(activity: Activity, direction: Direction): List<FrameKey>

@@ -3,12 +3,9 @@ package com.jwbutler.krpg.utils
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
 import com.jwbutler.krpg.geometry.Rectangle
-import com.jwbutler.krpg.geometry.TILE_HEIGHT
-import com.jwbutler.krpg.geometry.TILE_WIDTH
+import com.jwbutler.krpg.graphics.GameRenderer
 import java.awt.Point
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -62,9 +59,12 @@ fun hypotenuse(first: Coordinates, second: Coordinates): Double
  */
 fun coordinatesToPixel(coordinates: Coordinates): Pixel
 {
+    val renderer = GameRenderer.getInstance()
     val cameraCoordinates = GameState.getInstance().getHumanPlayer().cameraCoordinates
-    val x = (coordinates.x - cameraCoordinates.x) * TILE_WIDTH + (GAME_WIDTH / 2) - (TILE_WIDTH / 2)
-    val y = (coordinates.y - cameraCoordinates.y) * TILE_HEIGHT + (GAME_HEIGHT / 2) - (TILE_HEIGHT / 2)
+    val tileWidth = (renderer.tileWidth * renderer.scaleRatioX).roundToInt()
+    val tileHeight = (renderer.tileHeight * renderer.scaleRatioY).roundToInt()
+    val x = (coordinates.x - cameraCoordinates.x) * tileWidth + (renderer.gameWidth / 2) - (tileWidth / 2)
+    val y = (coordinates.y - cameraCoordinates.y) * tileHeight + (renderer.gameHeight / 2) - (tileHeight / 2)
     return Pixel(x, y)
 }
 
@@ -73,13 +73,16 @@ fun coordinatesToPixel(coordinates: Coordinates): Pixel
 fun pixelToCoordinates(pixel: Pixel): Coordinates
 {
     val cameraCoordinates = GameState.getInstance().getHumanPlayer().cameraCoordinates
+    val renderer = GameRenderer.getInstance()
+    val tileWidth = (renderer.tileWidth * renderer.scaleRatioX).roundToInt()
+    val tileHeight = (renderer.tileHeight * renderer.scaleRatioY).roundToInt()
     val originTopLeft = Pixel(
-        (GAME_WIDTH / 2) - (cameraCoordinates.x * TILE_WIDTH) - (TILE_WIDTH / 2),
-        (GAME_HEIGHT / 2) - (cameraCoordinates.y * TILE_HEIGHT) - (TILE_HEIGHT/ 2)
+        (renderer.gameWidth / 2) - (cameraCoordinates.x * tileWidth) - (tileWidth / 2),
+        (renderer.gameHeight / 2) - (cameraCoordinates.y * tileHeight) - (tileHeight / 2)
     )
 
-    val x = (pixel.x - originTopLeft.x) / TILE_WIDTH
-    val y = (pixel.y - originTopLeft.y) / TILE_HEIGHT
+    val x = (pixel.x - originTopLeft.x) / tileWidth
+    val y = (pixel.y - originTopLeft.y) / tileHeight
     return Coordinates(x, y)
 }
 

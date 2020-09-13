@@ -10,6 +10,7 @@ import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
+import com.jwbutler.krpg.graphics.awt.GameWindowAWT
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.levels.LEVEL_ONE
@@ -20,7 +21,9 @@ fun main()
 {
     val imageLoader = ImageLoader.initialize()
     val state = GameState.initialize()
-    val window = GameWindow.initialize()
+    val window = GameWindow.initialize({
+        GameWindowAWT(640, 360, 1280, 720)
+    })
     val renderer = GameRenderer.initialize()
     val engine = GameEngine.initialize()
 

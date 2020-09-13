@@ -4,9 +4,31 @@ import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.core.SingletonHolder
 import com.jwbutler.krpg.graphics.ui.HUDRenderer
 
-class GameRenderer
+interface GameRenderer
 {
+    val gameWidth: Int
+    val gameHeight: Int
+    val scaleRatioX: Double
+    val scaleRatioY: Double
+    val tileWidth: Int
+    val tileHeight: Int
+
     fun render()
+
+
+    companion object : SingletonHolder<GameRenderer>(::GameRendererImpl)
+}
+
+private class GameRendererImpl : GameRenderer
+{
+    override val gameWidth = 640
+    override val gameHeight = 360
+    override val scaleRatioX = 2.0
+    override val scaleRatioY = 0.75
+    override val tileWidth = 24
+    override val tileHeight = 12
+
+    override fun render()
     {
         val window = GameWindow.getInstance()
         window.clearBuffer()
@@ -36,8 +58,7 @@ class GameRenderer
             .sortedBy { (_, renderable) -> renderable.layer }
             .sortedBy { (entity, _) -> entity.getCoordinates().y }
             .map { (_, renderable) -> renderable }
+            .map { (image, pixel, layer) -> Renderable(image.scaleBy(scaleRatioX, scaleRatioY), pixel, layer) }
             .plus(uiOverlays) // TODO: Get these into the sort somehow
     }
-
-    companion object : SingletonHolder<GameRenderer>(::GameRenderer)
 }

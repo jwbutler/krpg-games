@@ -19,7 +19,7 @@ interface Image
     fun drawText(text: String, font: Font, x: Int, y: Int)
 
     fun scale(scaledWidth: Int, scaledHeight: Int): Image
-    fun scale2x(): Image
+    fun scaleBy(ratioX: Double, ratioY: Double): Image
 
     companion object
     {

@@ -7,6 +7,7 @@ import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints
 import java.awt.image.BufferedImage
+import kotlin.math.roundToInt
 
 /**
  * [Image] implementation that delegates to AWT's [BufferedImage]
@@ -61,7 +62,15 @@ class ImageAWT(private val delegate: BufferedImage) : Image
         return scaled
     }
 
-    override fun scale2x(): Image = scale(width * 2, height * 2)
+    override fun scaleBy(ratioX: Double, ratioY: Double): Image
+    {
+        val scaledWidth = (width * ratioX).roundToInt()
+        val scaledHeight = (height * ratioY).roundToInt()
+        val scaled = ImageAWT(scaledWidth, scaledHeight)
+        val graphics = scaled.delegate.getGraphics()
+        graphics.drawImage(delegate, 0, 0, scaledWidth, scaledHeight, null)
+        return scaled
+    }
 
     // Methods specific to the AWT implementation below
 
