@@ -14,7 +14,7 @@ import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.levels.LEVEL_ONE
 import com.jwbutler.krpg.players.EnemyPlayer
-import com.jwbutler.krpg.players.MousePlayer
+import com.jwbutler.krpg.players.KeyboardPlayer
 
 fun main()
 {
@@ -24,7 +24,7 @@ fun main()
     val renderer = GameRenderer.initialize()
     val engine = GameEngine.initialize()
 
-    val humanPlayer = MousePlayer()
+    val humanPlayer = KeyboardPlayer()
     state.addPlayer(humanPlayer)
     val enemyPlayer = EnemyPlayer()
     state.addPlayer(enemyPlayer)
@@ -42,14 +42,6 @@ private fun _getInitialUnits(): List<GameEngine.UnitData>
         .put(Colors.DARK_GREEN, Colors.DARK_RED)
 
     return listOf(
-        GameEngine.UnitData(
-            PlayerUnit(200, paletteSwaps),
-            mapOf(
-                EquipmentSlot.MAIN_HAND to Sword(),
-                EquipmentSlot.OFF_HAND to Shield(),
-                EquipmentSlot.CHEST to MailArmor()
-            )
-        ),
         GameEngine.UnitData(
             PlayerUnit(200, paletteSwaps),
             mapOf(
