@@ -4,11 +4,11 @@ import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.TileOverlay
+import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.Renderable
-import com.jwbutler.krpg.utils.getPlayerUnits
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import kotlin.math.abs
@@ -17,7 +17,7 @@ class KeyboardPlayer : HumanPlayer()
 {
     private val queuedDirections = mutableSetOf<Int>()
     private val heldDirections = mutableSetOf<Int>()
-    private val queuedModifiers = mutableSetOf<Int>()
+    private val heldModifiers = mutableSetOf<Int>()
 
     override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
     {
@@ -42,7 +42,7 @@ class KeyboardPlayer : HumanPlayer()
 
         if ((dx != 0 || dy != 0) && GameState.getInstance().containsCoordinates(coordinates))
         {
-            if (queuedModifiers.contains(KeyEvent.VK_SHIFT))
+            if (heldModifiers.contains(KeyEvent.VK_SHIFT) && unit.isActivityReady(Activity.ATTACKING))
             {
                 return Pair(Activity.ATTACKING, Direction.from(IntPair.of(dx, dy)))
             }
@@ -54,7 +54,23 @@ class KeyboardPlayer : HumanPlayer()
         return Pair(Activity.STANDING, unit.getDirection())
     }
 
-    override fun getTileOverlays() = mutableMapOf<Coordinates, TileOverlay>()
+    override fun getTileOverlays(): Map<Coordinates, TileOverlay>
+    {
+        val overlays = mutableMapOf<Coordinates, TileOverlay>()
+        val unit = _getUnit()
+
+        overlays[unit.getCoordinates()] = TileOverlayFactory.playerOverlay(unit.getCoordinates(), true)
+        val targetCoordinates = unit.getCoordinates() + unit.getDirection()
+        GameState.getInstance()
+            .getUnits()
+            .filter { u -> u.getPlayer() != this } // TODO better hostility check
+            .forEach { enemyUnit ->
+                val isTargeted = unit.getActivity() == Activity.ATTACKING && enemyUnit.getCoordinates() == targetCoordinates
+                overlays[enemyUnit.getCoordinates()] = TileOverlayFactory.enemyOverlay(enemyUnit.getCoordinates(), isTargeted)
+            }
+
+        return overlays
+    }
 
     override fun getUIOverlays() = listOf<Renderable>()
 
@@ -62,32 +78,40 @@ class KeyboardPlayer : HumanPlayer()
     {
         override fun keyPressed(e: KeyEvent)
         {
-            if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).contains(e.keyCode))
+            when (e.keyCode)
             {
-                if (!heldDirections.contains(e.keyCode))
+                KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D ->
                 {
-                    queuedDirections.add(e.keyCode)
-                    heldDirections.add(e.keyCode)
+                    if (!heldDirections.contains(e.keyCode))
+                    {
+                        queuedDirections.add(e.keyCode)
+                        heldDirections.add(e.keyCode)
+                    }
                 }
-            }
-            else if (arrayOf(KeyEvent.VK_SHIFT).contains(e.keyCode))
-            {
-                queuedModifiers.add(e.keyCode)
+                KeyEvent.VK_SHIFT ->
+                {
+                    heldModifiers.add(e.keyCode)
+                }
             }
         }
 
         override fun keyReleased(e: KeyEvent)
         {
-            if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).contains(e.keyCode))
+            when (e.keyCode)
             {
-                heldDirections.remove(e.keyCode)
-            }
-            if (arrayOf(KeyEvent.VK_SHIFT).contains(e.keyCode))
-            {
-                queuedModifiers.remove(e.keyCode)
+                KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D ->
+                {
+                    heldDirections.remove(e.keyCode)
+                }
+                KeyEvent.VK_SHIFT ->
+                {
+                    heldModifiers.remove(e.keyCode)
+                }
             }
         }
     }
 
-    override fun getSelectedUnits() = getPlayerUnits().toSet()
+    private fun _getUnit() = GameState.getInstance().getUnits(this)[0]
+
+    override fun getSelectedUnits() = setOf(_getUnit())
 }
