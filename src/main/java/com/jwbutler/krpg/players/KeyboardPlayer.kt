@@ -78,29 +78,35 @@ class KeyboardPlayer : HumanPlayer()
     {
         override fun keyPressed(e: KeyEvent)
         {
-            if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).contains(e.keyCode))
+            when (e.keyCode)
             {
-                if (!heldDirections.contains(e.keyCode))
+                KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D ->
                 {
-                    queuedDirections.add(e.keyCode)
-                    heldDirections.add(e.keyCode)
+                    if (!heldDirections.contains(e.keyCode))
+                    {
+                        queuedDirections.add(e.keyCode)
+                        heldDirections.add(e.keyCode)
+                    }
                 }
-            }
-            else if (arrayOf(KeyEvent.VK_SHIFT).contains(e.keyCode))
-            {
-                heldModifiers.add(e.keyCode)
+                KeyEvent.VK_SHIFT ->
+                {
+                    heldModifiers.add(e.keyCode)
+                }
             }
         }
 
         override fun keyReleased(e: KeyEvent)
         {
-            if (arrayOf(KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D).contains(e.keyCode))
+            when (e.keyCode)
             {
-                heldDirections.remove(e.keyCode)
-            }
-            if (arrayOf(KeyEvent.VK_SHIFT).contains(e.keyCode))
-            {
-                heldModifiers.remove(e.keyCode)
+                KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D ->
+                {
+                    heldDirections.remove(e.keyCode)
+                }
+                KeyEvent.VK_SHIFT ->
+                {
+                    heldModifiers.remove(e.keyCode)
+                }
             }
         }
     }
