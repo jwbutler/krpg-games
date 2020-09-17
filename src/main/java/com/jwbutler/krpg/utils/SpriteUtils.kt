@@ -15,11 +15,12 @@ object SpriteUtils
         return when (activity)
         {
             Activity.STANDING -> listOf(FrameKey(activity, direction, 1))
-            Activity.WALKING -> arrayOf(2, 1, 1).map { FrameKey(activity, direction, it) }
+            Activity.WALKING -> arrayOf(2, 2,  1, 1).map { FrameKey(activity, direction, it) }
             Activity.ATTACKING ->
             {
                 val frames = mutableListOf<FrameKey>()
                 frames.addAll(arrayOf(1, 2, 2, 1).map { FrameKey(Activity.ATTACKING, direction, it) })
+                frames.addAll(arrayOf(1, 1).map { FrameKey(Activity.STANDING, direction, it) })
                 return frames
             }
             Activity.BASHING ->

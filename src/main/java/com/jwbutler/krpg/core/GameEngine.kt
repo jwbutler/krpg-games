@@ -8,11 +8,12 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.levels.Level
+import com.jwbutler.krpg.utils.getPlayerUnits
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val FRAME_INTERVAL = 100L // 10 FPS
+private const val FRAME_INTERVAL = 125L // 8 FPS
 private const val RENDER_INTERVAL = 20L // 50 FPS
 
 /**
@@ -99,6 +100,9 @@ private class GameEngineImpl : GameEngine
     override fun doLoop()
     {
         val state = GameState.getInstance()
+
+        val playerUnit = getPlayerUnits()[0]
+        println("${state.ticks} => (${playerUnit.getActivity()}, ${playerUnit.getDirection()})")
 
         if (!isPaused)
         {
