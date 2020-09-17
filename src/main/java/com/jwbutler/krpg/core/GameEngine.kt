@@ -6,11 +6,11 @@ import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.GameRenderer
+import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.levels.Level
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.swing.SwingUtilities
 
 private const val FRAME_INTERVAL = 100L // 10 FPS
 private const val RENDER_INTERVAL = 20L // 50 FPS
@@ -71,6 +71,7 @@ private class GameEngineImpl : GameEngine
                 synchronized(GameState.getInstance())
                 {
                     GameRenderer.getInstance().render()
+                    GameWindow.getInstance().render()
                 }
                 delay(RENDER_INTERVAL)
             }

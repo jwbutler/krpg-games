@@ -44,11 +44,11 @@ class KeyboardPlayer : HumanPlayer()
         {
             if (heldModifiers.contains(KeyEvent.VK_SHIFT) && unit.isActivityReady(Activity.ATTACKING))
             {
-                return Pair(Activity.ATTACKING, Direction.from(IntPair.of(dx, dy)))
+                return Pair(Activity.ATTACKING, Direction.from(dx, dy))
             }
-            else
+            else if (unit.isActivityReady(Activity.WALKING))
             {
-                return Pair(Activity.WALKING, Direction.from(IntPair.of(dx, dy)))
+                return Pair(Activity.WALKING, Direction.from(dx, dy))
             }
         }
         return Pair(Activity.STANDING, unit.getDirection())

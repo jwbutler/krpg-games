@@ -25,12 +25,19 @@ enum class Direction(val dx: Int, val dy: Int)
                 ?: error("Could not find direction from ${xy}")
         }
 
+        fun from(x: Int, y: Int): Direction
+        {
+            return Direction.values()
+                .find { d -> (d.dx == x && d.dy == y) }
+                ?: error("Could not find direction from ${x}, ${y}")
+        }
+
         fun closest(xy: IntPair): Direction
         {
             val magnitude = hypot(xy.x.toDouble(), xy.y.toDouble())
             val dx = round(xy.x / magnitude).toInt()
             val dy = round(xy.y / magnitude).toInt()
-            return Direction.from(IntPair.of(dx, dy))
+            return Direction.from(dx, dy)
         }
 
         fun between(target: Coordinates, coordinates: Coordinates): Direction
