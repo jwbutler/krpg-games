@@ -6,8 +6,8 @@ import com.jwbutler.krpg.geometry.GAME_WIDTH
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_HEIGHT
 import com.jwbutler.krpg.geometry.INITIAL_WINDOW_WIDTH
 import com.jwbutler.krpg.geometry.Pixel
+import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
-import com.jwbutler.krpg.graphics.images.Image
 import com.jwbutler.krpg.input.DelegatingMouseListener
 import java.awt.Graphics
 import java.awt.event.KeyListener
@@ -24,7 +24,6 @@ import java.awt.event.MouseAdapter
  */
 class GameWindowAWT : GameWindow
 {
-    private val buffer: Image = Image.create(GAME_WIDTH, GAME_HEIGHT)
     private val frame: JFrame = JFrame()
     private val panel: JPanel = object : JPanel()
     {
@@ -50,17 +49,7 @@ class GameWindowAWT : GameWindow
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     }
 
-    override fun clearBuffer()
-    {
-        buffer.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT)
-    }
-
-    override fun render(image: Image, pixel: Pixel)
-    {
-        buffer.drawImage(image, pixel.x, pixel.y)
-    }
-
-    override fun redraw()
+    override fun render()
     {
         panel.repaint()
     }
@@ -118,10 +107,11 @@ class GameWindowAWT : GameWindow
 
     private fun _redraw(graphics: Graphics)
     {
+        val image = GameRenderer.getInstance().getImage()
         val (width, height) = _getScaledDimensions()
         val left = (panel.getWidth() - width) / 2
         val top = (panel.getHeight() - height) / 2
-        (buffer as ImageAWT).drawOnto(graphics, left, top, width, height)
+        (image as ImageAWT).drawOnto(graphics, left, top, width, height)
     }
 
     /**

@@ -20,8 +20,8 @@ fun main()
 {
     val imageLoader = ImageLoader.initialize()
     val state = GameState.initialize()
-    val window = GameWindow.initialize()
     val renderer = GameRenderer.initialize()
+    val window = GameWindow.initialize()
     val engine = GameEngine.initialize()
 
     val humanPlayer = KeyboardPlayer()

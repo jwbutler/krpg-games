@@ -1,43 +1,21 @@
 package com.jwbutler.krpg.graphics
 
-import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.core.SingletonHolder
-import com.jwbutler.krpg.graphics.ui.HUDRenderer
+import com.jwbutler.krpg.geometry.GAME_HEIGHT
+import com.jwbutler.krpg.geometry.GAME_WIDTH
+import com.jwbutler.krpg.graphics.awt.GameRendererAWT
+import com.jwbutler.krpg.graphics.images.Image
 
-class GameRenderer
+/**
+ * This class renders the game at its "native" resolution.
+ */
+interface GameRenderer
 {
-    fun render()
-    {
-        val window = GameWindow.getInstance()
-        window.clearBuffer()
+    val width: Int
+    val height: Int
 
-        for ((image, pixel) in _getRenderables())
-        {
-            window.render(image, pixel)
-        }
+    fun render(): Image
+    fun getImage(): Image
 
-        val (image, pixel) = HUDRenderer.render()
-        window.render(image, pixel)
-
-        window.redraw()
-    }
-
-    private fun _getRenderables(): List<Renderable>
-    {
-        val state = GameState.getInstance()
-        val entities = state.getEntities()
-        val humanPlayer = state.getHumanPlayer()
-        val tileOverlays = humanPlayer.getTileOverlays().values
-        val uiOverlays = humanPlayer.getUIOverlays()
-
-        val renderables = entities.plus(tileOverlays).map { it to it.render() }
-
-        return renderables
-            .sortedBy { (_, renderable) -> renderable.layer }
-            .sortedBy { (entity, _) -> entity.getCoordinates().y }
-            .map { (_, renderable) -> renderable }
-            .plus(uiOverlays) // TODO: Get these into the sort somehow
-    }
-
-    companion object : SingletonHolder<GameRenderer>(::GameRenderer)
+    companion object : SingletonHolder<GameRenderer>({ GameRendererAWT(GAME_WIDTH, GAME_HEIGHT) })
 }
