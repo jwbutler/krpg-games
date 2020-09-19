@@ -7,7 +7,6 @@ import com.jwbutler.krpg.entities.TileOverlay
 import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.graphics.Renderable
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -76,6 +75,7 @@ class KeyboardPlayer : HumanPlayer()
 
     override fun getKeyListener() = object : KeyAdapter()
     {
+        val player = this@KeyboardPlayer
         override fun keyPressed(e: KeyEvent)
         {
             when (e.keyCode)
@@ -91,6 +91,10 @@ class KeyboardPlayer : HumanPlayer()
                 KeyEvent.VK_SHIFT ->
                 {
                     heldModifiers.add(e.keyCode)
+                }
+                KeyEvent.VK_C ->
+                {
+                    player.cameraCoordinates = _getUnit().getCoordinates()
                 }
             }
         }

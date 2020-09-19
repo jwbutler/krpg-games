@@ -12,7 +12,8 @@ private val ACTIVITIES = setOf(
     Activity.WALKING
 )
 
-class PlayerUnit(
+class PlayerUnit
+(
     hp: Int,
     paletteSwaps: PaletteSwaps = PaletteSwaps.WHITE_TRANSPARENT
 ) : AbstractUnit(hp, ACTIVITIES)

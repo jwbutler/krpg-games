@@ -8,7 +8,6 @@ import com.jwbutler.krpg.entities.units.Unit
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.levels.Level
-import com.jwbutler.krpg.utils.getPlayerUnits
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -100,9 +99,6 @@ private class GameEngineImpl : GameEngine
     override fun doLoop()
     {
         val state = GameState.getInstance()
-
-        val playerUnit = getPlayerUnits()[0]
-        println("${state.ticks} => (${playerUnit.getActivity()}, ${playerUnit.getDirection()})")
 
         if (!isPaused)
         {
