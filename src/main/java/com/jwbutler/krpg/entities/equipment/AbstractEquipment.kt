@@ -14,7 +14,6 @@ abstract class AbstractEquipment(override val sprite: Sprite) : Equipment
     override fun render() = sprite.render(this)
 
     override fun update() {}
-    override fun afterRender() {}
 
     override fun isBlocking() = false
 }

@@ -72,6 +72,7 @@ class KeyboardPlayer : HumanPlayer()
     }
 
     override fun getUIOverlays() = listOf<Renderable>()
+    override fun getCameraCoordinates() = _getUnit().getCoordinates()
 
     override fun getKeyListener() = object : KeyAdapter()
     {
@@ -91,10 +92,6 @@ class KeyboardPlayer : HumanPlayer()
                 KeyEvent.VK_SHIFT ->
                 {
                     heldModifiers.add(e.keyCode)
-                }
-                KeyEvent.VK_C ->
-                {
-                    player.cameraCoordinates = _getUnit().getCoordinates()
                 }
             }
         }

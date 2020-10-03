@@ -6,13 +6,15 @@ import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
+import com.jwbutler.krpg.entities.tiles.TileType
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.graphics.images.Colors
 import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
-import com.jwbutler.krpg.levels.LEVEL_ONE
+import com.jwbutler.krpg.levels.BitmapLevelCreator
+import com.jwbutler.krpg.levels.VictoryCondition
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.KeyboardPlayer
 
@@ -29,7 +31,12 @@ fun main()
     val enemyPlayer = EnemyPlayer()
     state.addPlayer(enemyPlayer)
 
-    engine.startGame(LEVEL_ONE, _getInitialUnits())
+    val level = BitmapLevelCreator.loadLevel(
+        filename = "levelA",
+        baseTileType = TileType.STONE,
+        victoryCondition = VictoryCondition.NONE
+    )
+    engine.startGame(level, _getInitialUnits())
 }
 
 private fun _getInitialUnits(): List<GameEngine.UnitData>

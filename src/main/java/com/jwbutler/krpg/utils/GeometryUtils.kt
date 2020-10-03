@@ -62,7 +62,7 @@ fun hypotenuse(first: Coordinates, second: Coordinates): Double
  */
 fun coordinatesToPixel(coordinates: Coordinates): Pixel
 {
-    val cameraCoordinates = GameState.getInstance().getHumanPlayer().cameraCoordinates
+    val cameraCoordinates = GameState.getInstance().getHumanPlayer().getCameraCoordinates()
     val x = (coordinates.x - cameraCoordinates.x) * TILE_WIDTH + (GAME_WIDTH / 2) - (TILE_WIDTH / 2)
     val y = (coordinates.y - cameraCoordinates.y) * TILE_HEIGHT + (GAME_HEIGHT / 2) - (TILE_HEIGHT / 2)
     return Pixel(x, y)
@@ -72,7 +72,7 @@ fun coordinatesToPixel(coordinates: Coordinates): Pixel
 // (0, 0) -> (-TILE_WIDTH / 2, -TILE_HEIGHT / 2)
 fun pixelToCoordinates(pixel: Pixel): Coordinates
 {
-    val cameraCoordinates = GameState.getInstance().getHumanPlayer().cameraCoordinates
+    val cameraCoordinates = GameState.getInstance().getHumanPlayer().getCameraCoordinates()
     val originTopLeft = Pixel(
         (GAME_WIDTH / 2) - (cameraCoordinates.x * TILE_WIDTH) - (TILE_WIDTH / 2),
         (GAME_HEIGHT / 2) - (cameraCoordinates.y * TILE_HEIGHT) - (TILE_HEIGHT/ 2)

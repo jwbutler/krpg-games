@@ -24,5 +24,4 @@ interface Entity
 
     fun update() {}
     fun render(): Renderable
-    fun afterRender() {}
 }

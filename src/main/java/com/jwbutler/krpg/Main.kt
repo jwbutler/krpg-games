@@ -12,6 +12,7 @@ import com.jwbutler.krpg.graphics.GameRenderer
 import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
+import com.jwbutler.krpg.levels.BitmapLevelCreator
 import com.jwbutler.krpg.levels.LEVEL_ONE
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.MousePlayer

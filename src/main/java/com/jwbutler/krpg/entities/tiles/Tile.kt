@@ -10,9 +10,6 @@ import com.jwbutler.krpg.graphics.sprites.StaticSprite
 
 class Tile(type: TileType, private val coordinates: Coordinates) : Entity
 {
-    /**
-     * TODO - tile types, palette swaps, caching, etc.
-     */
     override val sprite = StaticSprite(
         ImageLoader.getInstance().loadImage("tiles/${type.filename}"),
         RenderLayer.FLOOR_TILE
@@ -23,7 +20,6 @@ class Tile(type: TileType, private val coordinates: Coordinates) : Entity
     override fun getCoordinates() = coordinates
     override fun exists() = GameState.getInstance().containsEntity(this)
     override fun update() {}
-    override fun afterRender() {}
 
     override fun render(): Renderable = sprite.render(this)
 }

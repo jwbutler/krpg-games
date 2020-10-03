@@ -4,6 +4,7 @@ import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Tree
 import com.jwbutler.krpg.entities.objects.Wall
+import com.jwbutler.krpg.entities.objects.WallTop
 import com.jwbutler.krpg.entities.tiles.Tile
 import com.jwbutler.krpg.entities.tiles.TileType
 import com.jwbutler.krpg.entities.units.Unit
@@ -24,11 +25,18 @@ private object LevelColors
     val STONE = Colors.DARK_GRAY
     val TREE = Colors.DARK_GREEN
     val WALL = Colors.LIGHT_GRAY
+    val WALL_TOP = Colors.BLACK
+    val BLANK = Colors.WHITE
+    val START = Colors.RED
 }
 
 object BitmapLevelCreator
 {
-    fun loadLevel(filename: String): Level
+    fun loadLevel(
+        filename: String,
+        baseTileType: TileType = TileType.GRASS,
+        victoryCondition: VictoryCondition = VictoryCondition.NONE
+    ): Level
     {
         val fullFilename = "levels/${filename}"
         val image = ImageLoader.getInstance().loadImage(fullFilename)
@@ -36,6 +44,7 @@ object BitmapLevelCreator
         val tiles = mutableMapOf<Coordinates, Tile>()
         val objects = mutableMapOf<Coordinates, Collection<GameObject>>()
         val units = mutableListOf<Level.UnitData>()
+        var startPosition = Coordinates(0, 0)
 
         for (y in 0 until image.height)
         {
@@ -43,7 +52,7 @@ object BitmapLevelCreator
             {
                 val coordinates = Coordinates(x, y)
                 val color = Color(image.getRGB(x, y))
-                val tileType = _getTile(color)
+                val tileType = _getTile(color, baseTileType)
                 if (tileType != null)
                 {
                     tiles[coordinates] = Tile(tileType, coordinates)
@@ -61,6 +70,11 @@ object BitmapLevelCreator
                     val (player, unit) = playerUnitPair
                     units += Level.UnitData(unit, coordinates, player, mutableMapOf()) // TODO Equipment
                 }
+
+                if (color == LevelColors.START)
+                {
+                    startPosition = coordinates
+                }
             }
         }
 
@@ -68,19 +82,20 @@ object BitmapLevelCreator
             tiles = tiles,
             units = units,
             objects = objects,
-            startPosition = Coordinates(0, 0),
+            startPosition = startPosition,
             victoryCondition = VictoryCondition.NONE
         )
     }
 
-    private fun _getTile(color: Color): TileType?
+    private fun _getTile(color: Color, baseTileType: TileType): TileType?
     {
         return when (color)
         {
             LevelColors.GRASS -> TileType.GRASS
             LevelColors.DIRT  -> TileType.DIRT
             LevelColors.STONE -> TileType.STONE
-            else              -> TileType.GRASS
+            LevelColors.BLANK -> null
+            else              -> baseTileType
         }
     }
 
@@ -88,9 +103,10 @@ object BitmapLevelCreator
     {
         return when (color)
         {
-            LevelColors.TREE  -> Tree()
-            LevelColors.WALL  -> Wall()
-            else              -> null
+            LevelColors.TREE     -> Tree()
+            LevelColors.WALL     -> Wall()
+            LevelColors.WALL_TOP -> WallTop()
+            else                 -> null
         }
     }
 

@@ -2,6 +2,7 @@ package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.Activity
 import com.jwbutler.krpg.core.Direction
+import com.jwbutler.krpg.core.GameEngine
 import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.objects.Corpse
@@ -102,6 +103,12 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 
     final override fun update()
     {
+        if (!GameEngine.getInstance().isPaused())
+        {
+            frameNumber++
+            remainingCooldowns.replaceAll { activity, current -> max(current - 1, 0) }
+        }
+
         // If HP reaches zero, immediately cancel the current activity and start falling
         if (currentHP <= 0 && activity != Activity.FALLING)
         {
@@ -128,12 +135,6 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 
     final override fun render() = sprite.render(this)
 
-    final override fun afterRender()
-    {
-        frameNumber++
-        remainingCooldowns.replaceAll { activity, current -> max(current - 1, 0) }
-    }
-
     final override fun addEquipment(equipment: Equipment)
     {
         GameState.getInstance().addEquipment(equipment, this)
@@ -146,7 +147,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
 
     final override fun getEquipment() = GameState.getInstance().getEquipment(this)
 
-    override fun toString() = this::class.java.getSimpleName()
+    override fun toString(): String = this::class.java.getSimpleName()
 
     private fun _onActivityComplete(activity: Activity)
     {

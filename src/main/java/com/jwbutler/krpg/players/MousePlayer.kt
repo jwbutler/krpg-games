@@ -40,6 +40,7 @@ class MousePlayer : HumanPlayer()
     private val currentCommands = mutableMapOf<Unit, Command>()
     private val queuedCommands = mutableMapOf<Unit, CommandSupplier>()
     private val selectedUnits = mutableSetOf<Unit>()
+    private var cameraCoordinates: Coordinates = Coordinates(0, 0)
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
 
@@ -139,6 +140,8 @@ class MousePlayer : HumanPlayer()
         }
         return listOf()
     }
+
+    override fun getCameraCoordinates() = cameraCoordinates
 
     override fun getKeyListener() = object : KeyAdapter()
     {

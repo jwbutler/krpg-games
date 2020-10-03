@@ -102,7 +102,6 @@ private class GameEngineImpl : GameEngine
 
         if (!isPaused)
         {
-            state.getEntities().forEach(Entity::afterRender)
             _checkVictory()
         }
 

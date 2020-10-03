@@ -12,7 +12,6 @@ import java.awt.event.MouseAdapter
 abstract class HumanPlayer : AbstractPlayer()
 {
     final override val isHuman = true
-    var cameraCoordinates = Coordinates(0, 0)
 
     init
     {
@@ -24,6 +23,7 @@ abstract class HumanPlayer : AbstractPlayer()
     abstract fun getSelectedUnits(): Set<Unit>
     abstract fun getTileOverlays(): Map<Coordinates, TileOverlay>
     abstract fun getUIOverlays(): Collection<Renderable>
+    abstract fun getCameraCoordinates(): Coordinates
 
     open fun getKeyListener(): KeyListener = object : KeyAdapter() {}
     open fun getMouseListener(): MouseAdapter = object : MouseAdapter() {}
