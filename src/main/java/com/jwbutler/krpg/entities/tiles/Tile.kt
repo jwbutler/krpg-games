@@ -8,7 +8,7 @@ import com.jwbutler.krpg.graphics.RenderLayer
 import com.jwbutler.krpg.graphics.Renderable
 import com.jwbutler.krpg.graphics.sprites.StaticSprite
 
-class Tile(type: TileType, private val coordinates: Coordinates) : Entity
+class Tile(private val type: TileType, private val coordinates: Coordinates) : Entity
 {
     override val sprite = StaticSprite(
         ImageLoader.getInstance().loadImage("tiles/${type.filename}"),

@@ -9,6 +9,8 @@ import com.jwbutler.krpg.geometry.Dimensions
 import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.levels.Level
 import com.jwbutler.krpg.levels.VictoryCondition
+import java.lang.IllegalArgumentException
+import java.lang.RuntimeException
 import kotlin.math.sign
 
 private const val MIN_SECTION_WIDTH = 8
@@ -37,39 +39,44 @@ private data class Rectangle
     val width: Int,
     val height: Int
 )
+{
+    val right = left + width - 1
+    val bottom = top + height - 1
+}
 
 private enum class Orientation
 {
     HORIZONTAL,
-    VERTICAL
+    VERTICAL;
+
+    companion object
+    {
+        fun from(dx: Int, dy: Int): Orientation
+        {
+            if (dx != 0 && dy == 0)
+            {
+                return HORIZONTAL
+            }
+            else if (dy != 0 && dx == 0)
+            {
+                return VERTICAL
+            }
+            else
+            {
+                throw IllegalArgumentException()
+            }
+        }
+    }
 }
 
+/**
+ * The two values are the min and max possible locations for the joining point.
+ */
 private data class Connection
 (
-    val first: Coordinates,
-    val second: Coordinates
+    val min: Coordinates,
+    val max: Coordinates
 )
-{
-    init
-    {
-        require(first != second)
-    }
-
-    override fun equals(other: Any?): Boolean
-    {
-        if (other is Connection)
-        {
-            return (first == other.first && second == other.second)
-                || (first == other.second && second == other.first)
-        }
-        return false
-    }
-
-    override fun hashCode(): Int
-    {
-        return setOf(first, second).hashCode()
-    }
-}
 
 private data class MapSections
 (
@@ -106,18 +113,11 @@ private class LevelGeneratorImpl : LevelGenerator
 
         for (connection in sections.connections)
         {
-            val dx = (connection.second.x - connection.first.x).sign
-            val dy = (connection.second.y - connection.first.y).sign
-
-            var coordinates = connection.first
-            while (true)
+            val connectionCoordinates = _getConnectionCoordinates(sections, connection)
+            for (coordinates in connectionCoordinates)
             {
                 tiles[coordinates] = Tile(TileType.GRASS, coordinates)
-                coordinates += IntPair.of(dx, dy)
-                if (coordinates == connection.second)
-                {
-                    break
-                }
+                objects.remove(coordinates)
             }
         }
 
@@ -131,6 +131,88 @@ private class LevelGeneratorImpl : LevelGenerator
             startPosition = startPosition,
             victoryCondition = victoryCondition
         )
+    }
+
+    private fun _getConnectionCoordinates(sections: MapSections, connection: Connection): Set<Coordinates>
+    {
+        val coordinatesSet = mutableSetOf<Coordinates>()
+
+        val dx = (connection.max.x - connection.min.x).sign
+        val dy = (connection.max.y - connection.min.y).sign
+        val orientation = Orientation.from(dx, dy)
+
+        var midCoordinates = connection.min
+        while (true)
+        {
+            val (x, y) = midCoordinates
+            val firstSection = sections.sections.find {
+                when (orientation)
+                {
+                    Orientation.HORIZONTAL ->
+                        it.left + it.width == x &&
+                            it.top <= y &&
+                            it.top + it.height - 1 >= y
+                    Orientation.VERTICAL ->
+                        it.top + it.height == y &&
+                            it.left <= x &&
+                            it.left + it.width - 1 >= x
+                }
+            }
+            val secondSection = sections.sections.find {
+                when (orientation)
+                {
+                    Orientation.HORIZONTAL ->
+                        it.left == x &&
+                            it.top <= y &&
+                            it.top + it.height - 1 >= y
+                    Orientation.VERTICAL ->
+                        it.top == y &&
+                            it.left <= x &&
+                            it.left + it.width - 1 >= x
+                }
+            }
+            if (firstSection != null && secondSection != null)
+            {
+                val firstRoom = sections.rooms.find {
+                    it.left == firstSection.left + 1 && it.top == firstSection.top + 1
+                }!!
+                val secondRoom = sections.rooms.find {
+                    it.left == secondSection.left + 1 && it.top == secondSection.top + 1
+                }!!
+
+                val firstCoordinates = when (orientation)
+                {
+                    Orientation.HORIZONTAL -> Coordinates(firstRoom.right, y)
+                    Orientation.VERTICAL -> Coordinates(x, firstRoom.bottom)
+                }
+                val secondCoordinates = when (orientation)
+                {
+                    Orientation.HORIZONTAL -> Coordinates(secondRoom.left, y)
+                    Orientation.VERTICAL -> Coordinates(x, secondRoom.top)
+                }
+                var currentCoordinates = firstCoordinates
+                val dx2 = (secondCoordinates.x - firstCoordinates.x).sign
+                val dy2 = (secondCoordinates.y - firstCoordinates.y).sign
+
+                while (true)
+                {
+                    coordinatesSet += currentCoordinates
+
+                    if (currentCoordinates == secondCoordinates)
+                    {
+                        break
+                    }
+                    currentCoordinates += IntPair.of(dx2, dy2)
+                }
+                return coordinatesSet
+            }
+
+            if (midCoordinates == connection.max)
+            {
+                throw RuntimeException()
+            }
+            midCoordinates += IntPair.of(dx, dy)
+        }
     }
 
     private fun _generateSections(left: Int, top: Int, width: Int, height: Int): MapSections
@@ -255,9 +337,10 @@ private class LevelGeneratorImpl : LevelGenerator
 
     private fun _getBorder(room: Rectangle): Set<Coordinates>
     {
-        val (left, top, width, height) = room
-        val right = left + width - 1
-        val bottom = top + height - 1
+        val (left, top) = room
+        // Ugh, Kotlin destructuring sucks
+        val right = room.right
+        val bottom = room.bottom
 
         val coordinates = mutableSetOf<Coordinates>()
         for (x in left..right)
@@ -275,9 +358,10 @@ private class LevelGeneratorImpl : LevelGenerator
 
     private fun _getInterior(room: Rectangle): Set<Coordinates>
     {
-        val (left, top, width, height) = room
-        val right = left + width - 1
-        val bottom = top + height - 1
+        val (left, top) = room
+        // Ugh, Kotlin destructuring sucks
+        val right = room.right
+        val bottom = room.bottom
 
         val coordinates = mutableSetOf<Coordinates>()
         for (y in (top + 1)..(bottom - 1))
