@@ -40,7 +40,7 @@ fun main()
     )*/
 
     val level = LevelGenerator.create()
-        .generate(Dimensions(20, 20), VictoryCondition.NONE)
+        .generate(Dimensions(16, 16), VictoryCondition.NONE)
     engine.startGame(level, _getInitialUnits())
 }
 

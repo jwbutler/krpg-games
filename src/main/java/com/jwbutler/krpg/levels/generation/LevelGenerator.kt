@@ -9,12 +9,10 @@ import com.jwbutler.krpg.geometry.Dimensions
 import com.jwbutler.krpg.geometry.IntPair
 import com.jwbutler.krpg.levels.Level
 import com.jwbutler.krpg.levels.VictoryCondition
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sign
 
-private const val MIN_SECTION_WIDTH = 5
-private const val MIN_SECTION_HEIGHT = 5
+private const val MIN_SECTION_WIDTH = 8
+private const val MIN_SECTION_HEIGHT = 8
 private const val SECTION_ROOM_PADDING_X = 1
 private const val SECTION_ROOM_PADDING_Y = 1
 private const val FRACTION_OF_SECTIONS_WITH_ROOMS = 0.5
@@ -134,11 +132,12 @@ private class LevelGeneratorImpl : LevelGenerator
 
     private fun _generateSections(left: Int, top: Int, width: Int, height: Int): MapSections
     {
+        println("generating ${left} ${top} ${width} ${height}")
         require(width >= MIN_SECTION_WIDTH)
         require(height >= MIN_SECTION_HEIGHT)
         val splitDirection: Orientation? = _getSplitDirection(width, height)
 
-        return when (splitDirection)
+        when (splitDirection)
         {
             Orientation.HORIZONTAL ->
             {
@@ -166,7 +165,7 @@ private class LevelGeneratorImpl : LevelGenerator
                 val connectionPoint = _getConnectionPointY(top, height)
 
                 val topSections = _generateSections(left, top, width, splitPoint - top)
-                val bottomSections = _generateSections(splitPoint, top, width, height - splitPoint)
+                val bottomSections = _generateSections(left, splitPoint, width, height - splitPoint)
                 val connections = topSections.connections +
                     bottomSections.connections +
                     Connection(
@@ -183,33 +182,30 @@ private class LevelGeneratorImpl : LevelGenerator
             null ->
             {
                 // Base case: a single section with a room and no connections
-                MapSections(
+                return MapSections(
                     setOf(Rectangle(left, top, width, height)),
-                    setOf(Rectangle(
-                        left + SECTION_ROOM_PADDING_X,
-                        top + SECTION_ROOM_PADDING_Y,
-                        width - 2 * SECTION_ROOM_PADDING_X,
-                        height - 2 * SECTION_ROOM_PADDING_Y
-                    )),
+                    setOf(
+                        Rectangle(
+                            left + SECTION_ROOM_PADDING_X,
+                            top + SECTION_ROOM_PADDING_Y,
+                            width - 2 * SECTION_ROOM_PADDING_X,
+                            height - 2 * SECTION_ROOM_PADDING_Y
+                        )
+                    ),
                     setOf()
                 )
             }
         }
     }
 
-    private fun _getConnectionPointX(top: Int, height: Int): Int = -1
-    private fun _getConnectionPointY(left: Int, width: Int): Int = -1
-
-    private fun _generateRooms(sections: Collection<Rectangle>): Set<Rectangle>
+    private fun _getConnectionPointX(top: Int, height: Int): Int
     {
-        return sections.mapTo(mutableSetOf()) { (left, top, width, height) ->
-            Rectangle(
-                left + SECTION_ROOM_PADDING_X,
-                top + SECTION_ROOM_PADDING_Y,
-                width - 2 * SECTION_ROOM_PADDING_X,
-                height - 2 * SECTION_ROOM_PADDING_Y
-            )
-        }
+        return ((top + 1)..(top + height - 1)).random()
+    }
+
+    private fun _getConnectionPointY(left: Int, width: Int): Int
+    {
+        return ((left + 1)..(left + width - 1)).random()
     }
 
     private fun _getSplitDirection(width: Int, height: Int): Orientation?
@@ -234,31 +230,25 @@ private class LevelGeneratorImpl : LevelGenerator
         return null
     }
 
-    /**
-     * TODO: check for off by 1
-     */
     private fun _getSplitPointX(left: Int, width: Int): Int
     {
-        val min = min(left + MIN_SECTION_WIDTH, width - MIN_SECTION_WIDTH)
-        val max = max(left + MIN_SECTION_WIDTH, width - MIN_SECTION_WIDTH)
+        val min = left + MIN_SECTION_WIDTH
+        val max = left + width - MIN_SECTION_WIDTH
         return (min..max).random()
     }
 
-    /**
-     * TODO: check for off by 1
-     */
     private fun _getSplitPointY(top: Int, height: Int): Int
     {
-        val min = min(top + MIN_SECTION_HEIGHT, height - MIN_SECTION_HEIGHT)
-        val max = max(top + MIN_SECTION_HEIGHT, height - MIN_SECTION_HEIGHT)
+        val min = top + MIN_SECTION_HEIGHT
+        val max = top + height - MIN_SECTION_HEIGHT
         return (min..max).random()
     }
 
     private fun _getBorder(room: Rectangle): Set<Coordinates>
     {
         val (left, top, width, height) = room
-        val right = left + width
-        val bottom = top + height
+        val right = left + width - 1
+        val bottom = top + height - 1
 
         val coordinates = mutableSetOf<Coordinates>()
         for (x in left..right)
@@ -269,7 +259,7 @@ private class LevelGeneratorImpl : LevelGenerator
         for (y in top..bottom)
         {
             coordinates += Coordinates(left, y)
-            coordinates += Coordinates(left, y)
+            coordinates += Coordinates(right, y)
         }
         return coordinates
     }
@@ -277,8 +267,8 @@ private class LevelGeneratorImpl : LevelGenerator
     private fun _getInterior(room: Rectangle): Set<Coordinates>
     {
         val (left, top, width, height) = room
-        val right = left + width
-        val bottom = top + height
+        val right = left + width - 1
+        val bottom = top + height - 1
 
         val coordinates = mutableSetOf<Coordinates>()
         for (y in (top + 1)..(bottom - 1))
