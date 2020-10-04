@@ -83,7 +83,7 @@ object BitmapLevelCreator
             units = units,
             objects = objects,
             startPosition = startPosition,
-            victoryCondition = VictoryCondition.NONE
+            victoryCondition = victoryCondition
         )
     }
 
