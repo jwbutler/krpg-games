@@ -110,12 +110,15 @@ private class LevelGeneratorImpl : LevelGenerator
             val dy = (connection.second.y - connection.first.y).sign
 
             var coordinates = connection.first
-            while (coordinates != connection.second)
+            while (true)
             {
                 tiles[coordinates] = Tile(TileType.GRASS, coordinates)
                 coordinates += IntPair.of(dx, dy)
+                if (coordinates == connection.second)
+                {
+                    break
+                }
             }
-            tiles[connection.second] = Tile(TileType.GRASS, connection.second)
         }
 
         val units = listOf<Level.UnitData>()
@@ -133,6 +136,10 @@ private class LevelGeneratorImpl : LevelGenerator
     private fun _generateSections(left: Int, top: Int, width: Int, height: Int): MapSections
     {
         println("generating ${left} ${top} ${width} ${height}")
+        if (width == 0 || height == 0)
+        {
+            error("Fuck")
+        }
         require(width >= MIN_SECTION_WIDTH)
         require(height >= MIN_SECTION_HEIGHT)
         val splitDirection: Orientation? = _getSplitDirection(width, height)
@@ -142,11 +149,12 @@ private class LevelGeneratorImpl : LevelGenerator
             Orientation.HORIZONTAL ->
             {
                 val splitPoint = _getSplitPointX(left, width)
-                val connectionPoint = _getConnectionPointX(left, width)
+                val connectionPoint = _getConnectionPointX(top, height)
 
                 val leftSections = _generateSections(left, top, splitPoint - left, height)
-                val rightSections = _generateSections(splitPoint, top, width - splitPoint, height)
-                val connections = leftSections.connections +
+                val rightSections = _generateSections(splitPoint, top, left + width - splitPoint, height)
+                val connections =
+                    leftSections.connections +
                     rightSections.connections +
                     Connection(
                         Coordinates(splitPoint - 1, connectionPoint),
@@ -162,11 +170,12 @@ private class LevelGeneratorImpl : LevelGenerator
             Orientation.VERTICAL ->
             {
                 val splitPoint = _getSplitPointY(top, height)
-                val connectionPoint = _getConnectionPointY(top, height)
+                val connectionPoint = _getConnectionPointY(left, width)
 
                 val topSections = _generateSections(left, top, width, splitPoint - top)
-                val bottomSections = _generateSections(left, splitPoint, width, height - splitPoint)
-                val connections = topSections.connections +
+                val bottomSections = _generateSections(left, splitPoint, width, top + height - splitPoint)
+                val connections =
+                    topSections.connections +
                     bottomSections.connections +
                     Connection(
                         Coordinates(connectionPoint, splitPoint - 1),
@@ -200,12 +209,12 @@ private class LevelGeneratorImpl : LevelGenerator
 
     private fun _getConnectionPointX(top: Int, height: Int): Int
     {
-        return ((top + 1)..(top + height - 1)).random()
+        return ((top + 1)..(top + height - 2)).random()
     }
 
     private fun _getConnectionPointY(left: Int, width: Int): Int
     {
-        return ((left + 1)..(left + width - 1)).random()
+        return ((left + 1)..(left + width - 2)).random()
     }
 
     private fun _getSplitDirection(width: Int, height: Int): Orientation?

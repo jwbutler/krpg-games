@@ -15,6 +15,7 @@ import com.jwbutler.krpg.graphics.GameWindow
 import com.jwbutler.krpg.graphics.images.ImageLoader
 import com.jwbutler.krpg.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.levels.BitmapLevelCreator
+import com.jwbutler.krpg.levels.Level
 import com.jwbutler.krpg.levels.VictoryCondition
 import com.jwbutler.krpg.levels.generation.LevelGenerator
 import com.jwbutler.krpg.players.EnemyPlayer
@@ -40,7 +41,7 @@ fun main()
     )*/
 
     val level = LevelGenerator.create()
-        .generate(Dimensions(16, 16), VictoryCondition.NONE)
+        .generate(Dimensions(40, 40), VictoryCondition.NONE)
     engine.startGame(level, _getInitialUnits())
 }
 
