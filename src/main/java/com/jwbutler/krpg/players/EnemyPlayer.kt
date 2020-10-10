@@ -14,16 +14,26 @@ class EnemyPlayer : AbstractPlayer()
 {
     override val isHuman = false
 
-    override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
-    {
-        val unitAI = when (unit)
-        {
-            is PlayerUnit -> UnitAI.SIMPLE_ATTACK
-            is ZombieUnit -> UnitAI.NO_OP // TODO
-            is WizardUnit -> UnitAI.WIZARD
-            else -> throw IllegalArgumentException("Unsupported unit type ${unit::class.java.getSimpleName()}")
-        }
+    private val currentCommands = mutableMapOf<Unit, Command>()
 
-        return unitAI.chooseCommand(unit).chooseActivity()
+    override fun update()
+    {
+        for (unit in getUnits())
+        {
+            val unitAI = when (unit)
+            {
+                is PlayerUnit -> UnitAI.SIMPLE_ATTACK
+                is ZombieUnit -> UnitAI.NO_OP // TODO
+                is WizardUnit -> UnitAI.WIZARD
+                else -> throw IllegalArgumentException("Unsupported unit type ${unit::class.java.getSimpleName()}")
+            }
+
+            currentCommands[unit] = unitAI.chooseCommand(unit)
+        }
+    }
+
+    override fun getNextActivity(unit: Unit): Pair<Activity, Direction>
+    {
+        return currentCommands[unit]!!.chooseActivity()
     }
 }

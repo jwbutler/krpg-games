@@ -8,5 +8,10 @@ interface Player
 {
     val isHuman: Boolean
     fun getUnits(): List<Unit>
-    fun chooseActivity(unit: Unit): Pair<Activity, Direction>
+    /**
+     * Decide on the next activity for each unit controlled by this player, for this turn only.
+     * This is usually a no-op unless a unit's animation has just completed.
+     */
+    fun update()
+    fun getNextActivity(unit: Unit): Pair<Activity, Direction>
 }

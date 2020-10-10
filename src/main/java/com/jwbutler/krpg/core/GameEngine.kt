@@ -1,7 +1,6 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.core.GameEngine.UnitData
-import com.jwbutler.krpg.entities.Entity
 import com.jwbutler.krpg.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.equipment.EquipmentSlot
 import com.jwbutler.krpg.entities.units.Unit
@@ -108,10 +107,25 @@ private class GameEngineImpl : GameEngine
         for (entity in state.getEntities())
         {
             // Unfortunately we have to do this superfluous-looking check here
-            // because the entity could have been killed during a previous update() method
+            // because the entity could have been killed during a previous loop iteration
             if (entity.exists())
             {
-                entity.update()
+                entity.endFrame()
+            }
+        }
+
+        for (player in state.getPlayers())
+        {
+            player.update()
+        }
+
+        for (entity in state.getEntities())
+        {
+            // Unfortunately we have to do this superfluous-looking check here
+            // because the entity could have been killed during a previous loop iteration
+            if (entity.exists())
+            {
+                entity.startFrame()
             }
         }
     }

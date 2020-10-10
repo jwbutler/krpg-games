@@ -13,7 +13,7 @@ abstract class AbstractEquipment(override val sprite: Sprite) : Equipment
     override fun exists() = GameState.getInstance().containsEntity(this)
     override fun render() = sprite.render(this)
 
-    override fun update() {}
+    override fun endFrame() {}
 
     override fun isBlocking() = false
 }

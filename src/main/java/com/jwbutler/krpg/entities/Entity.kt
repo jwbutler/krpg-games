@@ -22,6 +22,13 @@ interface Entity
      */
     fun exists(): Boolean = false
 
-    fun update() {}
+    /**
+     * Increment the entity's frame number, and fire any on-complete handlers if an activity has ended.
+     */
+    fun endFrame() {}
+    /**
+     * If the entity is starting a new activity, perform any related logic (e.g. setting activity state).
+     */
+    fun startFrame() {}
     fun render(): Renderable
 }

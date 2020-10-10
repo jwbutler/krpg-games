@@ -8,5 +8,5 @@ abstract class AbstractObject : GameObject
     override fun exists() = GameState.getInstance().containsEntity(this)
     override fun render() = sprite.render(this)
 
-    override fun update() {}
+    override fun endFrame() {}
 }

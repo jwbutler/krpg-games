@@ -44,26 +44,35 @@ class MousePlayer : HumanPlayer()
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
 
-    override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
+    override fun update()
     {
-        val currentCommand = currentCommands[unit] ?: StayCommand(unit)
-        val nextCommand = _chooseCommand(unit)
-        val command: Command
-        if (currentCommand.isComplete())
+        for (unit in getUnits())
         {
-            command = nextCommand
+            val currentCommand = currentCommands[unit] ?: StayCommand(unit)
+            val nextCommand = _chooseCommand(unit)
+            val command =
+            (
+                if (currentCommand.isComplete())
+                {
+                    nextCommand
+                }
+                // TODO: Replace reference to hardcoded command type
+                else if (currentCommand.isPreemptible() && nextCommand.type != CommandType.STAY)
+                {
+                    nextCommand
+                }
+                else
+                {
+                    currentCommand
+                }
+            )
+            currentCommands[unit] = command
         }
-        // TODO: Replace reference to hardcoded command type
-        else if (currentCommand.isPreemptible() && nextCommand.type != CommandType.STAY)
-        {
-            command = nextCommand
-        }
-        else
-        {
-            command = currentCommand
-        }
-        currentCommands[unit] = command
-        return command.chooseActivity()
+    }
+
+    override fun getNextActivity(unit: Unit): Pair<Activity, Direction>
+    {
+        return (currentCommands[unit] ?: StayCommand(unit)).chooseActivity()
     }
 
     override fun getSelectedUnits() = selectedUnits

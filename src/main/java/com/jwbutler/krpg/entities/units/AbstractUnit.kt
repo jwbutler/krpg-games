@@ -101,7 +101,7 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
         state.removeUnit(this)
     }
 
-    final override fun update()
+    final override fun endFrame()
     {
         if (!GameEngine.getInstance().isPaused())
         {
@@ -119,19 +119,20 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
             if (sprite.isAnimationComplete(this))
             {
                 _onActivityComplete(activity)
-
-                // TODO: Activity#onComplete can result in killing this unit, and making some
-                // subsequent checks fail.  Can we solve this problem some other way?
-                if (!this.exists())
-                {
-                    return
-                }
-
-                val (activity, direction) = getPlayer().chooseActivity(this)
-                startActivity(activity, direction)
             }
         }
     }
+
+    final override fun startFrame()
+    {
+        if (sprite.isAnimationComplete(this))
+        {
+            val (activity, direction) = getPlayer().getNextActivity(this)
+            startActivity(activity, direction)
+        }
+    }
+
+    final override fun isAnimationComplete() = sprite.isAnimationComplete(this)
 
     final override fun render() = sprite.render(this)
 

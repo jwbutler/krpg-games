@@ -19,7 +19,7 @@ class Tile(private val type: TileType, private val coordinates: Coordinates) : E
     // TODO: create GameState#getCoordinates(Tile)?
     override fun getCoordinates() = coordinates
     override fun exists() = GameState.getInstance().containsEntity(this)
-    override fun update() {}
+    override fun endFrame() {}
 
     override fun render(): Renderable = sprite.render(this)
 }

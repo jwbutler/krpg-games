@@ -43,4 +43,5 @@ interface Unit : Entity
     fun removeEquipment(equipment: Equipment)
     fun addEquipment(equipment: Equipment)
     fun die()
+    fun isAnimationComplete(): Boolean
 }

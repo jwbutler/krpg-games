@@ -18,8 +18,16 @@ class KeyboardPlayer : HumanPlayer()
     private val heldDirections = mutableSetOf<Int>()
     private val heldModifiers = mutableSetOf<Int>()
 
-    override fun chooseActivity(unit: Unit): Pair<Activity, Direction>
+    private var queuedActivity: Pair<Activity, Direction>? = null
+
+    override fun update()
     {
+        queuedActivity = _getNextActivity()
+    }
+
+    private fun _getNextActivity(): Pair<Activity, Direction>
+    {
+        val unit = _getUnit()
         var (dx, dy) = Pair(0, 0)
 
         for (directionKey in queuedDirections)
@@ -51,6 +59,13 @@ class KeyboardPlayer : HumanPlayer()
             }
         }
         return Pair(Activity.STANDING, unit.getDirection())
+    }
+
+    override fun getNextActivity(unit: Unit): Pair<Activity, Direction>
+    {
+        check(unit == _getUnit())
+
+        return queuedActivity!!
     }
 
     override fun getTileOverlays(): Map<Coordinates, TileOverlay>
