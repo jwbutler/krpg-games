@@ -1,7 +1,5 @@
 package com.jwbutler.rpglib.graphics.awt
 
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_WIDTH
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.Renderable
@@ -18,7 +16,7 @@ class GameRendererAWT
     /**
      * TODO dependency on krpg
      */
-    private val buffer: Image = ImageAWT(GAME_WIDTH, GAME_HEIGHT)
+    private val buffer: Image = ImageAWT(width, height)
 
     override fun render(): Image
     {
@@ -39,7 +37,7 @@ class GameRendererAWT
 
     private fun _clearBuffer()
     {
-        buffer.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT)
+        buffer.clearRect(0, 0, width, height)
     }
 
     private fun _getRenderables(): List<Renderable>

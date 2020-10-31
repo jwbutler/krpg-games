@@ -1,7 +1,7 @@
 package com.jwbutler.rpglib.core
 
-import com.jwbutler.rpglib.levels.Level
 import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.rpglib.levels.Level
 import com.jwbutler.krpg.players.Player
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.entities.equipment.Equipment

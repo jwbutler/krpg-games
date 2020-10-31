@@ -7,6 +7,10 @@ import com.jwbutler.krpg.entities.equipment.RPGEquipmentSlot
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.units.PlayerUnit
+import com.jwbutler.krpg.geometry.GeometryConstants.GAME_HEIGHT
+import com.jwbutler.krpg.geometry.GeometryConstants.GAME_WIDTH
+import com.jwbutler.krpg.geometry.GeometryConstants.INITIAL_WINDOW_HEIGHT
+import com.jwbutler.krpg.geometry.GeometryConstants.INITIAL_WINDOW_WIDTH
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.GameWindow
@@ -26,8 +30,8 @@ fun main()
 {
     val imageLoader = ImageLoader.initialize { ImageLoaderAWT(::_getFullFilename) }
     val state = GameState.initialize()
-    val window = GameWindow.initialize { GameWindowAWT(Dimensions(1280, 720)) }
-    val renderer = GameRenderer.initialize { GameRendererAWT(640, 360) }
+    val window = GameWindow.initialize { GameWindowAWT(Dimensions(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT)) }
+    val renderer = GameRenderer.initialize { GameRendererAWT(GAME_WIDTH, GAME_HEIGHT) }
     val engine = GameEngine.initialize()
 
     val humanPlayer = KeyboardPlayer()

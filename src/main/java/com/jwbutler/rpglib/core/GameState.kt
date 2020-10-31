@@ -8,7 +8,6 @@ import com.jwbutler.rpglib.entities.objects.GameObject
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.levels.Level
-import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
 
 /**

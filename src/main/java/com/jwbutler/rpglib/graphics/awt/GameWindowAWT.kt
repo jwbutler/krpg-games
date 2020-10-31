@@ -117,7 +117,7 @@ class GameWindowAWT(initialDimensions: Dimensions) : GameWindow
     /**
      * @param x X coordinate relative to [frame]
      * @param y Y coordinate relative to [frame]
-     * @return coordinates relative to [buffer]
+     * @return coordinates relative to [panel]
      */
     private fun _mapPixel(x: Int, y: Int): Pixel
     {
