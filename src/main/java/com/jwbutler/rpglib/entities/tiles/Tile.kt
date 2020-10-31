@@ -3,9 +3,9 @@ package com.jwbutler.rpglib.entities.tiles
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.geometry.Coordinates
-import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.RenderLayer
 import com.jwbutler.rpglib.graphics.Renderable
+import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.sprites.StaticSprite
 
 class Tile

@@ -1,10 +1,10 @@
 package com.jwbutler.krpg.graphics.ui
 
+import com.jwbutler.krpg.utils.getPlayerUnits
+import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.geometry.Pixel
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.Image
-import com.jwbutler.krpg.utils.getPlayerUnits
-import com.jwbutler.rpglib.core.GameView
 
 class HUDRenderer
 {

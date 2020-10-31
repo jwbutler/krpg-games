@@ -1,15 +1,15 @@
 package com.jwbutler.krpg.levels
 
-import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.krpg.entities.equipment.RPGEquipmentSlot
-import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.krpg.entities.equipment.Sword
-import com.jwbutler.rpglib.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Wall
 import com.jwbutler.krpg.entities.tiles.RPGTileType
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.objects.GameObject
+import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.levels.Level
 import com.jwbutler.rpglib.levels.VictoryCondition

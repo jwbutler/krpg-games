@@ -1,7 +1,5 @@
 package com.jwbutler.rpglib.core
 
-import com.jwbutler.rpglib.levels.Level
-import com.jwbutler.rpglib.players.Player
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.entities.equipment.Equipment
 import com.jwbutler.rpglib.entities.equipment.EquipmentSlot
@@ -10,8 +8,8 @@ import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.geometry.hypotenuse
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
+import com.jwbutler.rpglib.levels.Level
+import com.jwbutler.rpglib.players.Player
 
 internal class GameStateImpl : GameState
 {

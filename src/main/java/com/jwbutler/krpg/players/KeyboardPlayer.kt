@@ -1,13 +1,13 @@
 package com.jwbutler.krpg.players
 
 import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.entities.TileOverlay
-import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.event.KeyAdapter

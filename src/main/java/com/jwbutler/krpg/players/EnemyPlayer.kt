@@ -1,14 +1,13 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.krpg.entities.units.PlayerUnit
-import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.players.ai.UnitAI
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.players.AbstractPlayer
-import java.lang.IllegalArgumentException
 
 class EnemyPlayer : AbstractPlayer()
 {

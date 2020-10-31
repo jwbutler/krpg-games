@@ -1,9 +1,9 @@
 package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
 import com.jwbutler.rpglib.behavior.Activity
 import com.jwbutler.rpglib.graphics.images.PaletteSwaps
-import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
 
 private val ACTIVITIES = setOf(
     RPGActivity.APPEARING,

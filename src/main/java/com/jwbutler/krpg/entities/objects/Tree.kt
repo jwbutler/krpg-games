@@ -1,9 +1,9 @@
 package com.jwbutler.krpg.entities.objects
 
 import com.jwbutler.rpglib.geometry.Offsets
-import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.RenderLayer
 import com.jwbutler.rpglib.graphics.images.Image
+import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.sprites.StaticSprite
 
 class Tree : AbstractObject()

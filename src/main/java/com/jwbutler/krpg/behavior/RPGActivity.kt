@@ -1,12 +1,12 @@
 package com.jwbutler.krpg.behavior
-import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
-import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.krpg.entities.units.ZombieUnit
-import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.krpg.sounds.SoundPlayer
 import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
 import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
 
 enum class RPGActivity : Activity
 {

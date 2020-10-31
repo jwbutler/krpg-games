@@ -2,9 +2,9 @@ package com.jwbutler.rpglib.graphics.sprites
 
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.geometry.Offsets
-import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.rpglib.graphics.RenderLayer
 import com.jwbutler.rpglib.graphics.Renderable
+import com.jwbutler.rpglib.graphics.images.Image
 
 class StaticSprite
 (

@@ -1,14 +1,14 @@
 package com.jwbutler.rpglib.graphics.sprites
 
 import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.graphics.FrameKey
-import com.jwbutler.rpglib.graphics.images.ImageLoader
-import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 import com.jwbutler.rpglib.graphics.RenderLayer
 import com.jwbutler.rpglib.graphics.Renderable
+import com.jwbutler.rpglib.graphics.images.ImageLoader
+import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 
 abstract class UnitSprite
 (

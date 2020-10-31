@@ -1,13 +1,13 @@
 package com.jwbutler.krpg.graphics.sprites.units
 
+import com.jwbutler.krpg.utils.SpriteUtils
 import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.geometry.Offsets
 import com.jwbutler.rpglib.graphics.FrameKey
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.PaletteSwaps
-import com.jwbutler.krpg.utils.SpriteUtils
-import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.graphics.sprites.UnitSprite
 
 class PlayerSprite(paletteSwaps: PaletteSwaps) : UnitSprite

@@ -8,7 +8,6 @@ import com.jwbutler.rpglib.graphics.FrameKey
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 import com.jwbutler.rpglib.graphics.sprites.UnitSprite
-import java.lang.IllegalArgumentException
 
 private val OFFSETS = PlayerSprite.OFFSETS + IntPair.of(0, 4)
 

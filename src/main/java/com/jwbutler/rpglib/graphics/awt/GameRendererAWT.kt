@@ -1,11 +1,11 @@
 package com.jwbutler.rpglib.graphics.awt
 
+import com.jwbutler.krpg.graphics.ui.HUDRenderer
 import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.graphics.images.Image
-import com.jwbutler.krpg.graphics.ui.HUDRenderer
-import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.players.HumanPlayer
 
 class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer

@@ -4,9 +4,9 @@ import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.geometry.Coordinates
-import com.jwbutler.rpglib.players.HumanPlayer
 import com.jwbutler.rpglib.geometry.Pixel
 import com.jwbutler.rpglib.geometry.Rectangle
+import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.Point
 import kotlin.math.abs
 import kotlin.math.roundToInt

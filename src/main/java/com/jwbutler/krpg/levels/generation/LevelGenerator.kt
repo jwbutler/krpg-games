@@ -1,16 +1,14 @@
 package com.jwbutler.krpg.levels.generation
 
-import com.jwbutler.rpglib.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Wall
-import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.krpg.entities.tiles.RPGTileType
+import com.jwbutler.rpglib.entities.objects.GameObject
+import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.geometry.IntPair
 import com.jwbutler.rpglib.levels.Level
 import com.jwbutler.rpglib.levels.VictoryCondition
-import java.lang.IllegalArgumentException
-import java.lang.RuntimeException
 import kotlin.math.sign
 
 private const val MIN_SECTION_WIDTH = 8

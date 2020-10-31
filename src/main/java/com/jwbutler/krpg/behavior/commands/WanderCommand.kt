@@ -1,9 +1,9 @@
 package com.jwbutler.krpg.behavior.commands
 
 import com.jwbutler.krpg.behavior.RPGActivity
-import com.jwbutler.rpglib.geometry.Direction
-import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Direction
 
 class WanderCommand(override val source: Unit) : Command
 {

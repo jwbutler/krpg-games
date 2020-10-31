@@ -1,15 +1,15 @@
 package com.jwbutler.krpg.entities.units
 
 import com.jwbutler.krpg.behavior.RPGActivity
-import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.krpg.core.GameEngine
+import com.jwbutler.krpg.entities.objects.Corpse
+import com.jwbutler.rpglib.behavior.Activity
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.entities.equipment.Equipment
-import com.jwbutler.krpg.entities.objects.Corpse
-import com.jwbutler.rpglib.geometry.Coordinates
-import com.jwbutler.rpglib.graphics.sprites.UnitSprite
 import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.graphics.sprites.UnitSprite
 import kotlin.math.max
 
 abstract class AbstractUnit(hp: Int, activities: Set<Activity>) :

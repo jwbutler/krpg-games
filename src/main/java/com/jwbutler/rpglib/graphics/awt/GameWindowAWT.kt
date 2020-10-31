@@ -7,14 +7,14 @@ import com.jwbutler.rpglib.graphics.GameWindow
 import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.rpglib.input.DelegatingMouseListener
 import java.awt.Graphics
+import java.awt.GraphicsEnvironment
 import java.awt.event.KeyListener
+import java.awt.event.MouseAdapter
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.WindowConstants
 import kotlin.math.min
 import kotlin.math.roundToInt
-import java.awt.GraphicsEnvironment
-import java.awt.event.MouseAdapter
 
 /**
  * See https://stackoverflow.com/a/17865740 for the general approach here

@@ -1,9 +1,9 @@
 package com.jwbutler.krpg.behavior.commands
 
 import com.jwbutler.krpg.behavior.RPGActivity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.geometry.Pathfinder
 
 class MoveCommand(override val source: Unit, val target: Coordinates) : Command

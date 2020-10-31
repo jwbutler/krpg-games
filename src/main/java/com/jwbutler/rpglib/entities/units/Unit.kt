@@ -1,11 +1,11 @@
 package com.jwbutler.rpglib.entities.units
 
 import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.entities.equipment.Equipment
 import com.jwbutler.rpglib.entities.equipment.EquipmentSlot
 import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.graphics.sprites.UnitSprite
 import com.jwbutler.rpglib.players.Player
 

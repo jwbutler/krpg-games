@@ -1,19 +1,19 @@
 package com.jwbutler.krpg.graphics.sprites
 
 import com.jwbutler.krpg.behavior.RPGActivity
-import com.jwbutler.rpglib.graphics.sprites.Sprite
+import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
 import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.entities.equipment.Equipment
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.geometry.Offsets
 import com.jwbutler.rpglib.graphics.FrameKey
+import com.jwbutler.rpglib.graphics.RenderLayer
+import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.images.PaletteSwaps
-import com.jwbutler.rpglib.graphics.RenderLayer
-import com.jwbutler.rpglib.graphics.Renderable
-import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
+import com.jwbutler.rpglib.graphics.sprites.Sprite
 
 private const val BEHIND_PREFIX = "_B"
 

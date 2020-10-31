@@ -1,7 +1,7 @@
 package com.jwbutler.krpg.core
 
-import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.core.GameView
+import com.jwbutler.rpglib.geometry.Dimensions
 
 class RPGGameView : GameView
 {

@@ -2,8 +2,8 @@ package com.jwbutler.krpg.behavior.commands
 
 import com.jwbutler.krpg.behavior.RPGActivity
 import com.jwbutler.rpglib.behavior.Activity
-import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Direction
 
 class StayCommand(override val source: Unit) : Command
 {
