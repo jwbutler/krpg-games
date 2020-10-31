@@ -12,8 +12,9 @@ import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.ImageLoader
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.players.Player
 import com.jwbutler.rpglib.levels.Level
+import com.jwbutler.rpglib.levels.VictoryCondition
 import java.awt.Color
 
 // TODO: Lots of hardcoded color values here.

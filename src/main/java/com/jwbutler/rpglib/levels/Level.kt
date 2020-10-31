@@ -1,13 +1,12 @@
 package com.jwbutler.rpglib.levels
 
-import com.jwbutler.krpg.levels.VictoryCondition
 import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.rpglib.entities.equipment.Equipment
 import com.jwbutler.rpglib.entities.equipment.EquipmentSlot
 import com.jwbutler.rpglib.entities.objects.GameObject
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.players.Player
 
 /**
  * Levels *WILL BE* mutable - they'll save their state when you exit them.

@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.levels
+package com.jwbutler.rpglib.levels
 
 data class VictoryCondition
 (

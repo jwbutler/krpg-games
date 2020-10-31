@@ -12,6 +12,7 @@ import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.levels.Level
+import com.jwbutler.rpglib.levels.VictoryCondition
 
 private val VICTORY_CONDITION = VictoryCondition(
     ::_checkVictory,

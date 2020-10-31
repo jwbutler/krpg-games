@@ -12,6 +12,7 @@ import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.levels.Level
+import com.jwbutler.rpglib.levels.VictoryCondition
 import kotlin.system.exitProcess
 
 private val VICTORY_CONDITION = VictoryCondition(

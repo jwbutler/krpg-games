@@ -8,7 +8,7 @@ import com.jwbutler.rpglib.entities.objects.GameObject
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.levels.Level
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.players.Player
 
 /**
  * Note that `addX()` methods will add the entity to all corresponding maps - both internally and externally.

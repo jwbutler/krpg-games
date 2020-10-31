@@ -7,7 +7,7 @@ import com.jwbutler.rpglib.entities.equipment.Equipment
 import com.jwbutler.rpglib.entities.equipment.EquipmentSlot
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.graphics.sprites.UnitSprite
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.players.Player
 
 interface Unit : Entity
 {

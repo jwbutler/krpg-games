@@ -8,7 +8,7 @@ import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.geometry.IntPair
 import com.jwbutler.rpglib.levels.Level
-import com.jwbutler.krpg.levels.VictoryCondition
+import com.jwbutler.rpglib.levels.VictoryCondition
 import java.lang.IllegalArgumentException
 import java.lang.RuntimeException
 import kotlin.math.sign

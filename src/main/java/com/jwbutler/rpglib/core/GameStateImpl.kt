@@ -1,8 +1,7 @@
 package com.jwbutler.rpglib.core
 
-import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.rpglib.levels.Level
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.players.Player
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.entities.equipment.Equipment
 import com.jwbutler.rpglib.entities.equipment.EquipmentSlot
@@ -47,10 +46,10 @@ internal class GameStateImpl : GameState
     }
 
     override fun getPlayers() = playerToUnits.keys.toList()
-    override fun getHumanPlayer(): HumanPlayer
+    override fun getHumanPlayer(): Player
     {
         return playerToUnits.keys
-            .filterIsInstance<HumanPlayer>()
+            .filter { it.isHuman }
             .first()
     }
 

@@ -7,7 +7,7 @@ import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.IntPair
 import com.jwbutler.rpglib.geometry.Rectangle
 import com.jwbutler.krpg.players.HumanPlayer
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.players.Player
 
 fun getPlayerUnits(): List<Unit>
 {
