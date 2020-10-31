@@ -1,16 +1,13 @@
 package com.jwbutler.krpg
 
 import com.jwbutler.krpg.core.GameEngine
+import com.jwbutler.krpg.core.RPGGameView
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.RPGEquipmentSlot
 import com.jwbutler.krpg.entities.equipment.Shield
 import com.jwbutler.krpg.entities.equipment.Sword
 import com.jwbutler.krpg.entities.units.PlayerUnit
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_WIDTH
-import com.jwbutler.krpg.geometry.GeometryConstants.INITIAL_WINDOW_HEIGHT
-import com.jwbutler.krpg.geometry.GeometryConstants.INITIAL_WINDOW_WIDTH
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.GameWindow
@@ -19,7 +16,7 @@ import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.levels.LEVEL_ONE
 import com.jwbutler.krpg.players.EnemyPlayer
 import com.jwbutler.krpg.players.MousePlayer
-import com.jwbutler.rpglib.geometry.Dimensions
+import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.graphics.awt.GameRendererAWT
 import com.jwbutler.rpglib.graphics.awt.GameWindowAWT
 import com.jwbutler.rpglib.graphics.awt.ImageLoaderAWT
@@ -28,10 +25,11 @@ private fun _getFullFilename(filename: String) = "/png/${filename}.png"
 
 fun main()
 {
-    val imageLoader = ImageLoader.initialize { ImageLoaderAWT(::_getFullFilename) }
+    val gameView = GameView.initialize { RPGGameView() }
+    ImageLoader.initialize { ImageLoaderAWT(::_getFullFilename) }
     val state = GameState.initialize()
-    val window = GameWindow.initialize { GameWindowAWT(Dimensions(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT)) }
-    val renderer = GameRenderer.initialize { GameRendererAWT(GAME_WIDTH, GAME_HEIGHT) }
+    GameWindow.initialize { GameWindowAWT(gameView.initialWindowDimensions) }
+    GameRenderer.initialize { GameRendererAWT(gameView.gameDimensions) }
     val engine = GameEngine.initialize()
 
     val humanPlayer = MousePlayer()

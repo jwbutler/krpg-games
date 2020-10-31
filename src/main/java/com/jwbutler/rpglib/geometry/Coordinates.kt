@@ -3,8 +3,7 @@ package com.jwbutler.rpglib.geometry
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.krpg.utils.coordinatesToPixel
 
-data class Coordinates(override val x: Int, override val y: Int) :
-    IntPair
+data class Coordinates(override val x: Int, override val y: Int) : IntPair
 {
     operator fun plus(other: IntPair): Coordinates =
         Coordinates(x + other.x, y + other.y)

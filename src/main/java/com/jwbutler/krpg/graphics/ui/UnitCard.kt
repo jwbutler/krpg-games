@@ -3,7 +3,7 @@ package com.jwbutler.krpg.graphics.ui
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.Image
-import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.Font
 import kotlin.math.roundToInt
 

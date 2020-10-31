@@ -1,4 +1,4 @@
-package com.jwbutler.krpg.players
+package com.jwbutler.rpglib.players
 
 import com.jwbutler.rpglib.entities.TileOverlay
 import com.jwbutler.rpglib.entities.units.Unit

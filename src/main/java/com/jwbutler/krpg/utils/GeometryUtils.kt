@@ -1,13 +1,10 @@
 package com.jwbutler.krpg.utils
 
 import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.entities.Entity
 import com.jwbutler.rpglib.geometry.Coordinates
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_WIDTH
-import com.jwbutler.krpg.geometry.GeometryConstants.TILE_HEIGHT
-import com.jwbutler.krpg.geometry.GeometryConstants.TILE_WIDTH
-import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.rpglib.players.HumanPlayer
 import com.jwbutler.rpglib.geometry.Pixel
 import com.jwbutler.rpglib.geometry.Rectangle
 import java.awt.Point
@@ -56,10 +53,13 @@ fun manhattanDistance(first: Entity, second: Entity): Int
  */
 fun coordinatesToPixel(coordinates: Coordinates): Pixel
 {
+    val gameView = GameView.getInstance()
+    val (tileWidth, tileHeight) = gameView.tileDimensions
+    val (gameWidth, gameHeight) = gameView.gameDimensions
     // TODO reference to krpg
     val cameraCoordinates = (GameState.getInstance().getHumanPlayer() as HumanPlayer).getCameraCoordinates()
-    val x = (coordinates.x - cameraCoordinates.x) * TILE_WIDTH + (GAME_WIDTH / 2) - (TILE_WIDTH / 2)
-    val y = (coordinates.y - cameraCoordinates.y) * TILE_HEIGHT + (GAME_HEIGHT / 2) - (TILE_HEIGHT / 2)
+    val x = (coordinates.x - cameraCoordinates.x) * tileWidth + (gameWidth / 2) - (tileWidth/ 2)
+    val y = (coordinates.y - cameraCoordinates.y) * tileHeight + (gameHeight / 2) - (tileHeight / 2)
     return Pixel(x, y)
 }
 
@@ -67,15 +67,18 @@ fun coordinatesToPixel(coordinates: Coordinates): Pixel
 // (0, 0) -> (-TILE_WIDTH / 2, -TILE_HEIGHT / 2)
 fun pixelToCoordinates(pixel: Pixel): Coordinates
 {
+    val gameView = GameView.getInstance()
+    val (tileWidth, tileHeight) = gameView.tileDimensions
+    val (gameWidth, gameHeight) = gameView.gameDimensions
     // TODO reference to krpg
     val cameraCoordinates = (GameState.getInstance().getHumanPlayer() as HumanPlayer).getCameraCoordinates()
     val originTopLeft = Pixel(
-        (GAME_WIDTH / 2) - (cameraCoordinates.x * TILE_WIDTH) - (TILE_WIDTH / 2),
-        (GAME_HEIGHT / 2) - (cameraCoordinates.y * TILE_HEIGHT) - (TILE_HEIGHT / 2)
+        (gameWidth / 2) - (cameraCoordinates.x * tileWidth) - (tileWidth / 2),
+        (gameHeight / 2) - (cameraCoordinates.y * tileHeight) - (tileHeight / 2)
     )
 
-    val x = (pixel.x - originTopLeft.x) / TILE_WIDTH
-    val y = (pixel.y - originTopLeft.y) / TILE_HEIGHT
+    val x = (pixel.x - originTopLeft.x) / tileWidth
+    val y = (pixel.y - originTopLeft.y) / tileHeight
     return Coordinates(x, y)
 }
 

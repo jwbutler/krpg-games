@@ -5,18 +5,13 @@ import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.krpg.graphics.ui.HUDRenderer
-import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.rpglib.geometry.Dimensions
+import com.jwbutler.rpglib.players.HumanPlayer
 
-class GameRendererAWT
-(
-    override val width: Int,
-    override val height: Int
-) : GameRenderer
+class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer
 {
-    /**
-     * TODO dependency on krpg
-     */
-    private val buffer: Image = ImageAWT(width, height)
+    private val buffer: Image = ImageAWT(dimensions.width, dimensions.height)
+    private val hudRenderer = HUDRenderer()
 
     override fun render(): Image
     {
@@ -28,7 +23,8 @@ class GameRendererAWT
             buffer.drawImage(image, pixel.x, pixel.y)
         }
 
-        val (image, pixel) = HUDRenderer.render()
+        // TODO dependency on KRPG
+        val (image, pixel) = hudRenderer.render()
         buffer.drawImage(image, pixel.x, pixel.y)
         return buffer
     }
@@ -37,14 +33,13 @@ class GameRendererAWT
 
     private fun _clearBuffer()
     {
-        buffer.clearRect(0, 0, width, height)
+        buffer.clearRect(0, 0, dimensions.width, dimensions.height)
     }
 
     private fun _getRenderables(): List<Renderable>
     {
         val state = GameState.getInstance()
         val entities = state.getEntities()
-        // TODO dependency on KRPG
         val humanPlayer = state.getHumanPlayer() as HumanPlayer
         val tileOverlays = humanPlayer.getTileOverlays().values
         val uiOverlays = humanPlayer.getUIOverlays()

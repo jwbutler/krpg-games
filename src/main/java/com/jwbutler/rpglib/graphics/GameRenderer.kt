@@ -1,6 +1,7 @@
 package com.jwbutler.rpglib.graphics
 
 import com.jwbutler.rpglib.core.SingletonHolder
+import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.graphics.images.Image
 
 /**
@@ -8,8 +9,7 @@ import com.jwbutler.rpglib.graphics.images.Image
  */
 interface GameRenderer
 {
-    val width: Int
-    val height: Int
+    val dimensions: Dimensions
 
     fun render(): Image
     fun getImage(): Image

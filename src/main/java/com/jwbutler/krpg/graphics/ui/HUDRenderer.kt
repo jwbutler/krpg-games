@@ -1,19 +1,25 @@
 package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GeometryConstants.GAME_WIDTH
 import com.jwbutler.rpglib.geometry.Pixel
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.krpg.utils.getPlayerUnits
+import com.jwbutler.rpglib.core.GameView
 
-object HUDRenderer
+class HUDRenderer
 {
-    const val HEIGHT = 40 // If HEIGHT = 180, then this is ~22%
-    private const val WIDTH = GAME_WIDTH
-    private const val TOP = GAME_HEIGHT - HEIGHT
+    companion object
+    {
+        const val HEIGHT = 40 // If HEIGHT = 180, then this is ~22%
+    }
 
-    private val image = Image.create(WIDTH, HEIGHT)
+    private val image: Image
+
+    init
+    {
+        val (width, height) = GameView.getInstance().gameDimensions
+        image = Image.create(width, height)
+    }
 
     fun render(): Pair<Image, Pixel>
     {
@@ -28,12 +34,14 @@ object HUDRenderer
             x += UnitCard.WIDTH + 5
         }
 
-        return Pair(image, Pixel(0, TOP))
+        val (_, gameHeight) = GameView.getInstance().gameDimensions
+        return Pair(image, Pixel(0, gameHeight - HEIGHT))
     }
 
     private fun _renderBackground()
     {
-        image.fillRect(0, 0, WIDTH - 1, HEIGHT - 1, Colors.BLACK)
-        image.drawRect(0, 0, WIDTH - 1, HEIGHT - 1, Colors.WHITE)
+        val (gameWidth, _) = GameView.getInstance().gameDimensions
+        image.fillRect(0, 0, gameWidth - 1, HEIGHT - 1, Colors.BLACK)
+        image.drawRect(0, 0, gameWidth - 1, HEIGHT - 1, Colors.WHITE)
     }
 }

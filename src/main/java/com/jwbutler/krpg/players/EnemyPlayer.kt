@@ -7,6 +7,7 @@ import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
 import com.jwbutler.krpg.players.ai.UnitAI
+import com.jwbutler.rpglib.players.AbstractPlayer
 import java.lang.IllegalArgumentException
 
 class EnemyPlayer : AbstractPlayer()

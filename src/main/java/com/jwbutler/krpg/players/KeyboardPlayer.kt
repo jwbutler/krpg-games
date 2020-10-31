@@ -9,6 +9,7 @@ import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.graphics.Renderable
+import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import kotlin.math.abs
