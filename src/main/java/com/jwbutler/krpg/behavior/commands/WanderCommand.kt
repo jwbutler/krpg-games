@@ -1,37 +1,37 @@
 package com.jwbutler.krpg.behavior.commands
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.entities.units.Unit
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
 
 class WanderCommand(override val source: Unit) : Command
 {
     override val type = CommandType.WANDER
 
-    override fun chooseActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>
     {
         return _tryWander()
             ?: _stand()
     }
 
-    private fun _tryWander(): Pair<Activity, Direction>?
+    private fun _tryWander(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>?
     {
-        if (source.isActivityReady(Activity.WALKING))
+        if (source.isActivityReady(RPGActivity.WALKING))
         {
             val adjacentCoordinates = getAdjacentUnblockedCoordinates(source.getCoordinates())
             if (adjacentCoordinates.isNotEmpty())
             {
                 val coordinates = adjacentCoordinates.random()
-                return Pair(Activity.WALKING, Direction.between(coordinates, source.getCoordinates()))
+                return Pair(RPGActivity.WALKING, Direction.between(coordinates, source.getCoordinates()))
             }
         }
         return null
     }
 
-    private fun _stand(): Pair<Activity, Direction>
+    private fun _stand(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>
     {
-        return Pair(Activity.STANDING, source.getDirection())
+        return Pair(RPGActivity.STANDING, source.getDirection())
     }
 
     override fun isPreemptible() = true

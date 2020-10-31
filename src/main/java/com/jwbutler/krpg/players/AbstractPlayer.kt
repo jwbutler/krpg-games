@@ -1,6 +1,6 @@
 package com.jwbutler.krpg.players
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.units.Unit
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.units.Unit
 
 abstract class AbstractPlayer : Player
 {

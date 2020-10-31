@@ -1,8 +1,8 @@
 package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.graphics.images.Colors
-import com.jwbutler.krpg.graphics.images.Image
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.graphics.images.Colors
+import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.krpg.players.HumanPlayer
 import java.awt.Font
 import kotlin.math.roundToInt

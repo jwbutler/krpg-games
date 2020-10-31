@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.entities.objects
 
-import com.jwbutler.krpg.core.GameState
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.objects.GameObject
 
 abstract class AbstractObject : GameObject
 {

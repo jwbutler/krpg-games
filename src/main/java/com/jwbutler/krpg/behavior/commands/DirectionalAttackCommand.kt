@@ -1,9 +1,9 @@
 package com.jwbutler.krpg.behavior.commands
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
 
 class DirectionalAttackCommand(override val source: Unit, val target: Coordinates) : Command
 {
@@ -11,17 +11,17 @@ class DirectionalAttackCommand(override val source: Unit, val target: Coordinate
 
     private var hasAttacked = false
 
-    override fun chooseActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>
     {
         val direction = Direction.closestBetween(target, source.getCoordinates())
-        if (!hasAttacked && source.isActivityReady(Activity.ATTACKING))
+        if (!hasAttacked && source.isActivityReady(RPGActivity.ATTACKING))
         {
             hasAttacked = true
-            return Pair(Activity.ATTACKING, direction)
+            return Pair(RPGActivity.ATTACKING, direction)
         }
         else
         {
-            return Pair(Activity.STANDING, direction)
+            return Pair(RPGActivity.STANDING, direction)
         }
     }
 

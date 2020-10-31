@@ -1,15 +1,16 @@
 package com.jwbutler.krpg.entities.units
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.graphics.images.PaletteSwaps
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 import com.jwbutler.krpg.graphics.sprites.units.ZombieSprite
 import kotlin.random.Random
 
 private val ACTIVITIES = setOf(
-    Activity.ATTACKING,
-    Activity.FALLING,
-    Activity.STANDING,
-    Activity.WALKING
+    RPGActivity.ATTACKING,
+    RPGActivity.FALLING,
+    RPGActivity.STANDING,
+    RPGActivity.WALKING
 )
 class ZombieUnit(hp: Int) : AbstractUnit(hp, ACTIVITIES)
 {
@@ -18,9 +19,9 @@ class ZombieUnit(hp: Int) : AbstractUnit(hp, ACTIVITIES)
     {
         return when (activity)
         {
-            Activity.WALKING   -> Random.nextInt(1, 11)
-            Activity.ATTACKING -> Random.nextInt(1, 11)
-            else               -> 0
+            RPGActivity.WALKING   -> Random.nextInt(1, 11)
+            RPGActivity.ATTACKING -> Random.nextInt(1, 11)
+            else                  -> 0
         }
     }
 }

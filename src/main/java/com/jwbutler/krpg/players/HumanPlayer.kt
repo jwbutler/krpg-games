@@ -1,10 +1,10 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.krpg.entities.TileOverlay
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.GameWindow
-import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.rpglib.entities.TileOverlay
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.graphics.GameWindow
+import com.jwbutler.rpglib.graphics.Renderable
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyListener
 import java.awt.event.MouseAdapter

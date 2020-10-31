@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.krpg.behavior.Activity
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.behavior.Activity
 import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
 import com.jwbutler.krpg.behavior.commands.BashCommand
 import com.jwbutler.krpg.behavior.commands.Command
@@ -9,17 +10,17 @@ import com.jwbutler.krpg.behavior.commands.DirectionalAttackCommand
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.RepeatingAttackCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
-import com.jwbutler.krpg.core.Direction
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.krpg.core.GameEngine
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.TileOverlay
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.TileOverlay
 import com.jwbutler.krpg.entities.TileOverlayFactory
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.GameWindow
-import com.jwbutler.krpg.graphics.Renderable
-import com.jwbutler.krpg.graphics.ui.UIOverlays
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Pixel
+import com.jwbutler.rpglib.graphics.GameWindow
+import com.jwbutler.rpglib.graphics.Renderable
+import com.jwbutler.krpg.graphics.ui.UIOverlayFactory
 import com.jwbutler.krpg.utils.getAverageCoordinates
 import com.jwbutler.krpg.utils.getEnemyUnits
 import com.jwbutler.krpg.utils.getPlayerUnits
@@ -40,7 +41,8 @@ class MousePlayer : HumanPlayer()
     private val currentCommands = mutableMapOf<Unit, Command>()
     private val queuedCommands = mutableMapOf<Unit, CommandSupplier>()
     private val selectedUnits = mutableSetOf<Unit>()
-    private var cameraCoordinates: Coordinates = Coordinates(0, 0)
+    private var cameraCoordinates: Coordinates =
+        Coordinates(0, 0)
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
 
@@ -136,7 +138,7 @@ class MousePlayer : HumanPlayer()
     {
         if (selectionStart != null && selectionEnd != null)
         {
-            return listOf(UIOverlays.getSelectionRect(selectionStart!!, selectionEnd!!))
+            return listOf(UIOverlayFactory.getSelectionRect(selectionStart!!, selectionEnd!!))
         }
         return listOf()
     }
@@ -352,7 +354,7 @@ class MousePlayer : HumanPlayer()
         {
             if (coordinates != unit.getCoordinates())
             {
-                if (unit.isActivityReady(Activity.ATTACKING))
+                if (unit.isActivityReady(RPGActivity.ATTACKING))
                 {
                     val targetUnit = GameState.getInstance().getUnit(coordinates)
                     if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))
@@ -368,7 +370,7 @@ class MousePlayer : HumanPlayer()
         {
             if (coordinates != unit.getCoordinates())
             {
-                if (unit.isActivityReady(Activity.BASHING))
+                if (unit.isActivityReady(RPGActivity.BASHING))
                 {
                     val targetUnit = GameState.getInstance().getUnit(coordinates)
                     if (targetUnit != null && !(targetUnit.getPlayer() is HumanPlayer))

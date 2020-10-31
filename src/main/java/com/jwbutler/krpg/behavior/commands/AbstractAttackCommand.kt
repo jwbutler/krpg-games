@@ -1,10 +1,10 @@
 package com.jwbutler.krpg.behavior.commands
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.Pathfinder
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Pathfinder
 import kotlin.math.abs
 
 /**
@@ -12,19 +12,19 @@ import kotlin.math.abs
  */
 abstract class AbstractAttackCommand(final override val source: Unit, val target: Unit) : Command
 {
-    protected abstract val activity: Activity
+    protected abstract val activity: com.jwbutler.rpglib.behavior.Activity
     protected abstract val isRepeating: Boolean
     private var hasAttacked = false
     private var path = Pathfinder.findPath(source, target)
 
-    override fun chooseActivity(): Pair<Activity, Direction>
+    override fun chooseActivity(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>
     {
         return _tryAttack()
             ?: _tryWalk()
             ?: _stand()
     }
 
-    private fun _tryAttack(): Pair<Activity, Direction>?
+    private fun _tryAttack(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>?
     {
         if (target.exists())
         {
@@ -41,11 +41,11 @@ abstract class AbstractAttackCommand(final override val source: Unit, val target
         return null
     }
 
-    private fun _tryWalk(): Pair<Activity, Direction>?
+    private fun _tryWalk(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>?
     {
         if (target.exists())
         {
-            if (source.isActivityReady(Activity.WALKING))
+            if (source.isActivityReady(RPGActivity.WALKING))
             {
                 var next = Pathfinder.findNextCoordinates(path, source.getCoordinates())
                 if (next == null)
@@ -56,16 +56,16 @@ abstract class AbstractAttackCommand(final override val source: Unit, val target
                 if (next != null)
                 {
                     val direction = Direction.between(next, source.getCoordinates())
-                    return Pair(Activity.WALKING, direction)
+                    return Pair(RPGActivity.WALKING, direction)
                 }
             }
         }
         return null
     }
 
-    private fun _stand(): Pair<Activity, Direction>
+    private fun _stand(): Pair<com.jwbutler.rpglib.behavior.Activity, Direction>
     {
-        return Pair(Activity.STANDING, source.getDirection())
+        return Pair(RPGActivity.STANDING, source.getDirection())
     }
 
     override fun isPreemptible() = true

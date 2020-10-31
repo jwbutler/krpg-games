@@ -1,20 +1,23 @@
 package com.jwbutler.krpg.entities.units
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.krpg.core.GameEngine
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.equipment.Equipment
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.equipment.Equipment
 import com.jwbutler.krpg.entities.objects.Corpse
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.sprites.units.UnitSprite
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.graphics.sprites.UnitSprite
+import com.jwbutler.rpglib.entities.units.Unit
 import kotlin.math.max
 
-abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
+abstract class AbstractUnit(hp: Int, activities: Set<Activity>) :
+    Unit
 {
     abstract override val sprite: UnitSprite
 
-    private var activity: Activity = Activity.STANDING
+    private var activity: Activity = RPGActivity.STANDING
     private var direction: Direction = Direction.SE
     private var frameNumber: Int = 0
 
@@ -110,9 +113,9 @@ abstract class AbstractUnit(hp: Int, activities: Set<Activity>) : Unit
         }
 
         // If HP reaches zero, immediately cancel the current activity and start falling
-        if (currentHP <= 0 && activity != Activity.FALLING)
+        if (currentHP <= 0 && activity != RPGActivity.FALLING)
         {
-            startActivity(Activity.FALLING, direction)
+            startActivity(RPGActivity.FALLING, direction)
         }
         else
         {

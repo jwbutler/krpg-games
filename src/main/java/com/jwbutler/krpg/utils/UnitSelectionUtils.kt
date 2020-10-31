@@ -1,11 +1,11 @@
 package com.jwbutler.krpg.utils
 
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.IntPair
-import com.jwbutler.krpg.geometry.Rectangle
-import com.jwbutler.krpg.geometry.TILE_HEIGHT
-import com.jwbutler.krpg.geometry.TILE_WIDTH
+import com.jwbutler.krpg.geometry.GeometryConstants.TILE_HEIGHT
+import com.jwbutler.krpg.geometry.GeometryConstants.TILE_WIDTH
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.IntPair
+import com.jwbutler.rpglib.geometry.Rectangle
 import com.jwbutler.krpg.players.HumanPlayer
 import com.jwbutler.krpg.players.Player
 

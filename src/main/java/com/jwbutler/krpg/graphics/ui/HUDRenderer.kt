@@ -1,10 +1,10 @@
 package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.geometry.GAME_HEIGHT
-import com.jwbutler.krpg.geometry.GAME_WIDTH
-import com.jwbutler.krpg.geometry.Pixel
-import com.jwbutler.krpg.graphics.images.Colors
-import com.jwbutler.krpg.graphics.images.Image
+import com.jwbutler.krpg.geometry.GeometryConstants.GAME_HEIGHT
+import com.jwbutler.krpg.geometry.GeometryConstants.GAME_WIDTH
+import com.jwbutler.rpglib.geometry.Pixel
+import com.jwbutler.rpglib.graphics.images.Colors
+import com.jwbutler.rpglib.graphics.images.Image
 import com.jwbutler.krpg.utils.getPlayerUnits
 
 object HUDRenderer

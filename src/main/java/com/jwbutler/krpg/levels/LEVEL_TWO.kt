@@ -1,16 +1,17 @@
 package com.jwbutler.krpg.levels
 
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.tiles.Tile
-import com.jwbutler.krpg.entities.equipment.EquipmentSlot
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.krpg.entities.equipment.RPGEquipmentSlot
+import com.jwbutler.rpglib.entities.tiles.Tile
 import com.jwbutler.krpg.entities.equipment.Sword
-import com.jwbutler.krpg.entities.objects.GameObject
+import com.jwbutler.rpglib.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Wall
-import com.jwbutler.krpg.entities.tiles.TileType
+import com.jwbutler.krpg.entities.tiles.RPGTileType
 import com.jwbutler.krpg.entities.units.PlayerUnit
 import com.jwbutler.krpg.entities.units.WizardUnit
 import com.jwbutler.krpg.entities.units.ZombieUnit
-import com.jwbutler.krpg.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.levels.Level
 import kotlin.system.exitProcess
 
 private val VICTORY_CONDITION = VictoryCondition(
@@ -34,7 +35,7 @@ private fun _createTileBox(width: Int, height: Int): Map<Coordinates, Tile>
         for (x in (0 until width))
         {
             val coordinates = Coordinates(x, y)
-            val tile = Tile(TileType.GRASS, coordinates)
+            val tile = Tile(RPGTileType.GRASS, coordinates)
             tiles[coordinates] = tile
         }
     }
@@ -51,7 +52,7 @@ private fun _getUnits(): Collection<Level.UnitData>
             PlayerUnit(50),
             Coordinates(12, 5),
             enemyPlayer,
-            mapOf(EquipmentSlot.MAIN_HAND to Sword())
+            mapOf(RPGEquipmentSlot.MAIN_HAND to Sword())
         ),
 
         Level.UnitData(

@@ -1,8 +1,8 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.entities.units.Unit
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.entities.units.Unit
 
 interface Player
 {
