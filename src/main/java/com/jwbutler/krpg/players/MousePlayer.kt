@@ -16,7 +16,6 @@ import com.jwbutler.krpg.utils.getAverageCoordinates
 import com.jwbutler.krpg.utils.getEnemyUnits
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.krpg.utils.getUnitsInPixelRect
-import com.jwbutler.krpg.utils.pixelToCoordinates
 import com.jwbutler.krpg.utils.rectFromPixels
 import com.jwbutler.rpglib.behavior.Activity
 import com.jwbutler.rpglib.core.GameState
@@ -25,6 +24,7 @@ import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.geometry.Direction
 import com.jwbutler.rpglib.geometry.Pixel
+import com.jwbutler.rpglib.geometry.pixelToCoordinates
 import com.jwbutler.rpglib.graphics.GameWindow
 import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.players.HumanPlayer
@@ -42,8 +42,7 @@ class MousePlayer : HumanPlayer()
     private val currentCommands = mutableMapOf<Unit, Command>()
     private val queuedCommands = mutableMapOf<Unit, CommandSupplier>()
     private val selectedUnits = mutableSetOf<Unit>()
-    private var cameraCoordinates: Coordinates =
-        Coordinates(0, 0)
+    private var cameraCoordinates: Coordinates = Coordinates(0, 0)
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
 

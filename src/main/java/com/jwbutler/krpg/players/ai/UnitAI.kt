@@ -9,10 +9,10 @@ import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.behavior.commands.WanderCommand
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.utils.getPlayerUnits
-import com.jwbutler.krpg.utils.manhattanDistance
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.manhattanDistance
 import kotlin.random.Random
 
 enum class UnitAI
