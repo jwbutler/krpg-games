@@ -3,6 +3,8 @@ package com.jwbutler.krpg.graphics.ui
 import com.jwbutler.krpg.utils.getPlayerUnits
 import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.geometry.Pixel
+import com.jwbutler.rpglib.graphics.RenderLayer
+import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.Image
 
@@ -21,7 +23,7 @@ class HUDRenderer
         image = Image.create(width, height)
     }
 
-    fun render(): Pair<Image, Pixel>
+    fun render(): Renderable
     {
         _renderBackground()
 
@@ -35,7 +37,8 @@ class HUDRenderer
         }
 
         val (_, gameHeight) = GameView.getInstance().gameDimensions
-        return Pair(image, Pixel(0, gameHeight - HEIGHT))
+        // TODO - layer is kind of superfluous here since it's getting added at the end
+        return Renderable(image, Pixel(0, gameHeight - HEIGHT), RenderLayer.UI_OVERLAY)
     }
 
     private fun _renderBackground()

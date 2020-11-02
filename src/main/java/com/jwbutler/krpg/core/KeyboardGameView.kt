@@ -2,6 +2,7 @@ package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.behavior.RPGActivity
 import com.jwbutler.krpg.entities.TileOverlayFactory
+import com.jwbutler.krpg.graphics.ui.HUDRenderer
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.entities.TileOverlay
@@ -15,6 +16,8 @@ class KeyboardGameView : GameView
     override val tileDimensions = Dimensions(24, 12)
     override val gameDimensions = Dimensions(320, 180)
     override val initialWindowDimensions = Dimensions(1280, 720)
+
+    private val hudRenderer = HUDRenderer()
 
     override fun getUIOverlays() = listOf<Renderable>()
     override fun getCameraCoordinates() = _getPlayerUnit().getCoordinates()
@@ -42,5 +45,24 @@ class KeyboardGameView : GameView
             }
 
         return overlays
+    }
+
+    override fun getRenderables(): List<Renderable>
+    {
+        val state = GameState.getInstance()
+        val entities = state.getEntities()
+        val tileOverlays = getTileOverlays().values
+        val uiOverlays = getUIOverlays()
+
+        val renderedEntities = entities.plus(tileOverlays).map { it to it.render() }
+
+        val sortedRenderedEntities = renderedEntities
+            .sortedBy { (_, renderable) -> renderable.layer }
+            .sortedBy { (entity, _) -> entity.getCoordinates().y }
+            .map { (_, renderable) -> renderable }
+
+        return sortedRenderedEntities
+            .plus(uiOverlays)
+            .plus(hudRenderer.render())
     }
 }

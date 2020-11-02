@@ -6,6 +6,7 @@ import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.RepeatingAttackCommand
 import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
 import com.jwbutler.krpg.entities.TileOverlayFactory
+import com.jwbutler.krpg.graphics.ui.HUDRenderer
 import com.jwbutler.krpg.graphics.ui.UIOverlayFactory
 import com.jwbutler.krpg.players.MousePlayer
 import com.jwbutler.krpg.utils.getEnemyUnits
@@ -27,6 +28,8 @@ class RPGGameView : GameView
     private var cameraCoordinates: Coordinates = Coordinates(0, 0)
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
+
+    private val hudRenderer = HUDRenderer()
 
     override fun getTileOverlays(): Map<Coordinates, TileOverlay>
     {
@@ -112,5 +115,24 @@ class RPGGameView : GameView
         check(gameState.containsCoordinates(coordinates))
 
         cameraCoordinates = coordinates
+    }
+
+    override fun getRenderables(): List<Renderable>
+    {
+        val state = GameState.getInstance()
+        val entities = state.getEntities()
+        val tileOverlays = getTileOverlays().values
+        val uiOverlays = getUIOverlays()
+
+        val renderedEntities = entities.plus(tileOverlays).map { it to it.render() }
+
+        val sortedRenderedEntities = renderedEntities
+            .sortedBy { (_, renderable) -> renderable.layer }
+            .sortedBy { (entity, _) -> entity.getCoordinates().y }
+            .map { (_, renderable) -> renderable }
+
+        return sortedRenderedEntities
+            .plus(uiOverlays)
+            .plus(hudRenderer.render())
     }
 }
