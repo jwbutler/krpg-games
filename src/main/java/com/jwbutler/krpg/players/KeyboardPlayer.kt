@@ -1,14 +1,11 @@
 package com.jwbutler.krpg.players
 
 import com.jwbutler.krpg.behavior.RPGActivity
-import com.jwbutler.krpg.entities.TileOverlayFactory
 import com.jwbutler.rpglib.behavior.Activity
 import com.jwbutler.rpglib.core.GameState
-import com.jwbutler.rpglib.entities.TileOverlay
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
 import com.jwbutler.rpglib.geometry.Direction
-import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -58,30 +55,8 @@ class KeyboardPlayer : HumanPlayer()
         return Pair(RPGActivity.STANDING, unit.getDirection())
     }
 
-    override fun getTileOverlays(): Map<Coordinates, TileOverlay>
-    {
-        val overlays = mutableMapOf<Coordinates, TileOverlay>()
-        val unit = _getUnit()
-
-        overlays[unit.getCoordinates()] = TileOverlayFactory.playerOverlay(unit.getCoordinates(), true)
-        val targetCoordinates = unit.getCoordinates() + unit.getDirection()
-        GameState.getInstance()
-            .getUnits()
-            .filter { u -> u.getPlayer() != this } // TODO better hostility check
-            .forEach { enemyUnit ->
-                val isTargeted = unit.getActivity() == RPGActivity.ATTACKING && enemyUnit.getCoordinates() == targetCoordinates
-                overlays[enemyUnit.getCoordinates()] = TileOverlayFactory.enemyOverlay(enemyUnit.getCoordinates(), isTargeted)
-            }
-
-        return overlays
-    }
-
-    override fun getUIOverlays() = listOf<Renderable>()
-    override fun getCameraCoordinates() = _getUnit().getCoordinates()
-
     override fun getKeyListener() = object : KeyAdapter()
     {
-        val player = this@KeyboardPlayer
         override fun keyPressed(e: KeyEvent)
         {
             when (e.keyCode)
@@ -118,6 +93,4 @@ class KeyboardPlayer : HumanPlayer()
     }
 
     private fun _getUnit() = GameState.getInstance().getUnits(this)[0]
-
-    override fun getSelectedUnits() = setOf(_getUnit())
 }

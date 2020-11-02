@@ -1,9 +1,7 @@
 package com.jwbutler.rpglib.geometry
 
-import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.entities.Entity
-import com.jwbutler.rpglib.players.HumanPlayer
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -32,8 +30,7 @@ fun coordinatesToPixel(coordinates: Coordinates): Pixel
     val gameView = GameView.getInstance()
     val (tileWidth, tileHeight) = gameView.tileDimensions
     val (gameWidth, gameHeight) = gameView.gameDimensions
-    // TODO reference to krpg
-    val cameraCoordinates = (GameState.getInstance().getHumanPlayer() as HumanPlayer).getCameraCoordinates()
+    val cameraCoordinates = gameView.getCameraCoordinates()
     val x = (coordinates.x - cameraCoordinates.x) * tileWidth + (gameWidth / 2) - (tileWidth/ 2)
     val y = (coordinates.y - cameraCoordinates.y) * tileHeight + (gameHeight / 2) - (tileHeight / 2)
     return Pixel(x, y)
@@ -46,8 +43,7 @@ fun pixelToCoordinates(pixel: Pixel): Coordinates
     val gameView = GameView.getInstance()
     val (tileWidth, tileHeight) = gameView.tileDimensions
     val (gameWidth, gameHeight) = gameView.gameDimensions
-    // TODO reference to krpg
-    val cameraCoordinates = (GameState.getInstance().getHumanPlayer() as HumanPlayer).getCameraCoordinates()
+    val cameraCoordinates = gameView.getCameraCoordinates()
     val originTopLeft = Pixel(
         (gameWidth / 2) - (cameraCoordinates.x * tileWidth) - (tileWidth / 2),
         (gameHeight / 2) - (cameraCoordinates.y * tileHeight) - (tileHeight / 2)

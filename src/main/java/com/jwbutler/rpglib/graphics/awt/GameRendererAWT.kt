@@ -2,11 +2,11 @@ package com.jwbutler.rpglib.graphics.awt
 
 import com.jwbutler.krpg.graphics.ui.HUDRenderer
 import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.graphics.images.Image
-import com.jwbutler.rpglib.players.HumanPlayer
 
 class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer
 {
@@ -39,10 +39,10 @@ class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer
     private fun _getRenderables(): List<Renderable>
     {
         val state = GameState.getInstance()
+        val view = GameView.getInstance()
         val entities = state.getEntities()
-        val humanPlayer = state.getHumanPlayer() as HumanPlayer
-        val tileOverlays = humanPlayer.getTileOverlays().values
-        val uiOverlays = humanPlayer.getUIOverlays()
+        val tileOverlays = view.getTileOverlays().values
+        val uiOverlays = view.getUIOverlays()
 
         val renderables = entities.plus(tileOverlays).map { it to it.render() }
 

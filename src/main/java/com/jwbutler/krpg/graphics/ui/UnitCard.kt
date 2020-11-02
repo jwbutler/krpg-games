@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.graphics.ui
 
+import com.jwbutler.krpg.players.MousePlayer
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.Image
@@ -32,7 +33,7 @@ class UnitCard(val unit: Unit)
     private fun _isSelected(unit: Unit): Boolean
     {
         check(unit.getPlayer() is HumanPlayer)
-        return (unit.getPlayer() as HumanPlayer).getSelectedUnits().contains(unit)
+        return (unit.getPlayer() as MousePlayer).getSelectedUnits().contains(unit)
     }
 
     private fun _drawHealthBar(width: Int, height: Int): Image
