@@ -1,6 +1,7 @@
 package com.jwbutler.krpg.entities.objects
 
 import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.entities.objects.AbstractObject
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.graphics.sprites.Sprite
 import com.jwbutler.rpglib.graphics.sprites.StaticSprite

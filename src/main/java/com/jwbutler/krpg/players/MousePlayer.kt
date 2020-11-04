@@ -104,8 +104,8 @@ class MousePlayer : HumanPlayer()
                 {
                     if (selectedUnits.isNotEmpty())
                     {
-                        val gameView = GameView.getInstance() as RPGGameView
                         val cameraCoordinates = getAverageCoordinates(selectedUnits.map(Unit::getCoordinates))
+                        val gameView = GameView.getInstance() as RPGGameView
                         gameView.setCameraCoordinates(cameraCoordinates)
                     }
                 }

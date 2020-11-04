@@ -20,17 +20,17 @@ import com.jwbutler.rpglib.graphics.awt.ImageLoaderAWT
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.images.PaletteSwaps
-
-private fun _getFullFilename(filename: String) = "/png/${filename}.png"
+import com.jwbutler.rpglib.sounds.SoundPlayer
 
 fun main()
 {
     val gameView = GameView.initialize { RPGGameView() }
-    ImageLoader.initialize { ImageLoaderAWT(::_getFullFilename) }
+    ImageLoader.initialize { ImageLoaderAWT { filename -> "/png/${filename}.png" } }
     val state = GameState.initialize()
     GameWindow.initialize { GameWindowAWT(gameView.initialWindowDimensions) }
     GameRenderer.initialize { GameRendererAWT(gameView.gameDimensions) }
     val engine = GameEngine.initialize()
+    SoundPlayer.initialize { SoundPlayer { filename -> "/sounds/${filename}.png" } }
 
     val humanPlayer = KeyboardPlayer()
     state.addPlayer(humanPlayer)

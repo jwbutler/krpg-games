@@ -1,5 +1,6 @@
 package com.jwbutler.krpg.entities.objects
 
+import com.jwbutler.rpglib.entities.objects.AbstractObject
 import com.jwbutler.rpglib.geometry.Offsets
 import com.jwbutler.rpglib.graphics.RenderLayer
 import com.jwbutler.rpglib.graphics.images.Image

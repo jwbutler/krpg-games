@@ -1,12 +1,12 @@
 package com.jwbutler.krpg.behavior
 import com.jwbutler.krpg.entities.objects.Corpse
 import com.jwbutler.krpg.entities.units.ZombieUnit
-import com.jwbutler.krpg.sounds.SoundPlayer
 import com.jwbutler.krpg.utils.getAdjacentUnblockedCoordinates
 import com.jwbutler.rpglib.behavior.Activity
 import com.jwbutler.rpglib.core.GameState
 import com.jwbutler.rpglib.entities.units.Unit
 import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.sounds.SoundPlayer
 
 enum class RPGActivity : Activity
 {
@@ -37,7 +37,7 @@ enum class RPGActivity : Activity
                 val damage = unit.getDamage(this)
                 targetUnit.takeDamage(damage)
                 // TODO: Should this be a unit-specific sound?
-                SoundPlayer.playSoundAsync("hit1.wav")
+                SoundPlayer.getInstance().playSoundAsync("hit1.wav")
             }
         }
     },
@@ -54,7 +54,7 @@ enum class RPGActivity : Activity
                 val damage = unit.getDamage(this)
                 targetUnit.takeDamage(damage)
                 // TODO: Should this be a unit-specific sound?
-                SoundPlayer.playSoundAsync("hit1.wav")
+                SoundPlayer.getInstance().playSoundAsync("hit1.wav")
 
                 val state = GameState.getInstance()
                 val targetCoordinates = coordinates + unit.getDirection()
