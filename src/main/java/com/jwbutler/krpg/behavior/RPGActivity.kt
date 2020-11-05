@@ -37,7 +37,7 @@ enum class RPGActivity : Activity
                 val damage = unit.getDamage(this)
                 targetUnit.takeDamage(damage)
                 // TODO: Should this be a unit-specific sound?
-                SoundPlayer.getInstance().playSoundAsync("hit1.wav")
+                SoundPlayer.getInstance().playSoundAsync("hit1")
             }
         }
     },
@@ -54,7 +54,7 @@ enum class RPGActivity : Activity
                 val damage = unit.getDamage(this)
                 targetUnit.takeDamage(damage)
                 // TODO: Should this be a unit-specific sound?
-                SoundPlayer.getInstance().playSoundAsync("hit1.wav")
+                SoundPlayer.getInstance().playSoundAsync("hit1")
 
                 val state = GameState.getInstance()
                 val targetCoordinates = coordinates + unit.getDirection()

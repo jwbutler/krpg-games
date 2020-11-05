@@ -8,20 +8,14 @@ import com.jwbutler.rpglib.graphics.Renderable
 import com.jwbutler.rpglib.graphics.images.Colors
 import com.jwbutler.rpglib.graphics.images.Image
 
-class HUDRenderer
+class HUDRenderer(width: Int, height: Int)
 {
     companion object
     {
         const val HEIGHT = 40 // If HEIGHT = 180, then this is ~22%
     }
 
-    private val image: Image
-
-    init
-    {
-        val (width, height) = GameView.getInstance().gameDimensions
-        image = Image.create(width, height)
-    }
+    val image = Image.create(width, height)
 
     fun render(): Renderable
     {

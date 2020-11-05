@@ -15,7 +15,6 @@ class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer
 
         for ((image, pixel) in GameView.getInstance().getRenderables())
         {
-
             buffer.drawImage(image, pixel.x, pixel.y)
         }
         return buffer

@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent
  * pixel scaling, so that mouse events can cleanly use the game's internal
  * (scaled) pixels rather than the window's native pixels.
  */
-internal class DelegatingMouseListener(val delegate: MouseAdapter, val transform: (MouseEvent) -> MouseEvent) : MouseAdapter()
+internal class DelegatingMouseListener(private val delegate: MouseAdapter, private val transform: (MouseEvent) -> MouseEvent) : MouseAdapter()
 {
     override fun mouseClicked(event: MouseEvent) = delegate.mouseClicked(transform(event))
     override fun mouseDragged(event: MouseEvent) = delegate.mouseDragged(transform(event))

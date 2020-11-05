@@ -32,7 +32,7 @@ fun main()
     GameWindow.initialize { GameWindowAWT(gameView.initialWindowDimensions) }
     GameRenderer.initialize { GameRendererAWT(gameView.gameDimensions) }
     val engine = GameEngine.initialize()
-    SoundPlayer.initialize { SoundPlayer { filename -> "/sounds/${filename}.png" } }
+    SoundPlayer.initialize { SoundPlayer { filename -> "/sounds/${filename}.wav" } }
 
     val humanPlayer = MousePlayer()
     state.addPlayer(humanPlayer)

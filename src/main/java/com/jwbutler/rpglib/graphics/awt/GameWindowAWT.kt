@@ -1,5 +1,6 @@
 package com.jwbutler.rpglib.graphics.awt
 
+import com.jwbutler.rpglib.core.GameView
 import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.geometry.Pixel
 import com.jwbutler.rpglib.graphics.GameRenderer
@@ -121,8 +122,19 @@ class GameWindowAWT(initialDimensions: Dimensions) : GameWindow
      */
     private fun _mapPixel(x: Int, y: Int): Pixel
     {
+        val gameDimensions = GameView.getInstance().gameDimensions
         val (width, height) = imageDimensions
-        val scaleFactor = 1.0 * width / imageDimensions.height // should get the same result with height / HEIGHT
+        val insets = frame.getInsets()
+
+        val panelLeft = (panel.getWidth() - width) / 2
+        val panelTop = (panel.getHeight() - height) / 2
+        return Pixel(
+            (x - panelLeft - insets.left) * gameDimensions.width / width,
+            (y - panelTop - insets.top) * gameDimensions.height / height
+        )
+
+        /*val (width, height) = imageDimensions
+        val scaleFactor = 1.0 * width / panel.width // should get the same result with height / HEIGHT
 
         // coordinates of the scaled buffer relative to the panel
         val panelLeft = (panel.getWidth() - width) / 2
@@ -136,6 +148,6 @@ class GameWindowAWT(initialDimensions: Dimensions) : GameWindow
         return Pixel(
             (bufferX / scaleFactor).roundToInt(),
             (bufferY / scaleFactor).roundToInt()
-        )
+        )*/
     }
 }

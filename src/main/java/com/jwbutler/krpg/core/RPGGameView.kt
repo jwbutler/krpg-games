@@ -29,7 +29,7 @@ class RPGGameView : GameView
     var selectionStart: Pixel? = null
     var selectionEnd: Pixel? = null
 
-    private val hudRenderer = HUDRenderer()
+    private val hudRenderer = HUDRenderer(gameDimensions.width, gameDimensions.height)
 
     override fun getTileOverlays(): Map<Coordinates, TileOverlay>
     {

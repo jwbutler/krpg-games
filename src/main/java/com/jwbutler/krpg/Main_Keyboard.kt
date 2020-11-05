@@ -1,7 +1,7 @@
 package com.jwbutler.krpg
 
 import com.jwbutler.krpg.core.GameEngine
-import com.jwbutler.krpg.core.RPGGameView
+import com.jwbutler.krpg.core.KeyboardGameView
 import com.jwbutler.krpg.entities.equipment.MailArmor
 import com.jwbutler.krpg.entities.equipment.RPGEquipmentSlot
 import com.jwbutler.krpg.entities.equipment.Shield
@@ -24,7 +24,7 @@ import com.jwbutler.rpglib.sounds.SoundPlayer
 
 fun main()
 {
-    val gameView = GameView.initialize { RPGGameView() }
+    val gameView = GameView.initialize { KeyboardGameView() }
     ImageLoader.initialize { ImageLoaderAWT { filename -> "/png/${filename}.png" } }
     val state = GameState.initialize()
     GameWindow.initialize { GameWindowAWT(gameView.initialWindowDimensions) }

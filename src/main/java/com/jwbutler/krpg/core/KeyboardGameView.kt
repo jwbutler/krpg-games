@@ -17,7 +17,7 @@ class KeyboardGameView : GameView
     override val gameDimensions = Dimensions(320, 180)
     override val initialWindowDimensions = Dimensions(1280, 720)
 
-    private val hudRenderer = HUDRenderer()
+    private val hudRenderer = HUDRenderer(gameDimensions.width, gameDimensions.height)
 
     override fun getUIOverlays() = listOf<Renderable>()
     override fun getCameraCoordinates() = _getPlayerUnit().getCoordinates()
