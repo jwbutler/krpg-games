@@ -9,15 +9,18 @@ import com.jwbutler.rpglib.graphics.sprites.Sprite
 import com.jwbutler.rpglib.graphics.sprites.StaticSprite
 import java.awt.Color
 
-private val INNER_COLOR = Colors.BLACK
-private val OUTER_COLOR = Colors.RED
-
 class TileOverlay(
     private val coordinates: Coordinates,
     private val outerColor: Color,
     private val innerColor: Color
 ): Entity
 {
+    companion object
+    {
+        private val INNER_COLOR = Colors.BLACK
+        private val OUTER_COLOR = Colors.RED
+    }
+
     override fun getCoordinates() = coordinates
     override val sprite = _getSprite()
 
