@@ -1,17 +1,19 @@
 package com.jwbutler.krpg.graphics.sprites
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.entities.equipment.Equipment
-import com.jwbutler.krpg.geometry.Offsets
-import com.jwbutler.krpg.graphics.FrameKey
-import com.jwbutler.krpg.graphics.images.Image
-import com.jwbutler.krpg.graphics.images.ImageLoader
-import com.jwbutler.krpg.graphics.images.PaletteSwaps
-import com.jwbutler.krpg.graphics.RenderLayer
-import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.behavior.RPGActivity
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.entities.Entity
+import com.jwbutler.rpglib.entities.equipment.Equipment
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.geometry.Offsets
+import com.jwbutler.rpglib.graphics.FrameKey
+import com.jwbutler.rpglib.graphics.RenderLayer
+import com.jwbutler.rpglib.graphics.Renderable
+import com.jwbutler.rpglib.graphics.images.Image
+import com.jwbutler.rpglib.graphics.images.ImageLoader
+import com.jwbutler.rpglib.graphics.images.PaletteSwaps
+import com.jwbutler.rpglib.graphics.sprites.Sprite
 
 private const val BEHIND_PREFIX = "_B"
 
@@ -21,7 +23,8 @@ private const val BEHIND_PREFIX = "_B"
  *
  * TODO: This is mostly copy-pasted from [PlayerSprite].  However, I can't think of a sane inheritance hierarchy.
  */
-abstract class EquipmentSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, override val offsets: Offsets) : Sprite
+abstract class EquipmentSprite(private val spriteName: String, private val paletteSwaps: PaletteSwaps, override val offsets: Offsets) :
+    Sprite
 {
     override fun render(entity: Entity): Renderable
     {
@@ -45,7 +48,7 @@ abstract class EquipmentSprite(private val spriteName: String, private val palet
         {
             return _getFrame(unit.getActivity(), unit.getDirection(), unit.getFrameNumber())
         }
-        return _getFrame(Activity.DEAD, equipment.direction!!, 1)
+        return _getFrame(RPGActivity.DEAD, equipment.direction!!, 1)
     }
 
     private fun _getFrame(activity: Activity, direction: Direction, frameNumber: Int): FrameKey

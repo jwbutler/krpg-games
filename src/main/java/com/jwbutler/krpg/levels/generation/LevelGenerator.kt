@@ -1,16 +1,14 @@
 package com.jwbutler.krpg.levels.generation
 
-import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Wall
-import com.jwbutler.krpg.entities.tiles.Tile
-import com.jwbutler.krpg.entities.tiles.TileType
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.geometry.Dimensions
-import com.jwbutler.krpg.geometry.IntPair
-import com.jwbutler.krpg.levels.Level
-import com.jwbutler.krpg.levels.VictoryCondition
-import java.lang.IllegalArgumentException
-import java.lang.RuntimeException
+import com.jwbutler.krpg.entities.tiles.RPGTileType
+import com.jwbutler.rpglib.entities.objects.GameObject
+import com.jwbutler.rpglib.entities.tiles.Tile
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Dimensions
+import com.jwbutler.rpglib.geometry.IntPair
+import com.jwbutler.rpglib.levels.Level
+import com.jwbutler.rpglib.levels.VictoryCondition
 import kotlin.math.sign
 
 private const val MIN_SECTION_WIDTH = 8
@@ -102,12 +100,14 @@ private class LevelGeneratorImpl : LevelGenerator
         {
             for (coordinates in _getBorder(room))
             {
-                tiles[coordinates] = Tile(TileType.STONE, coordinates)
+                tiles[coordinates] =
+                    Tile(RPGTileType.STONE, coordinates)
                 objects.computeIfAbsent(coordinates, { mutableListOf() }) += Wall()
             }
             for (coordinates in _getInterior(room))
             {
-                tiles[coordinates] = Tile(TileType.STONE, coordinates)
+                tiles[coordinates] =
+                    Tile(RPGTileType.STONE, coordinates)
             }
         }
 
@@ -116,7 +116,8 @@ private class LevelGeneratorImpl : LevelGenerator
             val connectionCoordinates = _getConnectionCoordinates(sections, connection)
             for (coordinates in connectionCoordinates)
             {
-                tiles[coordinates] = Tile(TileType.GRASS, coordinates)
+                tiles[coordinates] =
+                    Tile(RPGTileType.GRASS, coordinates)
                 objects.remove(coordinates)
             }
         }
@@ -182,13 +183,25 @@ private class LevelGeneratorImpl : LevelGenerator
 
                 val firstCoordinates = when (orientation)
                 {
-                    Orientation.HORIZONTAL -> Coordinates(firstRoom.right, y)
-                    Orientation.VERTICAL -> Coordinates(x, firstRoom.bottom)
+                    Orientation.HORIZONTAL -> Coordinates(
+                        firstRoom.right,
+                        y
+                    )
+                    Orientation.VERTICAL -> Coordinates(
+                        x,
+                        firstRoom.bottom
+                    )
                 }
                 val secondCoordinates = when (orientation)
                 {
-                    Orientation.HORIZONTAL -> Coordinates(secondRoom.left, y)
-                    Orientation.VERTICAL -> Coordinates(x, secondRoom.top)
+                    Orientation.HORIZONTAL -> Coordinates(
+                        secondRoom.left,
+                        y
+                    )
+                    Orientation.VERTICAL -> Coordinates(
+                        x,
+                        secondRoom.top
+                    )
                 }
                 var currentCoordinates = firstCoordinates
                 val dx2 = (secondCoordinates.x - firstCoordinates.x).sign

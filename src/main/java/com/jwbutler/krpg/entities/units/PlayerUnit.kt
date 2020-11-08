@@ -1,15 +1,16 @@
 package com.jwbutler.krpg.entities.units
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.graphics.images.PaletteSwaps
+import com.jwbutler.krpg.behavior.RPGActivity
 import com.jwbutler.krpg.graphics.sprites.units.PlayerSprite
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 
 private val ACTIVITIES = setOf(
-    Activity.ATTACKING,
-    Activity.BASHING,
-    Activity.FALLING,
-    Activity.STANDING,
-    Activity.WALKING
+    RPGActivity.ATTACKING,
+    RPGActivity.BASHING,
+    RPGActivity.FALLING,
+    RPGActivity.STANDING,
+    RPGActivity.WALKING
 )
 
 class PlayerUnit
@@ -23,7 +24,7 @@ class PlayerUnit
     {
         return when(activity)
         {
-            Activity.BASHING -> 20
+            RPGActivity.BASHING -> 20
             else -> 0
         }
     }

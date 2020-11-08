@@ -1,18 +1,20 @@
 package com.jwbutler.krpg.levels
 
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.objects.GameObject
 import com.jwbutler.krpg.entities.objects.Tree
 import com.jwbutler.krpg.entities.objects.Wall
 import com.jwbutler.krpg.entities.objects.WallTop
-import com.jwbutler.krpg.entities.tiles.Tile
-import com.jwbutler.krpg.entities.tiles.TileType
-import com.jwbutler.krpg.entities.units.Unit
+import com.jwbutler.krpg.entities.tiles.RPGTileType
 import com.jwbutler.krpg.entities.units.ZombieUnit
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.images.Colors
-import com.jwbutler.krpg.graphics.images.ImageLoader
-import com.jwbutler.krpg.players.Player
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.objects.GameObject
+import com.jwbutler.rpglib.entities.tiles.Tile
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.graphics.images.Colors
+import com.jwbutler.rpglib.graphics.images.ImageLoader
+import com.jwbutler.rpglib.levels.Level
+import com.jwbutler.rpglib.levels.VictoryCondition
+import com.jwbutler.rpglib.players.Player
 import java.awt.Color
 
 // TODO: Lots of hardcoded color values here.
@@ -34,7 +36,7 @@ object BitmapLevelCreator
 {
     fun loadLevel(
         filename: String,
-        baseTileType: TileType = TileType.GRASS,
+        baseTileType: RPGTileType = RPGTileType.GRASS,
         victoryCondition: VictoryCondition = VictoryCondition.NONE
     ): Level
     {
@@ -55,7 +57,8 @@ object BitmapLevelCreator
                 val tileType = _getTile(color, baseTileType)
                 if (tileType != null)
                 {
-                    tiles[coordinates] = Tile(tileType, coordinates)
+                    tiles[coordinates] =
+                        Tile(tileType, coordinates)
                 }
 
                 val `object` = _getObject(color)
@@ -87,13 +90,13 @@ object BitmapLevelCreator
         )
     }
 
-    private fun _getTile(color: Color, baseTileType: TileType): TileType?
+    private fun _getTile(color: Color, baseTileType: RPGTileType): RPGTileType?
     {
         return when (color)
         {
-            LevelColors.GRASS -> TileType.GRASS
-            LevelColors.DIRT  -> TileType.DIRT
-            LevelColors.STONE -> TileType.STONE
+            LevelColors.GRASS -> RPGTileType.GRASS
+            LevelColors.DIRT  -> RPGTileType.DIRT
+            LevelColors.STONE -> RPGTileType.STONE
             LevelColors.BLANK -> null
             else              -> baseTileType
         }

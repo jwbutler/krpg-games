@@ -1,13 +1,12 @@
 package com.jwbutler.krpg.players
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.entities.TileOverlay
-import com.jwbutler.krpg.entities.TileOverlayFactory
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
-import com.jwbutler.krpg.graphics.Renderable
+import com.jwbutler.krpg.behavior.RPGActivity
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import kotlin.math.abs
@@ -37,46 +36,27 @@ class KeyboardPlayer : HumanPlayer()
 
         if (dx != 0) dx /= abs(dx)
         if (dy != 0) dy /= abs(dy)
-        val coordinates = Coordinates(unit.getCoordinates().x + dx, unit.getCoordinates().y + dy)
+        val coordinates = Coordinates(
+            unit.getCoordinates().x + dx,
+            unit.getCoordinates().y + dy
+        )
 
         if ((dx != 0 || dy != 0) && GameState.getInstance().containsCoordinates(coordinates))
         {
-            if (heldModifiers.contains(KeyEvent.VK_SHIFT) && unit.isActivityReady(Activity.ATTACKING))
+            if (heldModifiers.contains(KeyEvent.VK_SHIFT) && unit.isActivityReady(RPGActivity.ATTACKING))
             {
-                return Pair(Activity.ATTACKING, Direction.from(dx, dy))
+                return Pair(RPGActivity.ATTACKING, Direction.from(dx, dy))
             }
-            else if (unit.isActivityReady(Activity.WALKING))
+            else if (unit.isActivityReady(RPGActivity.WALKING))
             {
-                return Pair(Activity.WALKING, Direction.from(dx, dy))
+                return Pair(RPGActivity.WALKING, Direction.from(dx, dy))
             }
         }
-        return Pair(Activity.STANDING, unit.getDirection())
+        return Pair(RPGActivity.STANDING, unit.getDirection())
     }
-
-    override fun getTileOverlays(): Map<Coordinates, TileOverlay>
-    {
-        val overlays = mutableMapOf<Coordinates, TileOverlay>()
-        val unit = _getUnit()
-
-        overlays[unit.getCoordinates()] = TileOverlayFactory.playerOverlay(unit.getCoordinates(), true)
-        val targetCoordinates = unit.getCoordinates() + unit.getDirection()
-        GameState.getInstance()
-            .getUnits()
-            .filter { u -> u.getPlayer() != this } // TODO better hostility check
-            .forEach { enemyUnit ->
-                val isTargeted = unit.getActivity() == Activity.ATTACKING && enemyUnit.getCoordinates() == targetCoordinates
-                overlays[enemyUnit.getCoordinates()] = TileOverlayFactory.enemyOverlay(enemyUnit.getCoordinates(), isTargeted)
-            }
-
-        return overlays
-    }
-
-    override fun getUIOverlays() = listOf<Renderable>()
-    override fun getCameraCoordinates() = _getUnit().getCoordinates()
 
     override fun getKeyListener() = object : KeyAdapter()
     {
-        val player = this@KeyboardPlayer
         override fun keyPressed(e: KeyEvent)
         {
             when (e.keyCode)
@@ -113,6 +93,4 @@ class KeyboardPlayer : HumanPlayer()
     }
 
     private fun _getUnit() = GameState.getInstance().getUnits(this)[0]
-
-    override fun getSelectedUnits() = setOf(_getUnit())
 }

@@ -1,8 +1,9 @@
 package com.jwbutler.krpg.entities.equipment
 
-import com.jwbutler.krpg.core.Direction
-import com.jwbutler.krpg.core.GameState
-import com.jwbutler.krpg.graphics.sprites.Sprite
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.equipment.Equipment
+import com.jwbutler.rpglib.geometry.Direction
+import com.jwbutler.rpglib.graphics.sprites.Sprite
 
 abstract class AbstractEquipment(override val sprite: Sprite) : Equipment
 {

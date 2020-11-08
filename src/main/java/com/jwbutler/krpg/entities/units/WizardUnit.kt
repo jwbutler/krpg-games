@@ -1,16 +1,17 @@
 package com.jwbutler.krpg.entities.units
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.graphics.images.PaletteSwaps
+import com.jwbutler.krpg.behavior.RPGActivity
 import com.jwbutler.krpg.graphics.sprites.units.WizardSprite
+import com.jwbutler.rpglib.behavior.Activity
+import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 
 private val ACTIVITIES = setOf(
-    Activity.APPEARING,
-    Activity.FALLING,
-    Activity.RESURRECTING,
-    Activity.STANDING,
-    Activity.WALKING,
-    Activity.VANISHING
+    RPGActivity.APPEARING,
+    RPGActivity.FALLING,
+    RPGActivity.RESURRECTING,
+    RPGActivity.STANDING,
+    RPGActivity.WALKING,
+    RPGActivity.VANISHING
 )
 
 class WizardUnit(hp: Int) : AbstractUnit(hp, ACTIVITIES)
@@ -20,9 +21,9 @@ class WizardUnit(hp: Int) : AbstractUnit(hp, ACTIVITIES)
     {
         return when (activity)
         {
-            Activity.RESURRECTING -> 50
-            Activity.VANISHING    -> 100
-            Activity.WALKING      -> 2
+            RPGActivity.RESURRECTING -> 50
+            RPGActivity.VANISHING    -> 100
+            RPGActivity.WALKING      -> 2
             else                  -> 0
         }
     }

@@ -1,9 +1,10 @@
 package com.jwbutler.krpg.entities.objects
 
-import com.jwbutler.krpg.graphics.RenderLayer
-import com.jwbutler.krpg.graphics.images.Image
-import com.jwbutler.krpg.graphics.images.ImageLoader
-import com.jwbutler.krpg.graphics.sprites.StaticSprite
+import com.jwbutler.rpglib.entities.objects.AbstractObject
+import com.jwbutler.rpglib.graphics.RenderLayer
+import com.jwbutler.rpglib.graphics.images.Image
+import com.jwbutler.rpglib.graphics.images.ImageLoader
+import com.jwbutler.rpglib.graphics.sprites.StaticSprite
 
 class WallTop : AbstractObject()
 {

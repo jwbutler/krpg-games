@@ -1,13 +1,14 @@
 package com.jwbutler.krpg.core
 
 import com.jwbutler.krpg.core.GameEngine.UnitData
-import com.jwbutler.krpg.entities.Entity
-import com.jwbutler.krpg.entities.equipment.Equipment
-import com.jwbutler.krpg.entities.equipment.EquipmentSlot
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.graphics.GameRenderer
-import com.jwbutler.krpg.graphics.GameWindow
-import com.jwbutler.krpg.levels.Level
+import com.jwbutler.rpglib.core.BoundSingletonHolder
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.equipment.Equipment
+import com.jwbutler.rpglib.entities.equipment.EquipmentSlot
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.graphics.GameRenderer
+import com.jwbutler.rpglib.graphics.GameWindow
+import com.jwbutler.rpglib.levels.Level
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ interface GameEngine
     fun isPaused(): Boolean
     fun doLoop()
 
-    companion object : SingletonHolder<GameEngine>(::GameEngineImpl)
+    companion object : BoundSingletonHolder<GameEngine>(::GameEngineImpl)
 
     data class UnitData
     (

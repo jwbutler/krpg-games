@@ -1,18 +1,18 @@
 package com.jwbutler.krpg.players.ai
 
-import com.jwbutler.krpg.behavior.Activity
-import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
+import com.jwbutler.krpg.behavior.RPGActivity
 import com.jwbutler.krpg.behavior.commands.Command
 import com.jwbutler.krpg.behavior.commands.MoveCommand
 import com.jwbutler.krpg.behavior.commands.ResurrectCommand
+import com.jwbutler.krpg.behavior.commands.SingleAttackCommand
 import com.jwbutler.krpg.behavior.commands.StayCommand
 import com.jwbutler.krpg.behavior.commands.WanderCommand
-import com.jwbutler.krpg.core.GameState
 import com.jwbutler.krpg.entities.objects.Corpse
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.geometry.Coordinates
 import com.jwbutler.krpg.utils.getPlayerUnits
-import com.jwbutler.krpg.utils.manhattanDistance
+import com.jwbutler.rpglib.core.GameState
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.geometry.Coordinates
+import com.jwbutler.rpglib.geometry.manhattanDistance
 import kotlin.random.Random
 
 enum class UnitAI
@@ -63,7 +63,7 @@ enum class UnitAI
                 .filterIsInstance<Corpse>()
                 .firstOrNull { it.getCoordinates() == unit.getCoordinates() || !it.getCoordinates().isBlocked() }
 
-            if (corpse != null && unit.isActivityReady(Activity.RESURRECTING))
+            if (corpse != null && unit.isActivityReady(RPGActivity.RESURRECTING))
             {
                 return ResurrectCommand(unit, corpse)
             }

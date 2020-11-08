@@ -1,9 +1,11 @@
 package com.jwbutler.krpg.graphics.ui
 
-import com.jwbutler.krpg.entities.units.Unit
-import com.jwbutler.krpg.graphics.images.Colors
-import com.jwbutler.krpg.graphics.images.Image
-import com.jwbutler.krpg.players.HumanPlayer
+import com.jwbutler.krpg.players.KeyboardPlayer
+import com.jwbutler.krpg.players.MousePlayer
+import com.jwbutler.rpglib.entities.units.Unit
+import com.jwbutler.rpglib.graphics.images.Colors
+import com.jwbutler.rpglib.graphics.images.Image
+import com.jwbutler.rpglib.players.HumanPlayer
 import java.awt.Font
 import kotlin.math.roundToInt
 
@@ -31,8 +33,15 @@ class UnitCard(val unit: Unit)
 
     private fun _isSelected(unit: Unit): Boolean
     {
-        check(unit.getPlayer() is HumanPlayer)
-        return (unit.getPlayer() as HumanPlayer).getSelectedUnits().contains(unit)
+        val player = unit.getPlayer()
+        check(player is HumanPlayer)
+
+        return when (player)
+        {
+            is MousePlayer -> player.getSelectedUnits().contains(unit)
+            is KeyboardPlayer -> true
+            else -> true
+        }
     }
 
     private fun _drawHealthBar(width: Int, height: Int): Image
