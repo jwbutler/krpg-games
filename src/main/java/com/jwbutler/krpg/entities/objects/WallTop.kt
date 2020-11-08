@@ -8,8 +8,7 @@ import com.jwbutler.rpglib.graphics.sprites.StaticSprite
 
 class WallTop : AbstractObject()
 {
-    override val sprite =
-        StaticSprite(_getImage(), RenderLayer.OBJECT)
+    override val sprite = StaticSprite(_getImage(), RenderLayer.OBJECT)
     override fun isBlocking() = true
 
     companion object

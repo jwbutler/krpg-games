@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage
 /**
  * [Image] implementation that delegates to AWT's [BufferedImage]
  */
-class ImageAWT(private val delegate: BufferedImage) : Image
+internal class ImageAWT(private val delegate: BufferedImage) : Image
 {
     constructor(width: Int, height: Int) : this(BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB))
 

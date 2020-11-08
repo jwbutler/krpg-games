@@ -5,7 +5,7 @@ import com.jwbutler.rpglib.geometry.Dimensions
 import com.jwbutler.rpglib.graphics.GameRenderer
 import com.jwbutler.rpglib.graphics.images.Image
 
-class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer
+internal class GameRendererAWT(override val dimensions: Dimensions) : GameRenderer
 {
     private val buffer: Image = ImageAWT(dimensions.width, dimensions.height)
 

@@ -15,7 +15,7 @@ import javax.imageio.ImageIO
  *
  * TODO: Convert maps to LRU caches
  */
-class ImageLoaderAWT
+internal class ImageLoaderAWT
 (
     private val filenamePattern: (String) -> String
 ): ImageLoader

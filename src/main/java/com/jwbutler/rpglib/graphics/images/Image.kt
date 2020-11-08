@@ -20,6 +20,6 @@ interface Image
 
     companion object
     {
-        fun create(width: Int, height: Int) = ImageAWT(width, height)
+        fun create(width: Int, height: Int): Image = ImageAWT(width, height)
     }
 }

@@ -20,7 +20,7 @@ import kotlin.math.roundToInt
 /**
  * See https://stackoverflow.com/a/17865740 for the general approach here
  */
-class GameWindowAWT(initialDimensions: Dimensions) : GameWindow
+internal class GameWindowAWT(initialDimensions: Dimensions) : GameWindow
 {
     private val frame: JFrame = JFrame()
     private val panel: JPanel = object : JPanel()
@@ -128,26 +128,10 @@ class GameWindowAWT(initialDimensions: Dimensions) : GameWindow
 
         val panelLeft = (panel.getWidth() - width) / 2
         val panelTop = (panel.getHeight() - height) / 2
+
         return Pixel(
             (x - panelLeft - insets.left) * gameDimensions.width / width,
             (y - panelTop - insets.top) * gameDimensions.height / height
         )
-
-        /*val (width, height) = imageDimensions
-        val scaleFactor = 1.0 * width / panel.width // should get the same result with height / HEIGHT
-
-        // coordinates of the scaled buffer relative to the panel
-        val panelLeft = (panel.getWidth() - width) / 2
-        val panelTop = (panel.getHeight() - height) / 2
-
-        // coordinates of the pixel relative to the scaled buffer
-        val insets = frame.getInsets()
-        val bufferX = x - panelLeft - insets.left
-        val bufferY = y - panelTop - insets.top
-
-        return Pixel(
-            (bufferX / scaleFactor).roundToInt(),
-            (bufferY / scaleFactor).roundToInt()
-        )*/
     }
 }
