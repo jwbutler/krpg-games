@@ -22,8 +22,6 @@ import com.jwbutler.rpglib.graphics.images.ImageLoader
 import com.jwbutler.rpglib.graphics.images.PaletteSwaps
 import com.jwbutler.rpglib.sounds.SoundPlayer
 
-private fun _getFullFilename(filename: String) = "/png/${filename}.png"
-
 fun main()
 {
     val gameView = GameView.initialize { RPGGameView() }
